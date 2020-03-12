@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="chenjunting@localhost:13577">
+    <serverData>
+      <paths name="Copy of project-level server '73_ex_tunnel'">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="chenjunting@10.29.150.73:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="chenjunting@localhost:13577">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/pycharm_rmt_ws/savn" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/pycharm_rmt_ws/savn/pretrained_models" />
+            <excludedPath path="/pycharm_rmt_ws/savn/data" />
+            <excludedPath path="/pycharm_rmt_ws/savn/trained_models_2019-12-16" />
+            <excludedPath path="/pycharm_rmt_ws/savn/trained_models_2019-12-17" />
+            <excludedPath path="/pycharm_rmt_ws/savn/test_val_split" />
+            <excludedPath path="/pycharm_rmt_ws/savn/runs" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

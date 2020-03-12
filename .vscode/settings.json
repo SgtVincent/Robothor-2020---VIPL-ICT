@@ -1,0 +1,5 @@
+{
+    "python.venvPath": "/home/chenjunting/anaconda3/envs",
+    "python.pythonPath": "/home/chenjunting/anaconda3/envs/ai2thor/bin/python",
+    "git.ignoreLimitWarning": true
+}
