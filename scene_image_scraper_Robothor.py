@@ -8,9 +8,9 @@ from multiprocessing import Process, Queue
 import argparse
 
 from ai2thor.controller import BFSController
-from datasets.my_bfscontroller import ExhaustiveBFSController
+from datasets.my_sscontroller import SSController
 
-PATH_TO_STORE = '/data/robothor'
+# PATH_TO_STORE = '/data/robothor'
 
 
 def parse_arguments():
@@ -19,14 +19,14 @@ def parse_arguments():
     parser.add_argument(
         "--out_dir",
         type=str,
-        default=PATH_TO_STORE,
+        default='/data/robothor',
         help="path to store scraped images",
     )
 
     parser.add_argument(
         "--num_process",
         type=int,
-        default=1,
+        default=12,
         help="number of processes launched to scrape images parallelly",
     )
 
@@ -41,21 +41,22 @@ def search_and_save(in_queue, out_dir):
             return
         c = None
         # try:
-        out_dir = os.path.join(out_dir, scene_name)
-        if not os.path.exists(out_dir):
-            os.mkdir(out_dir)
+        sub_out_dir = os.path.join(out_dir, scene_name)
+        if not os.path.exists(sub_out_dir):
+            os.mkdir(sub_out_dir)
 
         print('starting:', scene_name)
-        c = ExhaustiveBFSController(
-            grid_size=0.25,
+        c = SSController(
+            grid_size=0.125,
             fov=90.0,
-            grid_file=os.path.join(out_dir, 'grid.json'),
-            graph_file=os.path.join(out_dir, 'graph.json'),
-            metadata_file=os.path.join(out_dir, 'metadata.json'),
-            images_file=os.path.join(out_dir, 'images.hdf5'),
-            # depth_file=os.path.join(out_dir, 'depth.hdf5'), # no depth data allowed in robothor-challenge
-            grid_assumption=False)
-        c.start()
+            grid_file=os.path.join(sub_out_dir, 'grid.json'),
+            graph_file=os.path.join(sub_out_dir, 'graph.json'),
+            metadata_file=os.path.join(sub_out_dir, 'metadata.json'),
+            images_file=os.path.join(sub_out_dir, 'images.hdf5'),
+            # depth_file=os.path.join(sub_out_dir, 'depth.hdf5'), # no depth data allowed in robothor-challenge
+            grid_assumption=False,
+            rotate_by=30)
+        # c.start()
         c.search_all_closed(scene_name)
         c.stop()
         # except AssertionError as e:
@@ -73,11 +74,9 @@ def main():
     num_processes = args.num_process
 
     queue = Queue()
-    scene_names = ["FloorPlan_Train1_1"] # Robothor
-
-    # scene_names = ["FloorPlan1"] # Ithor
-    for x in scene_names:
-        queue.put(x)
+    for i in range(1,13):
+        for j in range(1,6):
+            queue.put("FloorPlan_Train{}_{}".format(i,j))
 
     processes = []
     for i in range(num_processes):

@@ -69,7 +69,7 @@ class ThorAgentState:
         return dict(x=self.x, y=self.y, z=self.z)
 
 
-class ExhaustiveBFSController(Controller):
+class SSController(Controller):
     """ A much slower and more exhaustive version of the BFSController.
         This may be helpful if you wish to find the shortest path to an object.
         The usual BFSController does not consider things like rotate or look down
@@ -96,13 +96,18 @@ class ExhaustiveBFSController(Controller):
         local_executable_path=None,
         actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         cameraY=0.2,
+        rotate_by=45
     ):
 
-        super(ExhaustiveBFSController, self).__init__()
+        super(SSController, self).__init__()
         # Allowed rotations.
-        self.rotations = [0, 45, 90, 135, 180, 225, 270, 315]
+        if rotate_by == 30:
+            self.rotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
+        else: # default rotate by 45 degree
+            self.rotations = [0, 45, 90, 135, 180, 225, 270, 315]
+
         # Allowed horizons.
-        self.horizons = [0, 30]
+        self.horizons = [-30, 0, 30]
 
         self.allow_enqueue = True
         self.queue = deque()
@@ -118,6 +123,8 @@ class ExhaustiveBFSController(Controller):
         self.fov = fov
         self.y = None
         self.cameraY = cameraY
+        self.clip_threshold = grid_size/2.0
+        self.rotate_by = rotate_by
 
         self.local_executable_path = local_executable_path
 
@@ -299,91 +306,6 @@ class ExhaustiveBFSController(Controller):
     def add_edge(self, curr_state, next_state):
         self.graph.add_edge(str(curr_state), str(next_state))
 
-    def enqueue_state(self, state):
-        """ Returns true if state is valid. """
-        # ensure there are no dup states.
-        if state in self.seen_states:
-            return True
-
-        if state in self.bad_seen_states:
-            return False
-
-        # ensure state is a legal rotation and horizon.
-        if (
-            round(state.horizon) not in self.horizons
-            or round(state.rotation) not in self.rotations
-        ):
-            self.bad_seen_states.append(state)
-            return False
-
-        self.seen_states.append(state)
-        self.queue.append(state)
-        return True
-
-    def enqueue_states(self, agent_state):
-
-        if not self.allow_enqueue:
-            return
-
-        # Take all action in self.action and enqueue if they are valid.
-        for action in self.actions:
-
-            next_state_guess = self.get_next_state(agent_state, action, True)
-
-            if next_state_guess is None:
-                continue
-
-            # # Bug.
-            # if (
-            #     self.scene_name == "FloorPlan208_physics"
-            #     and next_state_guess.x == 0
-            #     and next_state_guess.z == 1.75
-            # ):
-            #     self.teleport_to_state(agent_state)
-            #     continue
-
-            # Grid assumption is meant to make things faster and should not
-            # be used in practice. In general it does not work when the y
-            # values fluctuate in a scene. It circumvents using the actual controller.
-            if self.grid_assumption:
-                if next_state_guess in self.seen_states:
-                    if self.make_graph:
-                        self.add_edge(agent_state, next_state_guess)
-                    continue
-
-            event = self.step(
-                dict(
-                    action="Teleport",
-                    x=next_state_guess.x,
-                    y=next_state_guess.y,
-                    z=next_state_guess.z,
-                )
-            )
-            if not event.metadata["lastActionSuccess"]:
-                self.teleport_to_state(agent_state)
-                continue
-            event = self.step(dict(action="Rotate", rotation=next_state_guess.rotation))
-            if not event.metadata["lastActionSuccess"]:
-                self.teleport_to_state(agent_state)
-                continue
-            event = self.step(dict(action="Look", horizon=next_state_guess.horizon))
-            if not event.metadata["lastActionSuccess"]:
-                self.teleport_to_state(agent_state)
-                continue
-
-            next_state = self.get_state_from_event(event)
-
-            if next_state != next_state_guess:
-                print(next_state)
-                print(next_state_guess)
-            assert next_state == next_state_guess
-
-            if self.enqueue_state(next_state) and self.make_graph:
-                self.add_edge(agent_state, next_state)
-
-            # Return back to agents initial location.
-            self.teleport_to_state(agent_state)
-
     def search_all_closed(self, scene_name):
         """ Runs the ExhaustiveBFSController on scene_name. """
         self.allow_enqueue = True
@@ -422,12 +344,10 @@ class ExhaustiveBFSController(Controller):
 
         # get all reachable positions
         event = self.step(dict(action="GetReachablePositions", gridSize=0.25))
-        self.reachable_points = event.metadata["actionReturn"]
+        self.reachable_pos = event.metadata["actionReturn"]
 
-        self.enqueue_state(self.get_state_from_event(event))
-
-        while self.queue:
-            self.queue_step()
+        for pos in self.reachable_pos:
+            self.pos_step(pos)
 
         if self.make_grid:
             with open(self.grid_file, "w") as outfile:
@@ -454,44 +374,43 @@ class ExhaustiveBFSController(Controller):
 
         print("Finished :", self.scene_name)
 
-    def queue_step(self):
-        search_state = self.queue.popleft()
-        event = self.teleport_to_state(search_state)
+    def pos_step(self, pos):
 
-        # if search_state.y > 1.3:
-        #    raise Exception("**** got big point ")
+        for rotation in self.rotations:
+            for horizon in self.horizons:
 
-        self.enqueue_states(search_state)
-        self.visited_seen_states.append(search_state)
+                search_state = ThorAgentState(**pos, rotation=rotation, horizon=horizon)
 
-        if self.make_grid and not any(
-            map(
-                lambda p: distance(p, search_state.position())
-                < self.distance_threshold,
-                self.grid_points,
-            )
-        ):
-            self.grid_points.append(search_state.position())
+                event = self.teleport_to_state(search_state)
 
-        if self.make_metadata:
-            self.metadata[str(search_state)] = event.metadata
+                if self.make_grid and not any(
+                    map(
+                        lambda p: distance(p, search_state.position())
+                        < self.distance_threshold,
+                        self.grid_points,
+                    )
+                ):
+                    self.grid_points.append(search_state.position())
 
-        if self.make_class:
-            class_detections = event.class_detections2D
-            for k, v in class_detections.items():
-                class_detections[k] = str(v)
-            self.classdata[str(search_state)] = class_detections
+                if self.make_metadata:
+                    self.metadata[str(search_state)] = event.metadata
 
-        if self.make_images and str(search_state) not in self.images:
-            self.images.create_dataset(str(search_state), data=event.frame)
+                if self.make_class:
+                    class_detections = event.class_detections2D
+                    for k, v in class_detections.items():
+                        class_detections[k] = str(v)
+                    self.classdata[str(search_state)] = class_detections
 
-        if self.make_seg and str(search_state) not in self.seg:
-            self.seg.create_dataset(
-                str(search_state), data=event.class_segmentation_frame
-            )
+                if self.make_images and str(search_state) not in self.images:
+                    self.images.create_dataset(str(search_state), data=event.frame)
 
-        if self.make_depth and str(search_state) not in self.depth:
-            self.depth.create_dataset(str(search_state), data=event.depth_frame)
+                if self.make_seg and str(search_state) not in self.seg:
+                    self.seg.create_dataset(
+                        str(search_state), data=event.class_segmentation_frame
+                    )
 
-        elif str(search_state) in self.images:
-            print(self.scene_name, str(search_state))
+                if self.make_depth and str(search_state) not in self.depth:
+                    self.depth.create_dataset(str(search_state), data=event.depth_frame)
+
+                elif str(search_state) in self.images:
+                    print(self.scene_name, str(search_state))

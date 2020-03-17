@@ -1741,12 +1741,12 @@ def start_mock_real_server(context):
 @task
 def create_robothor_dataset(
         context,
-        local_build=False,
-        editor_mode=False,
+        local_build=False, # Whether to use local executable file for controller
+        editor_mode=False, # Whether to start unity program to edit scene
         width=300,
         height=300,
         output='robothor-dataset.json',
-        intermediate_directory='.',
+        intermediate_directory='.', # dir to store dataset for robothor challenge
         visibility_distance=1.0,
         objects_filter=None,
         scene_filter=None,
@@ -1990,7 +1990,7 @@ def create_robothor_dataset(
     def key_sort_func(scene_name):
         m = re.search('FloorPlan_([a-zA-Z\-]*)([0-9]+)_([0-9]+)', scene_name)
         return m.group(1), int(m.group(2)), int(m.group(3))
-
+    # sort all scenes in present ver. of ai2thor (225 by 2020-03-14)
     scenes = sorted(
         [scene for scene in scenes_in_build if 'physics' not in scene],
                     key=key_sort_func
