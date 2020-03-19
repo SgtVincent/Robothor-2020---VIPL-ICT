@@ -101,7 +101,7 @@ def _build(unity_path, arch, build_dir, build_name, env={}):
     return result_code == 0
 
 
-def class_dataset_images_for_scene(scene_name):
+def class_dataset_images_for_scene(scene_name, quality):
     import ai2thor.controller
     from itertools import product
     from collections import defaultdict
@@ -110,7 +110,7 @@ def class_dataset_images_for_scene(scene_name):
     import hashlib
     import json
 
-    env = ai2thor.controller.Controller(quality="Low")
+    env = ai2thor.controller.Controller(quality=quality)
     player_size = 300
     zoom_size = 1000
     target_size = 256
@@ -240,6 +240,8 @@ def class_dataset_images_for_scene(scene_name):
                 dict(action="OpenObject", objectId=o["objectId"], forceAction=True)
             )
 
+    image_metadata = {}
+
     for vol in visible_object_locations:
         point = vol["point"]
 
@@ -255,6 +257,8 @@ def class_dataset_images_for_scene(scene_name):
             ),
             raise_for_failure=True,
         )
+
+
         for v in vol["visible_objects"]:
             object_id = v["objectId"]
             min_y = int(round(v["min_y"] * (zoom_size / player_size)))
@@ -281,21 +285,48 @@ def class_dataset_images_for_scene(scene_name):
             # print("max x %s max y %s min x %s  min y %s" % (max_x, max_y, min_x, min_y))
             # print("start x %s start_y %s end_x %s end y %s" % (start_x, start_y, end_x, end_y))
             print("storing %s " % object_id)
+            origin_img = event.cv2img
             img = event.cv2img[start_y:end_y, start_x:end_x, :]
             seg_img = event.cv2img[min_y:max_y, min_x:max_x, :]
-            dst = cv2.resize(
-                img, (target_size, target_size), interpolation=cv2.INTER_LANCZOS4
-            )
+            # dst = cv2.resize(
+            #     img, (target_size, target_size), interpolation=cv2.INTER_LANCZOS4
+            # )
 
             object_type = object_id.split("|")[0].lower()
+            origin_target_dir = os.path.join("origin_images", scene_name, object_type)
             target_dir = os.path.join("images", scene_name, object_type)
+            cropped_target_dir = os.path.join("cropped_images", scene_name, object_type)
+
             h = hashlib.md5()
             h.update(json.dumps(point, sort_keys=True).encode("utf8"))
             h.update(json.dumps(v, sort_keys=True).encode("utf8"))
 
+            os.makedirs(origin_target_dir, exist_ok=True)
             os.makedirs(target_dir, exist_ok=True)
+            os.makedirs(cropped_target_dir, exist_ok=True)
 
-            cv2.imwrite(os.path.join(target_dir, h.hexdigest() + ".png"), dst)
+            cv2.imwrite(os.path.join(origin_target_dir, h.hexdigest() + ".png"), origin_img)
+            cv2.imwrite(os.path.join(target_dir, h.hexdigest() + ".png"), img)
+            cv2.imwrite(os.path.join(cropped_target_dir,  h.hexdigest() + ".png"), seg_img)
+
+            # save metadata for each image: bbox
+            key = os.path.join(object_type, h.hexdigest() + ".png")
+            if object_type not in image_metadata:
+                image_metadata[object_type]={
+                    key:{
+                        "bbox": (min_y, max_y, min_x, max_x)
+                    }
+                }
+            else:
+                image_metadata[object_type].update({
+                    key: {
+                        "bbox": (min_y, max_y, min_x, max_x)
+                    }
+                })
+    # save bbox data
+
+    with open(os.path.join("origin_images", scene_name, "meta_bbox.json"), "w") as f:
+        json.dump(image_metadata, f)
 
     env.stop()
 
@@ -303,7 +334,7 @@ def class_dataset_images_for_scene(scene_name):
 
 
 @task
-def build_class_dataset(context):
+def build_class_dataset(context, max_workers=4, dataset="Test", quality="Ultra"):
     import concurrent.futures
     import ai2thor.controller
     import multiprocessing as mp
@@ -311,12 +342,22 @@ def build_class_dataset(context):
     mp.set_start_method("spawn")
 
     controller = ai2thor.controller.Controller()
-    executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)
+    executor = concurrent.futures.ProcessPoolExecutor(max_workers=max_workers)
     futures = []
 
-    for scene in controller.scene_names():
+    if dataset == "Test":
+        scene_names = ["FloorPlan1"]
+    elif dataset == "Ithor":
+        scene_names = controller.scene_names()
+    elif dataset == "Robothor":
+        scene_names = controller.robothor_scenes(types=["train"])
+    else:
+        print("Dataset {} not supported...".format(dataset))
+        return
+
+    for scene in scene_names:
         print("processing scene %s" % scene)
-        futures.append(executor.submit(class_dataset_images_for_scene, scene))
+        futures.append(executor.submit(class_dataset_images_for_scene, scene, quality))
 
     for f in concurrent.futures.as_completed(futures):
         scene = f.result()

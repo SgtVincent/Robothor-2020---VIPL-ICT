@@ -21,6 +21,15 @@ def test_create_robothor_dataset():
     # filter_file = None
     create_robothor_dataset(Context())
 
+def test_build_class_dataset():
+    build_class_dataset(Context(), 1, "Test", "Low")
+
+
+def test_benchmark():
+    # benchmark()
+    pass
+
 if __name__ == "__main__":
 
-    test_create_robothor_dataset()
+    # test_create_robothor_dataset()
+    test_build_class_dataset()
