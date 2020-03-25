@@ -5,7 +5,7 @@ import torch
 import setproctitle
 import copy
 from datasets.glove import Glove
-from datasets.data import get_data, name_to_num
+from datasets.ithor_data import get_data, name_to_num
 
 from models.model_io import ModelOptions
 

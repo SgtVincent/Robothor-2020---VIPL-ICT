@@ -403,6 +403,7 @@ class ExhaustiveBFSController(Controller):
         self.scene_name = scene_name
         event = self.reset(scene_name)
 
+        # scene initialization
         if self.make_seg or self.make_class:
             event = self.step(
                 dict(
@@ -426,9 +427,9 @@ class ExhaustiveBFSController(Controller):
                 )
             )
         self.y = event.metadata["agent"]["position"]["y"]
-
+        # put first scene to the queue as root node for BFS
         self.enqueue_state(self.get_state_from_event(event))
-
+        # Core iteration
         while self.queue:
             self.queue_step()
 
@@ -459,14 +460,20 @@ class ExhaustiveBFSController(Controller):
 
     def queue_step(self):
         search_state = self.queue.popleft()
+        # TODO: delete this flag when bug fixed
+        DEBUG_FLAG_search_state = str(search_state)
         event = self.teleport_to_state(search_state)
 
         # if search_state.y > 1.3:
         #    raise Exception("**** got big point ")
 
+        # iterate over all actions, push state after each action to the queue
+        # then identify the present state as searched
         self.enqueue_states(search_state)
         self.visited_seen_states.append(search_state)
 
+        # if present point is not closer to any of the point already saved in
+        # self.grid_points, then save it!
         if self.make_grid and not any(
             map(
                 lambda p: distance(p, search_state.position())
@@ -479,7 +486,7 @@ class ExhaustiveBFSController(Controller):
         if self.make_metadata:
             self.metadata[str(search_state)] = event.metadata
 
-        if self.make_class:
+        if self.make_class: # False by default
             class_detections = event.class_detections2D
             for k, v in class_detections.items():
                 class_detections[k] = str(v)
@@ -495,7 +502,7 @@ class ExhaustiveBFSController(Controller):
 
         if self.make_depth and str(search_state) not in self.depth:
             self.depth.create_dataset(str(search_state), data=event.depth_frame)
-
+        # this print shows that the
         elif str(search_state) in self.images:
             print(self.scene_name, str(search_state))
 

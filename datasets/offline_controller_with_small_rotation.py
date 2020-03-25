@@ -16,7 +16,7 @@ except ImportError:
 
 from ai2thor.controller import Controller, distance
 from .base_controller import BaseController
-
+from .offline_sscontroller import SSController
 class ThorAgentState:
     """ Representation of a simple state of a Thor Agent which includes
         the position, horizon and rotation. """
@@ -555,6 +555,7 @@ class OfflineControllerWithSmallRotation(BaseController):
         actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         visualize=True,
         local_executable_path=None,
+        rotate_by=45
     ):
 
         super(OfflineControllerWithSmallRotation, self).__init__()
@@ -571,10 +572,22 @@ class OfflineControllerWithSmallRotation(BaseController):
         self.controller = None
         self.using_raw_metadata = True
         self.actions = actions
+        self.rotate_by = rotate_by
+        self.all_states = None
+
         # Allowed rotations.
-        self.rotations = [0, 45, 90, 135, 180, 225, 270, 315]
+        if self.rotate_by == 30:
+            self.rotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
+        else: # default rotate by 45 degree
+            self.rotations = [0, 45, 90, 135, 180, 225, 270, 315]
+
         # Allowed horizons.
-        self.horizons = [0, 30]
+        # TODO: this implementation is not reasonable, need to be refactored
+        if rotate_by == 30: # Robothor scenes
+            self.horizons = [-30, 0, 30]
+        else: # Ithor scenes
+            self.horizons = [0, 30]
+
         self.debug_mode = debug_mode
         self.fov = fov
 
@@ -584,7 +597,12 @@ class OfflineControllerWithSmallRotation(BaseController):
 
         self.last_event = None
 
-        self.controller = ExhaustiveBFSController()
+        self.controller = SSController(
+            grid_size=self.grid_size,
+            fov=self.fov,
+            actions=self.actions,
+            rotate_by=self.rotate_by
+        )
         if self.local_executable_path is not None:
             self.controller.local_executable_path = self.local_executable_path
 
@@ -654,11 +672,9 @@ class OfflineControllerWithSmallRotation(BaseController):
             if self.images is not None:
                 self.images.close()
             self.images = self.h5py.File(
-                os.path.join(
-                    self.offline_data_dir, self.scene_name, self.images_file_name
-                ),
-                "r",
+                os.path.join(self.offline_data_dir, self.scene_name, self.images_file_name),"r",
             )
+            self.all_states = list(self.images.keys())
 
         self.state = self.get_full_state(
             **self.grid[0], rotation=random.choice(self.rotations)
@@ -718,6 +734,7 @@ class OfflineControllerWithSmallRotation(BaseController):
                 # return back to original state.
                 self.controller.teleport_to_state(self.state)
 
+        # TODO: modify code after graph.json finishes
         if next_state is not None:
             next_state_key = str(next_state)
             neighbors = self.graph.neighbors(str(self.state))
@@ -753,6 +770,20 @@ class OfflineControllerWithSmallRotation(BaseController):
 
                 self.last_event = event
                 return event
+
+        # if next_state in self.all_states:
+        #     next_state_key = str(next_state)
+        #     neighbors = self.graph.neighbors(str(self.state))
+        #
+        #     if next_state_key in neighbors:
+        #         self.state = self.get_state_from_str(
+        #             *[float(x) for x in next_state_key.split("|")]
+        #         )
+        #         self.last_action_success = True
+        #         event = self._successful_event()
+        #
+        #         self.last_event = event
+        #         return event
 
         self.last_action_success = False
         self.last_event.metadata["lastActionSuccess"] = False

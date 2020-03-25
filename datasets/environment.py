@@ -5,7 +5,7 @@ import json
 import os
 import random
 from .offline_controller_with_small_rotation import OfflineControllerWithSmallRotation
-
+from .offline_sscontroller import SSController
 
 class Environment:
     """ Abstraction of the ai2thor enviroment. """
@@ -18,11 +18,13 @@ class Environment:
         offline_data_dir="~/data/offline_data/",
         images_file_name="images.hdf5",
         local_executable_path=None,
+        rotate_by=45
     ):
 
         self.offline_data_dir = offline_data_dir
         self.use_offline_controller = use_offline_controller
         self.images_file_name = images_file_name
+
         self.controller = OfflineControllerWithSmallRotation(
             grid_size=grid_size,
             fov=fov,
@@ -30,7 +32,9 @@ class Environment:
             images_file_name=images_file_name,
             visualize=False,
             local_executable_path=local_executable_path,
+            rotate_by=rotate_by
         )
+
         self.grid_size = grid_size
         self._reachable_points = None
         self.start_state = None

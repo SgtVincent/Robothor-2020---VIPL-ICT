@@ -259,9 +259,61 @@ class SSController(Controller):
     def get_point_from_event(self, event):
         return event.metadata["agent"]["position"]
 
-    def get_next_state(self, state, action, copy_state=False):
-        """ Guess the next state when action is taken. Note that
-            this will not predict the correct y value. """
+    def _get_next_state_30(self, state, action, copy_state=False):
+        if copy_state:
+            next_state = copy.deepcopy(state)
+        else:
+            next_state = state
+        if action == "MoveAhead":
+            if next_state.rotation == 0:
+                next_state.z += 2 * self.grid_size
+            elif next_state.rotation == 30:
+                next_state.z += 2 * self.grid_size
+                next_state.x += self.grid_size
+            elif next_state.rotation == 60:
+                next_state.z += self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 90:
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 120:
+                next_state.z -= self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 150:
+                next_state.z -= 2 * self.grid_size
+                next_state.x += self.grid_size
+            elif next_state.rotation == 180:
+                next_state.z -= 2 * self.grid_size
+            elif next_state.rotation == 210:
+                next_state.z -= 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 240:
+                next_state.z -= self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 270:
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 300:
+                next_state.z += self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 330:
+                next_state.z += 2 * self.grid_size
+                next_state.x -= self.grid_size
+            else:
+                raise Exception("Unknown Rotation")
+        elif action == "RotateRight":
+            next_state.rotation = (next_state.rotation + 30) % 360
+        elif action == "RotateLeft":
+            next_state.rotation = (next_state.rotation - 30) % 360
+        elif action == "LookUp":
+            if next_state.horizon <= -30:
+                return None
+            next_state.horizon = next_state.horizon - 30
+        elif action == "LookDown":
+            if next_state.horizon >= 30:
+                return None
+            next_state.horizon = next_state.horizon + 30
+        return next_state
+
+    def _get_next_state_45(self, state, action, copy_state=False):
         if copy_state:
             next_state = copy.deepcopy(state)
         else:
@@ -303,6 +355,17 @@ class SSController(Controller):
             next_state.horizon = next_state.horizon + 30
         return next_state
 
+    def get_next_state(self, state, action, copy_state=False):
+        """ Guess the next state when action is taken. Note that
+            this will not predict the correct y value. """
+        if self.rotate_by == 30:
+            self._get_next_state_30(state, action, copy_state)
+        elif self.rotate_by == 45:
+            self._get_next_state_45(state, action, copy_state)
+        else:
+            raise Exception("Unknown Rotation Unit")
+
+
     def add_edge(self, curr_state, next_state):
         self.graph.add_edge(str(curr_state), str(next_state))
 
@@ -343,7 +406,7 @@ class SSController(Controller):
         self.y = event.metadata["agent"]["position"]["y"]
 
         # get all reachable positions
-        event = self.step(dict(action="GetReachablePositions", gridSize=0.25))
+        event = self.step(dict(action="GetReachablePositions", gridSize=self.grid_size))
         self.reachable_pos = event.metadata["actionReturn"]
 
         for pos in self.reachable_pos:

@@ -3,7 +3,7 @@ from datasets.environment import Environment
 from utils.net_util import gpuify
 from .basic_episode import BasicEpisode
 import pickle
-from datasets.data import num_to_name
+from datasets.ithor_data import num_to_name
 
 
 class TestValEpisode(BasicEpisode):

@@ -2,7 +2,7 @@ from __future__ import division
 
 import time
 
-from datasets.data import get_data
+
 from datasets.glove import Glove
 
 import setproctitle
@@ -35,10 +35,14 @@ def nonadaptivea3c_train(
 ):
 
     glove = Glove(args.glove_file)
-    scenes, possible_targets, targets = get_data(args.scene_types, args.train_scenes)
-
+    if args.data_source == "ithor":
+        from datasets.ithor_data import get_data
+        scenes, possible_targets, targets = get_data(args.scene_types, args.train_scenes)
+    elif args.data_source == "robothor":
+        from datasets.robothor_data import get_data
+        scenes, possible_targets, targets = get_data(args.scene_types)
     random.seed(args.seed + rank)
-    idx = [j for j in range(len(args.scene_types))]
+    idx = list(range(len(args.scene_types)))
     random.shuffle(idx)
 
     setproctitle.setproctitle("Training Agent: {}".format(rank))

@@ -1,3 +1,4 @@
+############# Ithor Scenes Constants #####################
 KITCHEN_OBJECT_CLASS_LIST = [
     "Toaster",
     "Microwave",
@@ -19,17 +20,21 @@ LIVING_ROOM_OBJECT_CLASS_LIST = [
 
 BEDROOM_OBJECT_CLASS_LIST = ["HousePlant", "Lamp", "Book", "AlarmClock"]
 
-
 BATHROOM_OBJECT_CLASS_LIST = ["Sink", "ToiletPaper", "SoapBottle", "LightSwitch"]
 
-
 FULL_OBJECT_CLASS_LIST = (
-    KITCHEN_OBJECT_CLASS_LIST
-    + LIVING_ROOM_OBJECT_CLASS_LIST
-    + BEDROOM_OBJECT_CLASS_LIST
-    + BATHROOM_OBJECT_CLASS_LIST
+        KITCHEN_OBJECT_CLASS_LIST
+        + LIVING_ROOM_OBJECT_CLASS_LIST
+        + BEDROOM_OBJECT_CLASS_LIST
+        + BATHROOM_OBJECT_CLASS_LIST
 )
 
+################# Robothor Scenes Constants ##################
+
+ROBOTHOR_ORIGINAL_CLASS_LIST = ['AlarmClock', 'Apple', 'BaseballBat', 'BasketBall', 'Bowl', 'GarbageCan', 'HousePlant',
+                                'Laptop', 'Mug', 'SprayBottle', 'Television', 'Vase']
+
+################# General Constants ###########################
 
 MOVE_AHEAD = "MoveAhead"
 ROTATE_LEFT = "RotateLeft"

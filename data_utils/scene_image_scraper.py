@@ -1,12 +1,11 @@
 import json
 import os
-import time
-import warnings
+import sys
 from collections import deque
 from math import gcd
 from multiprocessing import Process, Queue
 import argparse
-
+sys.path.append(".") # Assume script run in project root directory
 from ai2thor.controller import BFSController
 from datasets.offline_controller_with_small_rotation import ExhaustiveBFSController
 

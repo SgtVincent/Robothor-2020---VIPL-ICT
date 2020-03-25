@@ -1,14 +1,12 @@
 import json
 import os
-import time
-import warnings
-from collections import deque
-from math import gcd
+import sys
+sys.path.append(".") # Assume script run in project root directory
 from multiprocessing import Process, Queue
 import argparse
 
 from ai2thor.controller import BFSController
-from datasets.my_sscontroller import SSController
+from datasets.offline_sscontroller import SSController
 
 # PATH_TO_STORE = '/data/robothor'
 
@@ -73,13 +71,12 @@ def main():
     num_processes = args.num_process
 
     queue = Queue()
-    scene_names = []
-    for i in range(2):
-        for j in range(30):
-            if i == 0:
-                scene_names.append("FloorPlan" + str(j + 1))
-            else:
-                scene_names.append("FloorPlan" + str(i + 1) + '%02d' % (j + 1))
+    scene_names = ["FloorPlan{}".format(i) for i in
+                     list(range(1, 31)) +
+                     list(range(201, 231)) +
+                     list(range(301, 331)) +
+                     list(range(401, 431))
+                     ]
     for x in scene_names:
         queue.put(x)
 

@@ -206,6 +206,7 @@ def parse_arguments():
         type=str,
         default="./data/thor_offline_data",
         help="where dataset is stored.",
+        # for robothor: /home/chenjunting/ai2thor_data/Robothor_data
     )
     parser.add_argument(
         "--glove_dir",
@@ -257,6 +258,11 @@ def parse_arguments():
         "--scene_types",
         nargs="+",
         default=["kitchen", "living_room", "bedroom", "bathroom"],
+        # default for robothor
+        #               ['FloorPlan_Train1', 'FloorPlan_Train2', 'FloorPlan_Train3',
+        #                'FloorPlan_Train4', 'FloorPlan_Train5', 'FloorPlan_Train6',
+        #                'FloorPlan_Train7', 'FloorPlan_Train8', 'FloorPlan_Train9',
+        #                'FloorPlan_Train10', 'FloorPlan_Train11', 'FloorPlan_Train12']
     )
 
     parser.add_argument(
@@ -267,6 +273,18 @@ def parse_arguments():
     )
 
     parser.add_argument("--test_or_val", default="val", help="test or val")
+
+################## new arguments for robothor data #################
+    parser.add_argument("--data_source", type=str, default="ithor", help="selected from {ithor, robothor}" )
+
+    # parser.add_argument("--graph_check", dest="graph_check", default=True, action="store_true",
+    #                     help="whether use graph.json to check the validity of movement")
+    parser.add_argument("--no_graph_check", dest="graph_check", action="store_false")
+    parser.set_defaults(graph_check=True)
+
+    parser.add_argument("--rotate_by", type=int, default=45, help="rotation degree for RotateLeft/RotateRight, valid value:{30, 45}")
+
+
 
     args = parser.parse_args()
 

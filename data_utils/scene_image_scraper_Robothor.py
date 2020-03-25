@@ -1,17 +1,12 @@
 import json
 import os
-import time
-import warnings
-from collections import deque
-from math import gcd
+import sys
+sys.path.append(".") # Assume script run in project root directory
 from multiprocessing import Process, Queue
 import argparse
 
 from ai2thor.controller import BFSController
-from datasets.my_sscontroller import SSController
-
-# PATH_TO_STORE = '/data/robothor'
-
+from datasets.offline_sscontroller import SSController
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images from ai2thor scene")
@@ -19,7 +14,7 @@ def parse_arguments():
     parser.add_argument(
         "--out_dir",
         type=str,
-        default='/data/robothor',
+        default='/home/chenjunting/ai2thor_data/Robothor_data',
         help="path to store scraped images",
     )
 
@@ -28,6 +23,13 @@ def parse_arguments():
         type=int,
         default=12,
         help="number of processes launched to scrape images parallelly",
+    )
+
+    parser.add_argument(
+        "--scenes",
+        type=str,
+        default=None,
+        help="specify scenes to scrape, in the format of 'scene1,scene2,...'"
     )
 
     args = parser.parse_args()
@@ -74,9 +76,12 @@ def main():
     num_processes = args.num_process
 
     queue = Queue()
-    for i in range(1,13):
-        for j in range(1,6):
-            queue.put("FloorPlan_Train{}_{}".format(i,j))
+    if args.scenes:
+        scenes = args.scenes.split(',')
+    else: # all scenes in robothor
+        scenes = ["FloorPlan_Train{}_{}".format(i, j) for i in range(1,13) for j in range(1,6)]
+    for scene in scenes:
+        queue.put(scene)
 
     processes = []
     for i in range(num_processes):

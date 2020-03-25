@@ -1,6 +1,6 @@
 """ Contains the Episodes for Navigation. """
 import random
-
+import os
 import torch
 
 from datasets.constants import GOAL_SUCCESS_REWARD, STEP_PENALTY
@@ -33,6 +33,7 @@ class BasicEpisode(Episode):
         self.target_object = None
         self.prev_frame = None
         self.current_frame = None
+        self.grid_size = args.grid_size
 
         self.scene_states = []
         if args.eval:
@@ -116,15 +117,19 @@ class BasicEpisode(Episode):
         self, args, scenes, possible_targets, targets=None, keep_obj=False, glove=None
     ):
         """ New navigation episode. """
-        scene = random.choice(scenes)
+        # Omit missed data
+        scene = None
+        while scene not in os.listdir(args.offline_data_dir):
+            scene = random.choice(scenes)
 
         if self._env is None:
             self._env = Environment(
                 offline_data_dir=args.offline_data_dir,
                 use_offline_controller=True,
-                grid_size=0.25,
+                grid_size=self.grid_size,
                 images_file_name=args.images_file_name,
                 local_executable_path=args.local_executable_path,
+                rotate_by=args.rotate_by
             )
             self._env.start(scene)
         else:

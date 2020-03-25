@@ -113,11 +113,11 @@ class ThorAgent:
             self.model.train()
         else:
             self.model.eval()
-
+        # eval_at_state:
         model_input, out = self.eval_at_state(model_options)
         self.hidden = out.hidden
         prob = F.softmax(out.logit, dim=1)
-        action = prob.multinomial(1).data
+        action = prob.multinomial(1).data # shape: [1,1], action index
         log_prob = F.log_softmax(out.logit, dim=1)
         self.last_action_probs = prob
         entropy = -(log_prob * prob).sum(1)
