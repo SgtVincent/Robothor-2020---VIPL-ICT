@@ -389,7 +389,7 @@ class SSController(Controller):
                     fieldOfView=self.fov,
                     renderClassImage=True,
                     renderObjectImage=True,
-                    renderDepthImage=True,
+                    renderDepthImage=self.depth_file,
                     cameraY=self.cameraY,
                 )
             )

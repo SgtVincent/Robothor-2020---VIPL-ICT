@@ -14,7 +14,7 @@ def parse_arguments():
     parser.add_argument(
         "--out_dir",
         type=str,
-        default='/home/chenjunting/ai2thor_data/Robothor_data',
+        default='/home/chenjunting/Robothor_data',
         help="path to store scraped images",
     )
 
