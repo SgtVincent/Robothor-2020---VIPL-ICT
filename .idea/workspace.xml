@@ -2,9 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f262152-2868-472f-a90f-9402567d7a52" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/datasets/thor_agent_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/get_visible_object_map.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/scrape_robothor.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0329.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/startx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_utils/make_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/make_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper_Ithor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper_Ithor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_rotation_by30.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datasets/offline_sscontroller.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_sscontroller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/episodes/basic_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/basic_episode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/episodes/test_val_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/test_val_episode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html.1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/extract_feature.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/extract_feature.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/make_graph.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/make_graph.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0323.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/flag_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/flag_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +119,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="get_visible_object_map" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="savn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_utils/get_visible_object_map.py" />
+      <option name="PARAMETERS" value="--data_dir /home/chenjunting/Robothor_data" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" singleton="false" nameIsGenerated="true">
       <module name="savn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -156,8 +198,8 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\repository\savn\data_utils\scene_image_scraper_Robothor.py" />
-      <option name="PARAMETERS" value="--num_process 1 --scenes &quot;FloorPlan_Train1_4,FloorPlan_Train9_2,FloorPlan_Train9_3,FloorPlan_Train3_2,FloorPlan_Train3_4,FloorPlan_Train5_4,FloorPlan_Train4_2&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py" />
+      <option name="PARAMETERS" value="--num_process 1 --scenes &quot;FloorPlan_Train2_1,FloorPlan_Train2_2&quot; --state_decimal 3" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -223,7 +265,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /home/chenjunting/ai2thor_data/Robothor_data --gpu-ids 1 --workers 1 --save-model-dir trained_base_2020_0319 --data_source robothor --no_graph_check --grid_size 0.125 --rotate_by 30 --train_scenes [1-5] --scene_types FloorPlan_Train6 FloorPlan_Train7 FloorPlan_Train8" />
+      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /home/chenjunting/Robothor_data --gpu-ids 1 --workers 1 --save-model-dir trained_base_2020_0319 --data_source robothor --no_graph_check --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --scene_types FloorPlan_Train2" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -262,9 +304,11 @@
       <item itemvalue="Python.feature_extractioin" />
       <item itemvalue="Python.make_graph " />
       <item itemvalue="Python.scene_image_scraper_Robothor" />
+      <item itemvalue="Python.get_visible_object_map" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.get_visible_object_map" />
         <item itemvalue="Python.scene_image_scraper_Robothor" />
         <item itemvalue="Python.make_graph " />
         <item itemvalue="Python.feature_extractioin" />
@@ -287,7 +331,8 @@
       <workItem from="1584115469590" duration="783000" />
       <workItem from="1584116267778" duration="68760000" />
       <workItem from="1584586121447" duration="48032000" />
-      <workItem from="1584868452063" duration="54358000" />
+      <workItem from="1584868452063" duration="79343000" />
+      <workItem from="1585319030493" duration="16274000" />
     </task>
     <servers />
   </component>
@@ -302,10 +347,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1584115537542" />
-    <state x="38" y="132" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585148228793">
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585452997992">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="38" y="132" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585148228793" />
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585452997992" />
+    <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585216216852">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1585216216852" />
     <state x="549" y="117" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1585125445837">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -342,38 +391,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583807421633" />
-    <state width="1493" height="242" key="GridCell.Tab.0.bottom" timestamp="1585153179869">
+    <state width="1493" height="220" key="GridCell.Tab.0.bottom" timestamp="1585384040363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585153179869" />
-    <state width="1493" height="242" key="GridCell.Tab.0.center" timestamp="1585153179869">
+    <state width="1493" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
+    <state width="1493" height="220" key="GridCell.Tab.0.center" timestamp="1585384040363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585153179869" />
-    <state width="1493" height="242" key="GridCell.Tab.0.left" timestamp="1585153179869">
+    <state width="1493" height="220" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
+    <state width="1493" height="220" key="GridCell.Tab.0.left" timestamp="1585384040363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585153179869" />
-    <state width="1493" height="242" key="GridCell.Tab.0.right" timestamp="1585153179869">
+    <state width="1493" height="220" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
+    <state width="1493" height="220" key="GridCell.Tab.0.right" timestamp="1585384040363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585153179869" />
-    <state width="1493" height="242" key="GridCell.Tab.1.bottom" timestamp="1585153145719">
+    <state width="1493" height="220" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
+    <state width="1493" height="220" key="GridCell.Tab.1.bottom" timestamp="1585384042529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585153145719" />
-    <state width="1493" height="242" key="GridCell.Tab.1.center" timestamp="1585153145719">
+    <state width="1493" height="220" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
+    <state width="1493" height="220" key="GridCell.Tab.1.center" timestamp="1585384042529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585153145719" />
-    <state width="1493" height="242" key="GridCell.Tab.1.left" timestamp="1585153145719">
+    <state width="1493" height="220" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
+    <state width="1493" height="220" key="GridCell.Tab.1.left" timestamp="1585384042529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585153145719" />
-    <state width="1493" height="242" key="GridCell.Tab.1.right" timestamp="1585153145719">
+    <state width="1493" height="220" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
+    <state width="1493" height="220" key="GridCell.Tab.1.right" timestamp="1585384042529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="242" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585153145719" />
+    <state width="1493" height="220" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
     <state x="270" y="54" key="SettingsEditor" timestamp="1584772561713">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -394,10 +443,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1584527173596" />
-    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585157061442">
+    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585378517134">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585157061442" />
+    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585378517134" />
     <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1583811600363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -422,13 +471,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
-          <line>383</line>
+          <line>331</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <condition expression="str(search_state) == &quot;-1.50|1.00|270|0&quot;" language="Python" />
           <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
-          <line>463</line>
+          <line>411</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -467,19 +516,9 @@
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$USER_HOME$/.PyCharm2019.3/system/remote_sources/-1909828254/1677175127/ai2thor/controller.py</url>
-          <line>416</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>2052</line>
           <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/offline_sscontroller.py</url>
-          <line>412</line>
-          <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datasets/offline_sscontroller.py</url>
@@ -511,7 +550,7 @@
           <line>66</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/runners/train_util.py</url>
           <line>10</line>
           <option name="timeStamp" value="110" />
@@ -552,19 +591,9 @@
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/environment.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="133" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>49</line>
           <option name="timeStamp" value="137" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py</url>
@@ -573,23 +602,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
-          <line>707</line>
+          <line>658</line>
           <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/agents/navigation_agent.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="147" />
+          <url>file://$PROJECT_DIR$/datasets/offline_sscontroller.py</url>
+          <line>193</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data_utils/get_visible_object_map.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data_utils/get_visible_object_map.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/episodes/basic_episode.py</url>
-          <line>120</line>
-          <option name="timeStamp" value="149" />
+          <line>73</line>
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
-          <line>636</line>
-          <option name="timeStamp" value="151" />
+          <url>file://$PROJECT_DIR$/episodes/basic_episode.py</url>
+          <line>160</line>
+          <option name="timeStamp" value="165" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -602,25 +646,24 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="event.metadata['actionReturn']" language="Python" />
-        <watch expression="event.metadata['objects']" language="Python" />
         <watch expression="self" language="Python" />
-        <watch expression="next_state_key in neighbors" language="Python" />
+        <watch expression="self.state" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/savn$scene_image_scraper_Robothor.coverage" NAME="scene_image_scraper_Robothor Coverage Results" MODIFIED="1585125724074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/savn$scene_image_scraper_Robothor.coverage" NAME="scene_image_scraper_Robothor Coverage Results" MODIFIED="1585222988055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/savn$wrong_case.coverage" NAME="wrong_case Coverage Results" MODIFIED="1583947224990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$make_graph_python.coverage" NAME="make_graph  Coverage Results" MODIFIED="1585077006108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/savn$feature_extractioin.coverage" NAME="feature_extractioin Coverage Results" MODIFIED="1584796325803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/savn$test_robothor_30.coverage" NAME="test_robothor_30 Coverage Results" MODIFIED="1585152236851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$test_robothor_30.coverage" NAME="test_robothor_30 Coverage Results" MODIFIED="1585378582577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_all_positions.coverage" NAME="scene_image_scraper_all_positions Coverage Results" MODIFIED="1584378489709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$invoke_build_class_dataset.coverage" NAME="invoke_build_class_dataset Coverage Results" MODIFIED="1584435957694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$scene_image_scraper_single_thread.coverage" NAME="scene_image_scraper_single_thread Coverage Results" MODIFIED="1583975895296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$test_tasks.coverage" NAME="test_tasks Coverage Results" MODIFIED="1584547675460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$test_basemodel.coverage" NAME="test_basemodel Coverage Results" MODIFIED="1585066131531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$main.coverage" NAME="main Coverage Results" MODIFIED="1585038876133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$make_graph_python.coverage" NAME="make_graph  Coverage Results" MODIFIED="1585077006108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/savn$feature_extractioin.coverage" NAME="feature_extractioin Coverage Results" MODIFIED="1584796325803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/savn$get_visible_object_map.coverage" NAME="get_visible_object_map Coverage Results" MODIFIED="1585280293769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_utils" />
+    <SUITE FILE_PATH="coverage/savn$scene_image_scraper_single_thread.coverage" NAME="scene_image_scraper_single_thread Coverage Results" MODIFIED="1583975895296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$wrong_case_robothor.coverage" NAME="invoke_create_robothor_dataset Coverage Results" MODIFIED="1584090270383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -18,7 +18,8 @@ class Environment:
         offline_data_dir="~/data/offline_data/",
         images_file_name="images.hdf5",
         local_executable_path=None,
-        rotate_by=45
+        rotate_by=None, # required param
+        state_decimal=None # required param
     ):
 
         self.offline_data_dir = offline_data_dir
@@ -32,7 +33,8 @@ class Environment:
             images_file_name=images_file_name,
             visualize=False,
             local_executable_path=local_executable_path,
-            rotate_by=rotate_by
+            rotate_by=rotate_by,
+            state_decimal=state_decimal
         )
 
         self.grid_size = grid_size

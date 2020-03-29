@@ -10,13 +10,14 @@ sys.path.append(".") # Assume script run in project root directory
 from datasets.offline_sscontroller import ThorAgentState
 import argparse
 
+STATE_DECIMAL=3 # Robothor
 
 def convert_key_to_state(state_key):
     def _convert_list_to_state(l):
         return float(l[0]), float(l[1]), int(l[2]), int(l[3])
     try:
         x, z, r, h = _convert_list_to_state(state_key.split('|'))
-        return ThorAgentState(x, 0.0, z, r, h)
+        return ThorAgentState(x, 0.0, z, r, h, STATE_DECIMAL)
 
     except:
         raise Exception("state_key '{}' not valid".format(state_key))
@@ -158,10 +159,11 @@ def build_graph_for_scene(
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images from ai2thor scene")
 
+    parser.add_argument("-i",type=int,default=1, help="scenes: Train{}")
     parser.add_argument(
-        "-i",
-        type=int,
-        default=1
+        "--data_dir",
+        type=str,
+        required=True
     )
 
     args = parser.parse_args()
@@ -170,13 +172,14 @@ def parse_arguments():
 
 if __name__ == "__main__":
     # make graph data for 30 degree case with parallel processes
-    robothor_dir = "/home/chenjunting/ai2thor_data/Robothor_data"
+
 
     args = parse_arguments()
+    data_dir = args.data_dir
     scenes = ["FloorPlan_Train{}_{}".format(args.i,j) for j in range(1,6)]
     for scene in scenes:
         try:
-            build_graph_for_scene(scene, robothor_dir)
+            build_graph_for_scene(scene, data_dir)
             print("scene {} has finished".format(scene))
         except Exception as e:
             print(e)

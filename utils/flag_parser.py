@@ -284,6 +284,7 @@ def parse_arguments():
 
     parser.add_argument("--rotate_by", type=int, default=45, help="rotation degree for RotateLeft/RotateRight, valid value:{30, 45}")
 
+    parser.add_argument("--state_decimal", type=int, default=2, help="decimal of key in state data: e.g. images.hdf5")
 
 
     args = parser.parse_args()

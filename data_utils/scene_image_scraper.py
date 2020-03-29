@@ -53,7 +53,10 @@ def search_and_save(in_queue, out_dir):
                 metadata_file=os.path.join(out_dir, 'metadata.json'),
                 images_file=os.path.join(out_dir, 'images.hdf5'),
                 depth_file=os.path.join(out_dir, 'depth.hdf5'),
-                grid_assumption=False)
+                grid_assumption=False,
+                rotate_by=45,
+                state_decimal=2
+            )
             c.start()
             c.search_all_closed(scene_name)
             c.stop()

@@ -28,6 +28,8 @@ def parse_arguments():
         help="number of processes launched to scrape images parallelly",
     )
 
+    parser.add_argument("--state_decimal", type=int, default=2, help="decimal of key in state data: e.g. images.hdf5")
+
     args = parser.parse_args()
     return args
 

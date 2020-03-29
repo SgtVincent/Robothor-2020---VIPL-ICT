@@ -17,64 +17,7 @@ except ImportError:
 from ai2thor.controller import Controller, distance
 from .base_controller import BaseController
 from .offline_sscontroller import SSController
-class ThorAgentState:
-    """ Representation of a simple state of a Thor Agent which includes
-        the position, horizon and rotation. """
-
-    def __init__(self, x, y, z, rotation, horizon):
-        self.x = round(x, 2)
-        self.y = y
-        self.z = round(z, 2)
-        self.rotation = round(rotation)
-        self.horizon = round(horizon)
-
-    @classmethod
-    def get_state_from_evenet(cls, event, forced_y=None):
-        """ Extracts a state from an event. """
-        state = cls(
-            x=event.metadata["agent"]["position"]["x"],
-            y=event.metadata["agent"]["position"]["y"],
-            z=event.metadata["agent"]["position"]["z"],
-            rotation=event.metadata["agent"]["rotation"]["y"],
-            horizon=event.metadata["agent"]["cameraHorizon"],
-        )
-        if forced_y != None:
-            state.y = forced_y
-        return state
-
-    def __eq__(self, other):
-        """ If we check for exact equality then we get issues.
-            For now we consider this 'close enough'. """
-        if isinstance(other, ThorAgentState):
-            return (
-                self.x == other.x
-                and
-                # self.y == other.y and
-                self.z == other.z
-                and self.rotation == other.rotation
-                and self.horizon == other.horizon
-            )
-        return NotImplemented
-
-    def __str__(self):
-        """ Get the string representation of a state. """
-        """
-        return '{:0.2f}|{:0.2f}|{:0.2f}|{:d}|{:d}'.format(
-            self.x,
-            self.y,
-            self.z,
-            round(self.rotation),
-            round(self.horizon)
-        )
-        """
-        return "{:0.2f}|{:0.2f}|{:d}|{:d}".format(
-            self.x, self.z, round(self.rotation), round(self.horizon)
-        )
-
-    def position(self):
-        """ Returns just the position. """
-        return dict(x=self.x, y=self.y, z=self.z)
-
+from .thor_agent_state import ThorAgentState
 
 class ExhaustiveBFSController(Controller):
     """ A much slower and more exhaustive version of the BFSController.
@@ -103,6 +46,8 @@ class ExhaustiveBFSController(Controller):
         local_executable_path=None,
         actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         cameraY=0.2,
+        rotate_by=None,
+        state_decimal=None
     ):
 
         super(ExhaustiveBFSController, self).__init__()
@@ -125,6 +70,9 @@ class ExhaustiveBFSController(Controller):
         self.fov = fov
         self.y = None
         self.cameraY = cameraY
+        self.rotate_by=rotate_by
+        self.state_decimal=state_decimal
+
 
         self.local_executable_path = local_executable_path
 
@@ -254,7 +202,7 @@ class ExhaustiveBFSController(Controller):
         return event
 
     def get_state_from_event(self, event):
-        return ThorAgentState.get_state_from_evenet(event, forced_y=self.y)
+        return ThorAgentState.get_state_from_evenet(event, forced_y=self.y, state_decimal=self.state_decimal)
 
     def get_point_from_event(self, event):
         return event.metadata["agent"]["position"]
@@ -555,7 +503,8 @@ class OfflineControllerWithSmallRotation(BaseController):
         actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         visualize=True,
         local_executable_path=None,
-        rotate_by=45
+        rotate_by=None, # required param
+        state_decimal=None # required param
     ):
 
         super(OfflineControllerWithSmallRotation, self).__init__()
@@ -573,6 +522,8 @@ class OfflineControllerWithSmallRotation(BaseController):
         self.using_raw_metadata = True
         self.actions = actions
         self.rotate_by = rotate_by
+        self.state_decimal = state_decimal
+
         self.all_states = None
 
         # Allowed rotations.
@@ -624,10 +575,10 @@ class OfflineControllerWithSmallRotation(BaseController):
             )
 
     def get_full_state(self, x, y, z, rotation=0.0, horizon=0.0):
-        return ThorAgentState(x, y, z, rotation, horizon)
+        return ThorAgentState(x, y, z, rotation, horizon, self.state_decimal)
 
     def get_state_from_str(self, x, z, rotation=0.0, horizon=0.0):
-        return ThorAgentState(x, self.y, z, rotation, horizon)
+        return ThorAgentState(x, self.y, z, rotation, horizon, self.state_decimal)
 
     def reset(self, scene_name=None):
 

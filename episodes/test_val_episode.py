@@ -26,6 +26,8 @@ class TestValEpisode(BasicEpisode):
                 grid_size=0.25,
                 images_file_name=args.images_file_name,
                 local_executable_path=args.local_executable_path,
+                rotate_by=args.rotate_by,
+                state_decimal=args.state_decimal
             )
             self._env.start(scene)
         else:

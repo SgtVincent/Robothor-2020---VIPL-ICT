@@ -31,6 +31,7 @@ def parse_arguments():
         default=None,
         help="specify scenes to scrape, in the format of 'scene1,scene2,...'"
     )
+    parser.add_argument("--state_decimal", type=int, default=3, help="decimal of key in state data: e.g. images.hdf5")
 
     args = parser.parse_args()
     return args
@@ -57,7 +58,8 @@ def search_and_save(in_queue, out_dir):
             images_file=os.path.join(sub_out_dir, 'images.hdf5'),
             # depth_file=os.path.join(sub_out_dir, 'depth.hdf5'), # no depth data allowed in robothor-challenge
             grid_assumption=False,
-            rotate_by=30)
+            rotate_by=30,
+            state_decimal=3)
         # c.start()
         c.search_all_closed(scene_name)
         c.stop()
