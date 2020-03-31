@@ -548,18 +548,16 @@ class OfflineControllerWithSmallRotation(BaseController):
 
         self.last_event = None
 
+        self.controller = SSController(
+            grid_size=self.grid_size,
+            fov=self.fov,
+            actions=self.actions,
+            rotate_by=self.rotate_by
+        )
+        if self.local_executable_path is not None:
+            self.controller.local_executable_path = self.local_executable_path
+
         self.visualize = visualize
-
-        if self.visualize:
-            self.controller = SSController(
-                grid_size=self.grid_size,
-                fov=self.fov,
-                actions=self.actions,
-                rotate_by=self.rotate_by
-            )
-            if self.local_executable_path is not None:
-                self.controller.local_executable_path = self.local_executable_path
-
 
         self.scene_name = None
         self.state = None
@@ -667,7 +665,7 @@ class OfflineControllerWithSmallRotation(BaseController):
 
         action = action["action"]
 
-        next_state = self.get_next_state(self.state, action, True) # horizon|rotatoin|x|y|z
+        next_state = self.controller.get_next_state(self.state, action, True) # horizon|rotatoin|x|y|z
 
         if self.visualize and next_state is not None:
             viz_event = self.controller.step(
@@ -687,7 +685,7 @@ class OfflineControllerWithSmallRotation(BaseController):
                 # return back to original state.
                 self.controller.teleport_to_state(self.state)
 
-
+        # TODO: modify code after graph.json finishes
         if next_state is not None:
             next_state_key = str(next_state)
             neighbors = self.graph.neighbors(str(self.state))
@@ -723,6 +721,20 @@ class OfflineControllerWithSmallRotation(BaseController):
 
                 self.last_event = event
                 return event
+
+        # if next_state in self.all_states:
+        #     next_state_key = str(next_state)
+        #     neighbors = self.graph.neighbors(str(self.state))
+        #
+        #     if next_state_key in neighbors:
+        #         self.state = self.get_state_from_str(
+        #             *[float(x) for x in next_state_key.split("|")]
+        #         )
+        #         self.last_action_success = True
+        #         event = self._successful_event()
+        #
+        #         self.last_event = event
+        #         return event
 
         self.last_action_success = False
         self.last_event.metadata["lastActionSuccess"] = False
@@ -810,111 +822,3 @@ class OfflineControllerWithSmallRotation(BaseController):
             return [o["objectId"] for o in self.metadata[str(self.state)]["objects"]]
         else:
             return self.metadata.keys()
-
-    # reimplement these function for reducing the expenditure
-    # on launching an ai2thor controller in every episode
-    def get_next_state(self, state, action, copy_state=False):
-        """ Guess the next state when action is taken. Note that
-            this will not predict the correct y value. """
-        if self.rotate_by == 30:
-            return self._get_next_state_30(state, action, copy_state)
-        elif self.rotate_by == 45:
-            return self._get_next_state_45(state, action, copy_state)
-        else:
-            raise Exception("Unknown Rotation Unit")
-
-    def _get_next_state_30(self, state, action, copy_state=False):
-        if copy_state:
-            next_state = copy.deepcopy(state)
-        else:
-            next_state = state
-        if action == "MoveAhead":
-            if next_state.rotation == 0:
-                next_state.z += 2 * self.grid_size
-            elif next_state.rotation == 30:
-                next_state.z += 2 * self.grid_size
-                next_state.x += self.grid_size
-            elif next_state.rotation == 60:
-                next_state.z += self.grid_size
-                next_state.x += 2 * self.grid_size
-            elif next_state.rotation == 90:
-                next_state.x += 2 * self.grid_size
-            elif next_state.rotation == 120:
-                next_state.z -= self.grid_size
-                next_state.x += 2 * self.grid_size
-            elif next_state.rotation == 150:
-                next_state.z -= 2 * self.grid_size
-                next_state.x += self.grid_size
-            elif next_state.rotation == 180:
-                next_state.z -= 2 * self.grid_size
-            elif next_state.rotation == 210:
-                next_state.z -= 2 * self.grid_size
-                next_state.x -= self.grid_size
-            elif next_state.rotation == 240:
-                next_state.z -= self.grid_size
-                next_state.x -= 2 * self.grid_size
-            elif next_state.rotation == 270:
-                next_state.x -= 2 * self.grid_size
-            elif next_state.rotation == 300:
-                next_state.z += self.grid_size
-                next_state.x -= 2 * self.grid_size
-            elif next_state.rotation == 330:
-                next_state.z += 2 * self.grid_size
-                next_state.x -= self.grid_size
-            else:
-                raise Exception("Unknown Rotation")
-        elif action == "RotateRight":
-            next_state.rotation = (next_state.rotation + 30) % 360
-        elif action == "RotateLeft":
-            next_state.rotation = (next_state.rotation - 30) % 360
-        elif action == "LookUp":
-            if next_state.horizon <= -30:
-                return None
-            next_state.horizon = next_state.horizon - 30
-        elif action == "LookDown":
-            if next_state.horizon >= 30:
-                return None
-            next_state.horizon = next_state.horizon + 30
-        return next_state
-
-    def _get_next_state_45(self, state, action, copy_state=False):
-        if copy_state:
-            next_state = copy.deepcopy(state)
-        else:
-            next_state = state
-        if action == "MoveAhead":
-            if next_state.rotation == 0:
-                next_state.z += self.grid_size
-            elif next_state.rotation == 90:
-                next_state.x += self.grid_size
-            elif next_state.rotation == 180:
-                next_state.z -= self.grid_size
-            elif next_state.rotation == 270:
-                next_state.x -= self.grid_size
-            elif next_state.rotation == 45:
-                next_state.z += self.grid_size
-                next_state.x += self.grid_size
-            elif next_state.rotation == 135:
-                next_state.z -= self.grid_size
-                next_state.x += self.grid_size
-            elif next_state.rotation == 225:
-                next_state.z -= self.grid_size
-                next_state.x -= self.grid_size
-            elif next_state.rotation == 315:
-                next_state.z += self.grid_size
-                next_state.x -= self.grid_size
-            else:
-                raise Exception("Unknown Rotation")
-        elif action == "RotateRight":
-            next_state.rotation = (next_state.rotation + 45) % 360
-        elif action == "RotateLeft":
-            next_state.rotation = (next_state.rotation - 45) % 360
-        elif action == "LookUp":
-            if abs(next_state.horizon) <= 1:
-                return None
-            next_state.horizon = next_state.horizon - 30
-        elif action == "LookDown":
-            if abs(next_state.horizon - 60) <= 1 or abs(next_state.horizon - 30) <= 1:
-                return None
-            next_state.horizon = next_state.horizon + 30
-        return next_state
