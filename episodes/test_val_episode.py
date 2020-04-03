@@ -53,6 +53,7 @@ class TestValEpisode(BasicEpisode):
         targets=None,
         keep_obj=False,
         glove=None,
+        pre_metadata=None
     ):
         self.done_count = 0
         self.duplicate_count = 0

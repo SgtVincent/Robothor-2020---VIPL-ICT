@@ -13,13 +13,15 @@ from agents.random_agent import RandomNavigationAgent
 
 import random
 
+from datasets.robothor_data import preload_metadata
+
 from .train_util import (
     compute_loss,
     new_episode,
     run_episode,
     transfer_gradient_from_player_to_shared,
     end_episode,
-    reset_player,
+    reset_player
 )
 
 
@@ -35,14 +37,31 @@ def nonadaptivea3c_train(
 ):
 
     glove = Glove(args.glove_file)
+    pre_metadata = None
+    scene_types = args.scene_types
+
     if args.data_source == "ithor":
         from datasets.ithor_data import get_data
-        scenes, possible_targets, targets = get_data(args.scene_types, args.train_scenes)
+        scenes, possible_targets, targets = get_data(scene_types, args.train_scenes)
+
     elif args.data_source == "robothor":
+
         from datasets.robothor_data import get_data
-        scenes, possible_targets, targets = get_data(args.scene_types)
+
+        # check if use pinned_scene mode
+        if args.pinned_scene:
+            # TODO: design a flexible scene allocating strategy
+            scene_types = [scene_types[(rank % len(scene_types))]]
+            pre_metadata = preload_metadata(args, scene_types)
+        scenes, possible_targets, targets = get_data(scene_types)
+
+
+    # is pinned_scene set to True, pre-load all metadata for controller
+    # constructed in new_episode()
+
+
     random.seed(args.seed + rank)
-    idx = list(range(len(args.scene_types)))
+    idx = list(range(len(scene_types)))
     random.shuffle(idx)
 
     setproctitle.setproctitle("Training Agent: {}".format(rank))
@@ -70,7 +89,7 @@ def nonadaptivea3c_train(
         total_reward = 0
         player.eps_len = 0
         scene = new_episode(
-            args, player, scenes[idx[j]], possible_targets, targets[idx[j]], glove=glove
+            args, player, scenes[idx[j]], possible_targets, targets[idx[j]], glove=glove, pre_metadata=pre_metadata
         )
         player_start_time = time.time()
 
@@ -103,7 +122,7 @@ def nonadaptivea3c_train(
         end_episode(
             player,
             res_queue,
-            title=args.scene_types[idx[j]],
+            title=scene_types[idx[j]],
             total_time=time.time() - player_start_time,
             total_reward=total_reward,
             policy_loss=loss['policy_loss'],
@@ -112,6 +131,6 @@ def nonadaptivea3c_train(
 
         reset_player(player)
 
-        j = (j + 1) % len(args.scene_types)
+        j = (j + 1) % len(scene_types)
 
     player.exit()

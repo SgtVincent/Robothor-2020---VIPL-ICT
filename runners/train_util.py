@@ -25,8 +25,9 @@ def new_episode(
     targets=None,
     keep_obj=False,
     glove=None,
+    pre_metadata=None
 ):
-    scene = player.episode.new_episode(args, scenes, possible_targets, targets, keep_obj, glove)
+    scene = player.episode.new_episode(args, scenes, possible_targets, targets, keep_obj, glove, pre_metadata)
     player.reset_hidden()
     player.done = False
     return scene
@@ -275,5 +276,4 @@ def load_checkpoint(args, shared_model, optmizer):
 
         print("Load latest model file {}".format(latest_model))
         return train_total_ep, n_frames
-
 

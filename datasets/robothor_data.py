@@ -1,6 +1,12 @@
 from .constants import (
     ROBOTHOR_ORIGINAL_CLASS_LIST
 )
+import re
+import os
+import json
+import networkx
+import h5py
+
 # TODO: change back to all after all data scraped
 scene_types = ['FloorPlan_Train1', 'FloorPlan_Train2', 'FloorPlan_Train3',
                'FloorPlan_Train4', 'FloorPlan_Train5', 'FloorPlan_Train6',
@@ -40,3 +46,32 @@ def get_data(scene_types):
     targets = [ROBOTHOR_ORIGINAL_CLASS_LIST] * 12
 
     return scenes, possible_targets, [targets[i] for i in idx]
+
+def preload_metadata(args, scene_types,
+                     train_scenes="[1-5]",
+                     grid_file_name="grid.json",
+                     graph_file_name="graph.json",
+                     metadata_file_name="visible_object_map.json",
+                     ):
+
+    metadata = {}
+    i,j = re.findall(r"\d+", train_scenes)
+    # load all metadata to dictionary
+    for scene_type in scene_types:
+        for scene_name in [scene_type + "_{}".format(k) for k in range(int(i), int(j)+1)]:
+            metadata[scene_name] = {}
+
+            with open(os.path.join(args.offline_data_dir, scene_name, grid_file_name),"r",) as f:
+                metadata[scene_name]['grid'] = json.load(f)
+
+            with open(os.path.join(args.offline_data_dir, scene_name, graph_file_name),"r") as f:
+                graph_json = json.load(f)
+            metadata[scene_name]['graph_json'] = graph_json
+            metadata[scene_name]['graph'] = networkx.readwrite.node_link_graph(graph_json).to_directed()
+
+            with open(os.path.join(args.offline_data_dir, scene_name, metadata_file_name),"r") as f:
+                metadata[scene_name]['metadata'] = json.load(f)
+            with  h5py.File(os.path.join(args.offline_data_dir, scene_name, args.images_file_name), "r") as images:
+                metadata[scene_name]['all_states'] = list(images.keys())
+
+    return metadata

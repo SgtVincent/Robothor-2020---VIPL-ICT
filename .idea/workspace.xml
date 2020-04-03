@@ -2,22 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f262152-2868-472f-a90f-9402567d7a52" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cprofile_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0402.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_finetune_2020_0402.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp_cprofile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/savn.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/savn.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/offline_sscontroller.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_sscontroller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/robothor_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/robothor_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/episodes/basic_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/basic_episode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/episodes/test_val_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/test_val_episode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runners/savn_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/savn_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runners/train_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/train_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0331.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0331.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/flag_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/flag_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +99,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /home/ubuntu/Robothor_data --gpu-ids 0 --workers 4 --save-model-dir trained_base_2020_0331 --data_source robothor --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --scene_types FloorPlan_Train10 FloorPlan_Train11 FloorPlan_Train12" />
+      <option name="PARAMETERS" value="--title temp_pycharm_debug --model BaseModel --offline_data_dir /home/ubuntu/Robothor_data --gpu-ids 0 --workers 1 --save-model-dir trained_base_2020_0331 --data_source robothor --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --pinned_scene --scene_types FloorPlan_Train1 FloorPlan_Train2 FloorPlan_Train3" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -357,7 +351,8 @@
       <workItem from="1585733696328" duration="150000" />
       <workItem from="1585733855318" duration="16523000" />
       <workItem from="1585819178118" duration="368000" />
-      <workItem from="1585820154369" duration="20767000" />
+      <workItem from="1585820154369" duration="30865000" />
+      <workItem from="1585942526320" duration="2285000" />
     </task>
     <servers />
   </component>
@@ -368,14 +363,14 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="71" key="#Deployment" timestamp="1585915358338">
+    <state x="361" y="71" key="#Deployment" timestamp="1585944924930">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="71" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1585915358338" />
-    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585855385404">
+    <state x="361" y="71" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1585944924930" />
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585942687214">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585855385404" />
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585942687214" />
     <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585216216852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -404,10 +399,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1583807447621" />
-    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog" timestamp="1585902829924">
+    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog" timestamp="1585944925287">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1585902829924" />
+    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1585944925287" />
     <state x="454" y="259" key="EnvironmentVariablesDialog" timestamp="1584602268667">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -416,38 +411,42 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585757711398" />
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1585942863817">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585942863817" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1585942863817">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1585899991080">
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585942863817" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1585942863817">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585899991080" />
-    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585942863817" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1585942863817">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.1.bottom" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585942863817" />
+    <state width="1493" height="223" key="GridCell.Tab.1.bottom" timestamp="1585942866061">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.1.center" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585942866061" />
+    <state width="1493" height="223" key="GridCell.Tab.1.center" timestamp="1585942866061">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.1.left" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585942866061" />
+    <state width="1493" height="223" key="GridCell.Tab.1.left" timestamp="1585942866061">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
-    <state width="1493" height="223" key="GridCell.Tab.1.right" timestamp="1585899991081">
+    <state width="1493" height="223" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585942866061" />
+    <state width="1493" height="223" key="GridCell.Tab.1.right" timestamp="1585942866061">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585942866061" />
+    <state x="583" y="143" key="PyMappingSimpleResolveDialog" timestamp="1585942452469">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="583" y="143" key="PyMappingSimpleResolveDialog/0.0.1536.824@0.0.1536.824" timestamp="1585942452469" />
     <state x="270" y="54" key="SettingsEditor" timestamp="1585757958297">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -460,10 +459,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="280" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583995394500" />
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585731872100">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585942526152">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585731872100" />
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585942526152" />
     <state x="376" y="22" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585799775782">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -472,10 +471,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1585855122654" />
-    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585904694360">
+    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585944045458">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585904694360" />
+    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585944045458" />
     <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1585853987907">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -495,7 +494,7 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>109</line>
+          <line>114</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
@@ -646,18 +645,43 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
-          <line>66</line>
+          <line>85</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>81</line>
+          <line>86</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
-          <line>36</line>
+          <line>38</line>
           <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="178" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
+          <line>491</line>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/episodes/basic_episode.py</url>
+          <line>120</line>
+          <option name="timeStamp" value="182" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -665,7 +689,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_Robothor.coverage" NAME="scene_image_scraper_Robothor Coverage Results" MODIFIED="1585222988055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/savn$wrong_case.coverage" NAME="wrong_case Coverage Results" MODIFIED="1583947224990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$aws_train_base.coverage" NAME="aws_train_base Coverage Results" MODIFIED="1585854893102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$aws_train_base.coverage" NAME="aws_train_base Coverage Results" MODIFIED="1585942863657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$test_robothor_30.coverage" NAME="test_robothor_30 Coverage Results" MODIFIED="1585641371718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_all_positions.coverage" NAME="scene_image_scraper_all_positions Coverage Results" MODIFIED="1584378489709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$invoke_build_class_dataset.coverage" NAME="invoke_build_class_dataset Coverage Results" MODIFIED="1584435957694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

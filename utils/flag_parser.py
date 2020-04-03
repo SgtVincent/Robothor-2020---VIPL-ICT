@@ -290,6 +290,10 @@ def parse_arguments():
 
     parser.add_argument("--ep_save_ckpt", type=int, default=1e5, help="frequency to save checkpoint")
 
+    parser.add_argument("--pinned_scene", dest="pinned_scene", action="store_true",
+                        help="ONLY valied when data_source is robothor")
+    parser.set_defaults(pinned_scene=False)
+
     args = parser.parse_args()
 
     args.glove_file = "{}/glove_map{}d.hdf5".format(args.glove_dir, args.glove_dim)

@@ -114,7 +114,7 @@ class BasicEpisode(Episode):
         )
 
     def _new_episode(
-        self, args, scenes, possible_targets, targets=None, keep_obj=False, glove=None
+        self, args, scenes, possible_targets, targets=None, keep_obj=False, glove=None, pre_metadata=None
     ):
         """ New navigation episode. """
         # Omit missed data
@@ -134,7 +134,9 @@ class BasicEpisode(Episode):
                 images_file_name=args.images_file_name,
                 local_executable_path=args.local_executable_path,
                 rotate_by=args.rotate_by,
-                state_decimal=args.state_decimal
+                state_decimal=args.state_decimal,
+                pinned_scene=args.pinned_scene,
+                pre_metadata=pre_metadata,
             )
             self._env.start(scene)
         else:
@@ -175,10 +177,11 @@ class BasicEpisode(Episode):
         targets=None,
         keep_obj=False,
         glove=None,
+        pre_metadata=None,
     ):
         self.done_count = 0
         self.duplicate_count = 0
         self.failed_action_count = 0
         self.prev_frame = None
         self.current_frame = None
-        return self._new_episode(args, scenes, possible_targets, targets, keep_obj, glove)
+        return self._new_episode(args, scenes, possible_targets, targets, keep_obj, glove, pre_metadata)

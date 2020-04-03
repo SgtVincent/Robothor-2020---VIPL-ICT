@@ -504,7 +504,9 @@ class OfflineControllerWithSmallRotation(BaseController):
         visualize=True,
         local_executable_path=None,
         rotate_by=None, # required param
-        state_decimal=None # required param
+        state_decimal=None, # required param,
+        pinned_scene = False,
+        pre_metadata = None,
     ):
 
         super(OfflineControllerWithSmallRotation, self).__init__()
@@ -523,6 +525,8 @@ class OfflineControllerWithSmallRotation(BaseController):
         self.actions = actions
         self.rotate_by = rotate_by
         self.state_decimal = state_decimal
+        self.pinned_scene = pinned_scene
+        self.pre_metadata = pre_metadata
 
         self.all_states = None
 
@@ -588,31 +592,13 @@ class OfflineControllerWithSmallRotation(BaseController):
             scene_name = "FloorPlan28"
 
         if scene_name != self.scene_name:
-            self.scene_name = scene_name
-            with open(
-                os.path.join(
-                    self.offline_data_dir, self.scene_name, self.grid_file_name
-                ),
-                "r",
-            ) as f:
-                self.grid = json.load(f)
-            with open(
-                os.path.join(
-                    self.offline_data_dir, self.scene_name, self.graph_file_name
-                ),
-                "r",
-            ) as f:
-                graph_json = json.load(f)
-            self.graph = self.json_graph_loader.node_link_graph(
-                graph_json
-            ).to_directed()
-            with open(
-                os.path.join(
-                    self.offline_data_dir, self.scene_name, self.metadata_file_name
-                ),
-                "r",
-            ) as f:
-                self.metadata = json.load(f)
+            if self.pinned_scene:
+                self.scene_name = scene_name
+                self.grid = self.pre_metadata[scene_name]['grid']
+                self.graph = self.pre_metadata[scene_name]['graph']
+                self.metadata = self.pre_metadata[scene_name]['metadata']
+                self.all_states = self.pre_metadata[scene_name]['all_states']
+
                 # Determine if using the raw metadata, which is structured as a dictionary of
                 # state -> metatdata. The alternative is a map of obj -> states where object is visible.
                 key = next(iter(self.metadata.keys()))
@@ -622,12 +608,53 @@ class OfflineControllerWithSmallRotation(BaseController):
                 except ValueError:
                     self.using_raw_metadata = False
 
-            if self.images is not None:
-                self.images.close()
-            self.images = self.h5py.File(
-                os.path.join(self.offline_data_dir, self.scene_name, self.images_file_name),"r",
-            )
-            self.all_states = list(self.images.keys())
+                if self.images is not None:
+                    self.images.close()
+                self.images = self.h5py.File(
+                    os.path.join(self.offline_data_dir, self.scene_name, self.images_file_name),"r",
+                )
+
+            else: # Original data loading process
+                self.scene_name = scene_name
+                with open(
+                    os.path.join(
+                        self.offline_data_dir, self.scene_name, self.grid_file_name
+                    ),
+                    "r",
+                ) as f:
+                    self.grid = json.load(f)
+                with open(
+                    os.path.join(
+                        self.offline_data_dir, self.scene_name, self.graph_file_name
+                    ),
+                    "r",
+                ) as f:
+                    graph_json = json.load(f)
+                self.graph = self.json_graph_loader.node_link_graph(
+                    graph_json
+                ).to_directed()
+                with open(
+                    os.path.join(
+                        self.offline_data_dir, self.scene_name, self.metadata_file_name
+                    ),
+                    "r",
+                ) as f:
+                    self.metadata = json.load(f)
+                    # Determine if using the raw metadata, which is structured as a dictionary of
+                    # state -> metatdata. The alternative is a map of obj -> states where object is visible.
+                    key = next(iter(self.metadata.keys()))
+                    try:
+                        float(key.split("|")[0])
+                        self.using_raw_metadata = True
+                    except ValueError:
+                        self.using_raw_metadata = False
+
+                if self.images is not None:
+                    self.images.close()
+                self.images = self.h5py.File(
+                    os.path.join(self.offline_data_dir, self.scene_name, self.images_file_name),"r",
+                )
+                self.all_states = list(self.images.keys())
 
         self.state = self.get_full_state(
             **self.grid[0], rotation=random.choice(self.rotations)

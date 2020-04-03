@@ -39,6 +39,11 @@ def main():
         args.learned_loss = True
         args.num_steps = 6
         target = savn_val if args.eval else savn_train
+
+    # 检查pinned_scene 和 data_source 是否冲突
+    if args.data_source == "ithor" and args.pinned_scene == True:
+        raise Exception("Cannot set pinned_scene to true when using ithor dataset")
+
     # 获取模型对象类别， 未创建对象 e.g. <class 'models.basemodel.BaseModel'>
     create_shared_model = model_class(args.model)
     # 获取agent类别，未创建对象 default <class 'agents.navigation_agent.NavigationAgent'>

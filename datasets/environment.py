@@ -19,7 +19,9 @@ class Environment:
         images_file_name="images.hdf5",
         local_executable_path=None,
         rotate_by=None, # required param
-        state_decimal=None # required param
+        state_decimal=None, # required param,
+        pinned_scene = False, # required param
+        pre_metadata = None, # required param
     ):
 
         self.offline_data_dir = offline_data_dir
@@ -34,7 +36,9 @@ class Environment:
             visualize=False,
             local_executable_path=local_executable_path,
             rotate_by=rotate_by,
-            state_decimal=state_decimal
+            state_decimal=state_decimal,
+            pinned_scene = pinned_scene,
+            pre_metadata = pre_metadata,
         )
 
         self.grid_size = grid_size
