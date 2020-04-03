@@ -41,7 +41,7 @@ class SSController(Controller):
         state_decimal=None # required param
     ):
 
-        super(SSController, self).__init__()
+        super(SSController, self).__init__(gridSize=grid_size)
         # Allowed rotations.
         if rotate_by == 30:
             self.rotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]

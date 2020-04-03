@@ -119,8 +119,12 @@ class BasicEpisode(Episode):
         """ New navigation episode. """
         # Omit missed data
         scene = None
+        retry = 0
         while scene not in os.listdir(args.offline_data_dir):
             scene = random.choice(scenes)
+            retry += 1
+            if retry >= 1000:
+                raise Exception("No scenes found in {}".format(args.offline_data_dir))
 
         if self._env is None:
             self._env = Environment(
@@ -161,6 +165,7 @@ class BasicEpisode(Episode):
         self.glove_embedding = toFloatTensor(
             glove.glove_embeddings[goal_object_type][:], self.gpu_id
         )
+        return scene
 
     def new_episode(
         self,
@@ -176,4 +181,4 @@ class BasicEpisode(Episode):
         self.failed_action_count = 0
         self.prev_frame = None
         self.current_frame = None
-        self._new_episode(args, scenes, possible_targets, targets, keep_obj, glove)
+        return self._new_episode(args, scenes, possible_targets, targets, keep_obj, glove)

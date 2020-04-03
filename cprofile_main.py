@@ -19,14 +19,19 @@ from main_eval import main_eval
 from runners.train_util import load_checkpoint
 
 from runners import nonadaptivea3c_train, nonadaptivea3c_val, savn_train, savn_val
-
+import cProfile
 
 os.environ["OMP_NUM_THREADS"] = "1"
+
+def prof_target(target, rank, args, create_shared_model, shared_model,
+                init_agent, optimizer, train_res_queue, end_flag):
+    cProfile.runctx('target(rank,args,create_shared_model,shared_model,init_agent,optimizer,train_res_queue,end_flag)',
+                    globals(), locals(), 'prof_result/prof{}.prof'.format(rank))
 
 
 def main():
     # 设置进程名称
-    setproctitle.setproctitle("Train/Test Manager")
+    setproctitle.setproctitle("Cprofile Main")
 
     # 获取命令行参数
     args = flag_parser.parse_arguments()
@@ -45,10 +50,7 @@ def main():
     init_agent = agent_class(args.agent_type)
     # 获取优化器对象类别，未创建对象 default <class 'optimizers.shared_adam.SharedAdam'>
     optimizer_type = optimizer_class(args.optimizer)
-########################  测试阶段 ################################
-    if args.eval:
-        main_eval(args, create_shared_model, init_agent)
-        return
+
 ####################### 训练阶段 #################################
     start_time = time.time()
     local_start_time_str = time.strftime(
@@ -106,11 +108,14 @@ def main():
     train_res_queue = mp.Queue()
     # 创建多进程
     # target 进程执行目标函数
-    #
+
+    # 给target 加上套子
+
     for rank in range(0, args.workers):
         p = mp.Process(
-            target=target,
+            target=prof_target,
             args=(
+                target,
                 rank,
                 args,
                 create_shared_model,

@@ -286,6 +286,9 @@ def parse_arguments():
 
     parser.add_argument("--state_decimal", type=int, default=2, help="decimal of key in state data: e.g. images.hdf5")
 
+    parser.add_argument("--load_checkpoint", type=str, default="", help="file_name of checkpoint to load")
+
+    parser.add_argument("--ep_save_ckpt", type=int, default=1e5, help="frequency to save checkpoint")
 
     args = parser.parse_args()
 

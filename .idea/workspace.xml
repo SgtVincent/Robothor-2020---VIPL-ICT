@@ -2,28 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f262152-2868-472f-a90f-9402567d7a52" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/datasets/thor_agent_state.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/get_visible_object_map.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/scrape_robothor.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0329.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/startx.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cprofile_main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0402.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/train_base_robothor_finetune_2020_0402.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp_cprofile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/savn.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/savn.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/make_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/make_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper_Ithor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper_Ithor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_rotation_by30.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datasets/offline_sscontroller.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_sscontroller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/episodes/basic_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/basic_episode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/episodes/test_val_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/test_val_episode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/extract_feature.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/extract_feature.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/make_graph.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/make_graph.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0323.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runners/savn_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/savn_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runners/train_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/train_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0331.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train_base_robothor_2020_0331.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/flag_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/flag_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +66,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -96,7 +90,29 @@
       <recent name="E:\repository\savn\utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_robothor_30">
+  <component name="RunManager" selected="Python.aws_train_base">
+    <configuration name="aws_train_base" type="PythonConfigurationType" factoryName="Python" singleton="false">
+      <module name="savn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /home/ubuntu/Robothor_data --gpu-ids 0 --workers 4 --save-model-dir trained_base_2020_0331 --data_source robothor --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --scene_types FloorPlan_Train10 FloorPlan_Train11 FloorPlan_Train12" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="feature_extractioin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="savn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -243,7 +259,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--title base_train --model BaseModel --gpu-ids 0 --workers 1 --save-model-dir trained_base_2020_0319" />
+      <option name="PARAMETERS" value="--title base_train --model BaseModel --gpu-ids 0 --workers 1 --save-model-dir trained_base_2020_0331" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -265,7 +281,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /home/chenjunting/Robothor_data --gpu-ids 1 --workers 1 --save-model-dir trained_base_2020_0319 --data_source robothor --no_graph_check --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --scene_types FloorPlan_Train2" />
+      <option name="PARAMETERS" value="--title base_train --model BaseModel --offline_data_dir /data/robothor/Robothor_data --gpu-ids 0 --workers 1 --save-model-dir trained_base_2020_0331 --data_source robothor --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --scene_types FloorPlan_Train4 FloorPlan_Train5 FloorPlan_Train6" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -299,6 +315,7 @@
       <item itemvalue="Python.main" />
       <item itemvalue="Python.test_basemodel" />
       <item itemvalue="Python.test_robothor_30" />
+      <item itemvalue="Python.aws_train_base" />
       <item itemvalue="Python.scene_image_scraper_single_thread" />
       <item itemvalue="Python.test_tasks" />
       <item itemvalue="Python.feature_extractioin" />
@@ -332,7 +349,15 @@
       <workItem from="1584116267778" duration="68760000" />
       <workItem from="1584586121447" duration="48032000" />
       <workItem from="1584868452063" duration="79343000" />
-      <workItem from="1585319030493" duration="16274000" />
+      <workItem from="1585319030493" duration="41601000" />
+      <workItem from="1585713341522" duration="2438000" />
+      <workItem from="1585731870219" duration="682000" />
+      <workItem from="1585732615517" duration="376000" />
+      <workItem from="1585733047266" duration="381000" />
+      <workItem from="1585733696328" duration="150000" />
+      <workItem from="1585733855318" duration="16523000" />
+      <workItem from="1585819178118" duration="368000" />
+      <workItem from="1585820154369" duration="20767000" />
     </task>
     <servers />
   </component>
@@ -343,14 +368,14 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="71" key="#Deployment" timestamp="1584115537542">
+    <state x="361" y="71" key="#Deployment" timestamp="1585915358338">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="71" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1584115537542" />
-    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585452997992">
+    <state x="361" y="71" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1585915358338" />
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585855385404">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585452997992" />
+    <state x="245" y="170" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585855385404" />
     <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585216216852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -379,158 +404,157 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1583807447621" />
-    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog" timestamp="1584518235422">
+    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog" timestamp="1585902829924">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1584518235422" />
+    <state x="93" y="93" width="1350" height="638" key="DirDiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1585902829924" />
     <state x="454" y="259" key="EnvironmentVariablesDialog" timestamp="1584602268667">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="454" y="259" key="EnvironmentVariablesDialog/0.0.1536.824@0.0.1536.824" timestamp="1584602268667" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1583807421633">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1585757711398">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583807421633" />
-    <state width="1493" height="220" key="GridCell.Tab.0.bottom" timestamp="1585384040363">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585757711398" />
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
-    <state width="1493" height="220" key="GridCell.Tab.0.center" timestamp="1585384040363">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
-    <state width="1493" height="220" key="GridCell.Tab.0.left" timestamp="1585384040363">
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1585899991080">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
-    <state width="1493" height="220" key="GridCell.Tab.0.right" timestamp="1585384040363">
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585899991080" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585384040363" />
-    <state width="1493" height="220" key="GridCell.Tab.1.bottom" timestamp="1585384042529">
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.1.bottom" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
-    <state width="1493" height="220" key="GridCell.Tab.1.center" timestamp="1585384042529">
+    <state width="1493" height="223" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.1.center" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
-    <state width="1493" height="220" key="GridCell.Tab.1.left" timestamp="1585384042529">
+    <state width="1493" height="223" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.1.left" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
-    <state width="1493" height="220" key="GridCell.Tab.1.right" timestamp="1585384042529">
+    <state width="1493" height="223" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state width="1493" height="223" key="GridCell.Tab.1.right" timestamp="1585899991081">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="220" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585384042529" />
-    <state x="270" y="54" key="SettingsEditor" timestamp="1584772561713">
+    <state width="1493" height="223" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585899991081" />
+    <state x="270" y="54" key="SettingsEditor" timestamp="1585757958297">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="270" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584772561713" />
-    <state width="777" height="421" key="XDebugger.FullValuePopup" timestamp="1585039548252">
+    <state x="270" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585757958297" />
+    <state width="777" height="421" key="XDebugger.FullValuePopup" timestamp="1585833666549">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="777" height="421" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1585039548252" />
+    <state width="777" height="421" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1585833666549" />
     <state x="280" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1" timestamp="1583995394500">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="280" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583995394500" />
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1584868452280">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585731872100">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1584868452280" />
-    <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1584527173596">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585731872100" />
+    <state x="376" y="22" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585799775782">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1584527173596" />
-    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585378517134">
+    <state x="376" y="22" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1585799775782" />
+    <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1585855122654">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585378517134" />
-    <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1583811600363">
+    <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1585855122654" />
+    <state x="314" y="152" width="981" height="534" key="find.popup" timestamp="1585904694360">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="647" y="143" width="366" height="538" key="ftp.server.browser/0.0.1536.824@0.0.1536.824" timestamp="1583811600363" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585058988060">
+    <state x="314" y="152" width="981" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585904694360" />
+    <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1585853987907">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585058988060" />
+    <state x="647" y="143" width="366" height="538" key="ftp.server.browser/0.0.1536.824@0.0.1536.824" timestamp="1585853987907" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585732642440">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585732642440" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_val.py</url>
           <line>33</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>103</line>
+          <line>109</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation_backup_0331.py</url>
           <line>331</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <condition expression="str(search_state) == &quot;-1.50|1.00|270|0&quot;" language="Python" />
-          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
+          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation_backup_0331.py</url>
           <line>411</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>1782</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>1799</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>1367</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>336</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>341</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>1857</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>1818</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>2052</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/offline_sscontroller.py</url>
-          <line>441</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>103</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>112</line>
           <option name="timeStamp" value="75" />
@@ -540,126 +564,114 @@
           <line>294</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tasks.py</url>
           <line>261</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
-          <line>66</line>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/runners/train_util.py</url>
-          <line>10</line>
+          <line>12</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/feature_extractioin.py</url>
           <line>120</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/feature_extractioin.py</url>
           <line>80</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/feature_extractioin.py</url>
           <line>106</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>147</line>
           <option name="timeStamp" value="123" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>61</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>28</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>131</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/make_graph.py</url>
           <line>49</line>
           <option name="timeStamp" value="137" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/scene_image_scraper_Robothor.py</url>
           <line>85</line>
           <option name="timeStamp" value="142" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py</url>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/datasets/offline_controller_with_small_rotation_backup_0331.py</url>
           <line>658</line>
           <option name="timeStamp" value="143" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datasets/offline_sscontroller.py</url>
           <line>193</line>
           <option name="timeStamp" value="158" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/get_visible_object_map.py</url>
           <line>19</line>
           <option name="timeStamp" value="159" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/get_visible_object_map.py</url>
           <line>25</line>
           <option name="timeStamp" value="161" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
-          <line>77</line>
-          <option name="timeStamp" value="163" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/episodes/basic_episode.py</url>
           <line>73</line>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/episodes/basic_episode.py</url>
-          <line>160</line>
-          <option name="timeStamp" value="165" />
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="168" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>81</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runners/nonadaptivea3c_train.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="171" />
         </line-breakpoint>
       </breakpoints>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="self" language="Python" />
-        <watch expression="self.state" language="Python" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_Robothor.coverage" NAME="scene_image_scraper_Robothor Coverage Results" MODIFIED="1585222988055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/savn$wrong_case.coverage" NAME="wrong_case Coverage Results" MODIFIED="1583947224990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$test_robothor_30.coverage" NAME="test_robothor_30 Coverage Results" MODIFIED="1585378582577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$aws_train_base.coverage" NAME="aws_train_base Coverage Results" MODIFIED="1585854893102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$test_robothor_30.coverage" NAME="test_robothor_30 Coverage Results" MODIFIED="1585641371718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_all_positions.coverage" NAME="scene_image_scraper_all_positions Coverage Results" MODIFIED="1584378489709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$invoke_build_class_dataset.coverage" NAME="invoke_build_class_dataset Coverage Results" MODIFIED="1584435957694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$test_tasks.coverage" NAME="test_tasks Coverage Results" MODIFIED="1584547675460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$test_basemodel.coverage" NAME="test_basemodel Coverage Results" MODIFIED="1585066131531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$main.coverage" NAME="main Coverage Results" MODIFIED="1585038876133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$test_basemodel.coverage" NAME="test_basemodel Coverage Results" MODIFIED="1585812602837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$main.coverage" NAME="main Coverage Results" MODIFIED="1585811127514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$make_graph_python.coverage" NAME="make_graph  Coverage Results" MODIFIED="1585077006108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/savn$feature_extractioin.coverage" NAME="feature_extractioin Coverage Results" MODIFIED="1584796325803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/savn$get_visible_object_map.coverage" NAME="get_visible_object_map Coverage Results" MODIFIED="1585280293769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_utils" />

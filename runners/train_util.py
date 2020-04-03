@@ -2,6 +2,8 @@ from __future__ import division
 
 import torch
 from torch.autograd import Variable
+import re
+import os
 
 
 def run_episode(player, args, total_reward, model_options, training):
@@ -24,10 +26,10 @@ def new_episode(
     keep_obj=False,
     glove=None,
 ):
-    player.episode.new_episode(args, scenes, possible_targets, targets, keep_obj, glove)
+    scene = player.episode.new_episode(args, scenes, possible_targets, targets, keep_obj, glove)
     player.reset_hidden()
     player.done = False
-
+    return scene
 
 def a3c_loss(args, player, gpu_id, model_options):
     """ Borrowed from https://github.com/dgriff777/rl_a3c_pytorch. """
@@ -177,7 +179,6 @@ def end_episode(
         "ep_length": player.eps_len,
         "success": int(player.success),
     }
-
     results.update(**kwargs)
     res_queue.put(results)
 
@@ -213,3 +214,66 @@ def compute_spl(player, start_state):
 
     # This is due to a rare known bug.
     return 0, best
+
+def load_checkpoint(args, shared_model, optmizer):
+    # Load shared_model to CPU for synchronizing with models on gpu
+    # return train_total_ep, n_frames
+
+    train_total_ep = 0
+    n_frames = 0
+
+    if args.load_model != "":
+
+        load_model = args.load_model
+        # map_location arg specifies where (cpu/cudaX) to load model
+        saved_state = torch.load(load_model, map_location=lambda storage, loc: storage)
+        shared_model.load_state_dict(saved_state)
+
+        print("Load model file {}".format(load_model))
+        return train_total_ep, n_frames
+
+    if args.load_checkpoint != "":
+
+        checkpoint_path = os.path.join(args.save_model_dir, args.load_checkpoint)
+        checkpoint = torch.load(checkpoint_path, map_location=lambda storage, loc: storage)
+        shared_model.load_state_dict(checkpoint['shared_model'])
+        optmizer.load_state_dict(checkpoint['optimizer'])
+        train_total_ep = int(checkpoint['train_total_ep'])
+        n_frames = int(checkpoint['n_frames'])
+
+        print("Load checkpoint file {}".format(args.load_checkpoint))
+        return train_total_ep, n_frames
+    else:
+        # load latest checkpoint
+        title = args.title
+        pattern = "{}_(\d+)_(\d+)_(\d+-\d+-\d+_\d+:\d+:\d+).dat".format(args.title)
+
+        if not os.path.exists(args.save_model_dir):
+            os.makedirs(args.save_model_dir)
+        saved_model_paths = os.listdir(args.save_model_dir)
+        if not saved_model_paths: # no checkpoints found
+            print("Load no previous checkpoints")
+            return train_total_ep, n_frames
+
+        num_episode = []
+        for model in saved_model_paths:
+            if re.match(pattern, model):
+                num_episode.append(re.match(pattern, model).group(2))
+            else:
+                num_episode.append(0)
+
+        latest_file = saved_model_paths[num_episode.index(max(num_episode))]
+        latest_model = os.path.join(args.save_model_dir, latest_file)
+
+        # start from zero
+        # train_total_ep = int(re.match(pattern, latest_file).group(2))
+        # n_frames = int(re.match(pattern, latest_file).group(1))
+
+        # map_location arg specifies where (cpu/cudaX) to load model
+        saved_state = torch.load(latest_model, map_location=lambda storage, loc: storage)
+        shared_model.load_state_dict(saved_state)
+
+        print("Load latest model file {}".format(latest_model))
+        return train_total_ep, n_frames
+
+

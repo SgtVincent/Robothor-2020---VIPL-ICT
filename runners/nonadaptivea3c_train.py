@@ -69,7 +69,7 @@ def nonadaptivea3c_train(
         # Get a new episode.
         total_reward = 0
         player.eps_len = 0
-        new_episode(
+        scene = new_episode(
             args, player, scenes[idx[j]], possible_targets, targets[idx[j]], glove=glove
         )
         player_start_time = time.time()
@@ -90,9 +90,12 @@ def nonadaptivea3c_train(
                 # Transfer gradient to shared model and step optimizer.
                 transfer_gradient_from_player_to_shared(player, shared_model, gpu_id)
                 optimizer.step()
-                # Clear actions and repackage hidden.
+            # Clear actions and repackage hidden.
             if not player.done:
                 reset_player(player)
+
+        # print("Training Agent {}: finished episodes on {}, local loss {}".format(
+        #     rank, scene, loss.cpu().detach().numpy() ))
 
         for k in loss:
             loss[k] = loss[k].item()
@@ -103,7 +106,10 @@ def nonadaptivea3c_train(
             title=args.scene_types[idx[j]],
             total_time=time.time() - player_start_time,
             total_reward=total_reward,
+            policy_loss=loss['policy_loss'],
+            value_loss=loss['value_loss']
         )
+
         reset_player(player)
 
         j = (j + 1) % len(args.scene_types)

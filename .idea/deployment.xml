@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="chenjunting@localhost:13577">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@52.80.175.160:22">
     <serverData>
       <paths name="Copy of project-level server '73_ex_tunnel'">
         <serverdata>
@@ -28,6 +28,19 @@
             <excludedPath path="/pycharm_rmt_ws/savn/trained_models_2019-12-17" />
             <excludedPath path="/pycharm_rmt_ws/savn/test_val_split" />
             <excludedPath path="/pycharm_rmt_ws/savn/runs" />
+            <excludedPath path="/pycharm_rmt_ws/savn/class_images" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@52.80.175.160:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ubuntu/chenjunting/savn" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
           </excludedPaths>
         </serverdata>
       </paths>

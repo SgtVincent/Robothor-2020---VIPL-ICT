@@ -140,6 +140,8 @@ def savn_train(
             episode_num=0,
             total_time=time.time() - start_time,
             total_reward=total_reward,
+            policy_loss=loss['policy_loss'],
+            value_loss=loss['value_loss']
         )
 
         # Copy the meta_gradient to shared_model and step.
