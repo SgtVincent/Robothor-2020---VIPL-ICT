@@ -3,9 +3,10 @@ import random
 import os
 import torch
 
-from datasets.constants import GOAL_SUCCESS_REWARD, STEP_PENALTY
 from datasets.constants import DONE
 from datasets.environment import Environment
+from datasets.robothor_data import DIFFICULTY
+from datasets.thor_agent_state import ThorAgentState
 
 from utils.net_util import gpuify, toFloatTensor
 from utils.action_util import get_actions
@@ -34,6 +35,9 @@ class BasicEpisode(Episode):
         self.prev_frame = None
         self.current_frame = None
         self.grid_size = args.grid_size
+        self.goal_success_reward = args.goal_success_reward
+        self.step_penalty = args.step_penalty
+
 
         self.scene_states = []
         if args.eval:
@@ -73,7 +77,7 @@ class BasicEpisode(Episode):
 
     def judge(self, action):
         """ Judge the last event. """
-        reward = STEP_PENALTY
+        reward = self.step_penalty
 
         # Thresholding replaced with simple look up for efficiency.
         if self.environment.controller.state in self.scene_states:
@@ -91,7 +95,7 @@ class BasicEpisode(Episode):
             action_was_successful = False
             for id_ in self.task_data:
                 if self.environment.object_is_visible(id_):
-                    reward = GOAL_SUCCESS_REWARD
+                    reward = self.goal_success_reward
                     done = True
                     action_was_successful = True
                     break
@@ -113,11 +117,11 @@ class BasicEpisode(Episode):
             torch.LongTensor([target_object_index]), self.gpu_id
         )
 
-    def _new_episode(
-        self, args, scenes, possible_targets, targets=None, keep_obj=False, glove=None, pre_metadata=None
-    ):
+    def _new_random_episode(
+        self, args, scenes, possible_targets, targets=None,
+            keep_obj=False, glove=None, pre_metadata=None):
         """ New navigation episode. """
-        # Omit missed data
+        #random episode
         scene = None
         retry = 0
         while scene not in os.listdir(args.offline_data_dir):
@@ -137,6 +141,7 @@ class BasicEpisode(Episode):
                 state_decimal=args.state_decimal,
                 pinned_scene=args.pinned_scene,
                 pre_metadata=pre_metadata,
+                actions=self.actions
             )
             self._env.start(scene)
         else:
@@ -169,6 +174,82 @@ class BasicEpisode(Episode):
         )
         return scene
 
+    # curriculum_meta: episodes indexed by scene, difficulty, object_type in order
+    def _new_curriculum_episode(
+        self, args, scenes, possible_targets, targets=None,
+            keep_obj=False, glove=None, pre_metadata=None, curriculum_meta=None, total_ep=0):
+        """ New navigation episode. """
+        # choose a scene
+        scene = None
+        retry = 0
+
+        flag_episode_valid = False
+        while not flag_episode_valid:
+            # choose a scene
+            valid_scenes = os.listdir(args.offline_data_dir)
+            intersection_scenes = [scene for scene in scenes if scene in valid_scenes]
+            scene = random.choice(intersection_scenes)
+
+            # choose difficulty
+            if total_ep < args.difficulty_upgrade:
+                diff = DIFFICULTY[0]
+            elif total_ep < 2 * args.diffculty_upgrade:
+                diff = random.choice(DIFFICULTY[:2])
+            else:
+                diff = random.choice(DIFFICULTY[:3])
+
+            # choose object
+            visible_objects = curriculum_meta[scene][diff].keys()
+            intersection_objs = [obj for obj in visible_objects if obj in targets]
+            object_type = random.choice(intersection_objs)
+
+            episode = random.choice(curriculum_meta[scene][diff][object_type])
+            # TODO: Present validity checking method breaks the principle of tiered-design and decoupling
+            # TODO: Find a better way to check the validity of an episode  by junting, 2020-04-10
+
+            state = ThorAgentState(**episode['initial_position'],rotation=episode['initial_orientation'],
+                                   horizon=0, state_decimal=args.state_decimal)
+            if str(state) in pre_metadata[scene]['all_states']:
+                flag_episode_valid = True
+            else:
+                print("Episode ID {} not valid for its initial state missing from all_states".format(episode['id']) )
+
+
+        if self._env is None:
+            self._env = Environment(
+                offline_data_dir=args.offline_data_dir,
+                use_offline_controller=True,
+                grid_size=self.grid_size,
+                images_file_name=args.images_file_name,
+                local_executable_path=args.local_executable_path,
+                rotate_by=args.rotate_by,
+                state_decimal=args.state_decimal,
+                pinned_scene=args.pinned_scene,
+                pre_metadata=pre_metadata,
+                actions=self.actions
+            )
+            self._env.start(scene)
+        else:
+            self._env.reset(scene)
+
+        # initialize the start location.
+
+        self._env.initialize_agent_location(**episode['initial_position'],
+                                            rotation=episode['initial_orientation'],
+                                            horizon=0)
+        self.task_data = []
+        self.target_object = object_type
+        self.task_data.append(episode['object_id'])
+
+        if args.verbose:
+            print("Episode: Scene ", scene," Difficulty ",diff, " Navigating towards: ", object_type)
+
+        self.glove_embedding = None
+        self.glove_embedding = toFloatTensor(
+            glove.glove_embeddings[object_type][:], self.gpu_id
+        )
+        return scene
+
     def new_episode(
         self,
         args,
@@ -178,10 +259,19 @@ class BasicEpisode(Episode):
         keep_obj=False,
         glove=None,
         pre_metadata=None,
+        curriculum_meta=None,
+        total_ep=0,
     ):
         self.done_count = 0
         self.duplicate_count = 0
         self.failed_action_count = 0
         self.prev_frame = None
         self.current_frame = None
-        return self._new_episode(args, scenes, possible_targets, targets, keep_obj, glove, pre_metadata)
+
+        if args.curriculum_learning:
+            return self._new_curriculum_episode(args, scenes, possible_targets, targets,
+                                keep_obj, glove, pre_metadata, curriculum_meta, total_ep)
+
+        return self._new_random_episode(args, scenes, possible_targets, targets,
+                                keep_obj, glove, pre_metadata)
+

@@ -107,6 +107,10 @@ def main():
     processes = []
 
     end_flag = mp.Value(ctypes.c_bool, False)
+    global_ep = mp.Value(ctypes.c_int)
+
+    global_ep.value = train_total_ep
+
     # 多进程共享资源队列
     train_res_queue = mp.Queue()
     # 创建多进程
@@ -124,6 +128,7 @@ def main():
                 optimizer,
                 train_res_queue,
                 end_flag,
+                global_ep
             ),
         )
         p.start()
@@ -142,6 +147,8 @@ def main():
             train_result = train_res_queue.get()
             train_scalars.add_scalars(train_result)
             train_total_ep += 1
+            global_ep.value = train_total_ep
+
             n_frames += train_result["ep_length"]
             if (train_total_ep % train_thin) == 0:
                 log_writer.add_scalar("n_frames", n_frames, train_total_ep)

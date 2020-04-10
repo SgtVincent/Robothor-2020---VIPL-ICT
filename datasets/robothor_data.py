@@ -6,17 +6,14 @@ import os
 import json
 import networkx
 import h5py
+import numpy as np
 
-# TODO: change back to all after all data scraped
 scene_types = ['FloorPlan_Train1', 'FloorPlan_Train2', 'FloorPlan_Train3',
                'FloorPlan_Train4', 'FloorPlan_Train5', 'FloorPlan_Train6',
                'FloorPlan_Train7', 'FloorPlan_Train8', 'FloorPlan_Train9',
                'FloorPlan_Train10', 'FloorPlan_Train11', 'FloorPlan_Train12']
 
-# scene_types = ['FloorPlan_Train2',
-#                'FloorPlan_Train6',
-#                'FloorPlan_Train7', 'FloorPlan_Train8',
-#                'FloorPlan_Train10', 'FloorPlan_Train11', 'FloorPlan_Train12']
+DIFFICULTY = ['easy', 'medium', 'hard']
 
 def get_scenes(scene_type):
     # scene_type: "FloorPlan_TrainX" or "FloorPlan_ValY"
@@ -75,3 +72,36 @@ def preload_metadata(args, scene_types,
                 metadata[scene_name]['all_states'] = list(images.keys())
 
     return metadata
+
+def get_curriculum_meta(args, scenes):
+    scenes = np.array(scenes).reshape(-1)
+    curriculum_meta = {}
+    with open(args.episode_file) as f:
+        episodes = json.loads(f.read())
+        # Build a dictionary of the dataset indexed by scene->difficulty->object_type
+    for e in episodes:
+
+            scene = e['scene']
+            difficulty = e['difficulty']
+            object_type = e['object_type']
+
+            # omit scene not in scenes
+            if scene not in scenes:
+                continue
+
+            if scene not in curriculum_meta:
+                curriculum_meta[scene] = {}
+            if difficulty not in curriculum_meta[scene]:
+                curriculum_meta[scene][difficulty] = {}
+            if object_type not in curriculum_meta[scene][difficulty]:
+                curriculum_meta[scene][difficulty][object_type] = [e]
+            else:
+                curriculum_meta[scene][difficulty][object_type].append(e)
+
+    return curriculum_meta
+
+
+
+
+
+

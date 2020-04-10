@@ -3,5 +3,5 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="remote_ai2thor" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.6.10 (sftp://ubuntu@52.81.185.75:22/home/ubuntu/anaconda3/envs/pytorch_1_0/bin/python)" project-jdk-type="Python SDK" />
 </project>

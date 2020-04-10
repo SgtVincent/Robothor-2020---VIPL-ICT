@@ -500,7 +500,7 @@ class OfflineControllerWithSmallRotation(BaseController):
         # metadata_file_name='metadata.json',
         images_file_name="images.hdf5",
         debug_mode=True,
-        actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
+        actions=["MoveAhead", "MoveBack", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         visualize=True,
         local_executable_path=None,
         rotate_by=None, # required param
@@ -559,7 +559,16 @@ class OfflineControllerWithSmallRotation(BaseController):
                 grid_size=self.grid_size,
                 fov=self.fov,
                 actions=self.actions,
-                rotate_by=self.rotate_by
+                rotate_by=self.rotate_by,
+                state_decimal=self.state_decimal,
+                # by default, launch ai2thor controller for robothor
+                ai2thor_args={
+                    'start_unity': True,
+                    'width': 640,
+                    'height': 480,
+                    'agentMode': 'bot',
+                    'gridSize': 0.125,
+                }
             )
             if self.local_executable_path is not None:
                 self.controller.local_executable_path = self.local_executable_path
@@ -574,11 +583,14 @@ class OfflineControllerWithSmallRotation(BaseController):
         self.json_graph_loader = importlib.import_module("networkx.readwrite")
 
     def start(self):
-        if self.visualize:
-            self.controller.start()
-            self.controller.step(
-                dict(action="Initialize", gridSize=self.grid_size, fieldOfView=self.fov)
-            )
+        pass
+        # deprecated methods
+
+        # if self.visualize:
+        #     self.controller.start()
+        #     # self.controller.step(
+        #     #     dict(action="Initialize", gridSize=self.grid_size, fieldOfView=self.fov)
+        #     # )
 
     def get_full_state(self, x, y, z, rotation=0.0, horizon=0.0):
         return ThorAgentState(x, y, z, rotation, horizon, self.state_decimal)
@@ -668,10 +680,21 @@ class OfflineControllerWithSmallRotation(BaseController):
             self.controller.teleport_to_state(self.state)
 
     def randomize_state(self):
+        # self.state = self.get_state_from_str(
+        #     *[float(x) for x in random.choice(list(self.images.keys())).split("|")]
+        # )
         self.state = self.get_state_from_str(
-            *[float(x) for x in random.choice(list(self.images.keys())).split("|")]
+            *[float(x) for x in random.choice(self.all_states).split("|")]
         )
         self.state.horizon = 0
+        self.last_action_success = True
+        self.last_event = self._successful_event()
+
+        if self.visualize:
+            self.controller.teleport_to_state(self.state)
+
+    def initialize_state(self, x, y, z, rotation, horizon):
+        self.state = ThorAgentState(x, y, z, rotation, horizon, self.state_decimal)
         self.last_action_success = True
         self.last_event = self._successful_event()
 
@@ -686,9 +709,11 @@ class OfflineControllerWithSmallRotation(BaseController):
     def step(self, action, raise_for_failure=False):
 
         if "action" not in action or action["action"] not in self.actions:
+
             if action["action"] == "Initialize":
-                if self.visualize:
-                    self.controller.step(action, raise_for_failure)
+            # WARNING: deprecated methods
+            #     if self.visualize:
+            #         self.controller.step(action, raise_for_failure)
                 return
             raise Exception("Unsupported action.")
 
@@ -890,6 +915,42 @@ class OfflineControllerWithSmallRotation(BaseController):
                 next_state.x -= self.grid_size
             else:
                 raise Exception("Unknown Rotation")
+        if action == "MoveBack":
+            if next_state.rotation == 0:
+                next_state.z -= 2 * self.grid_size
+            elif next_state.rotation == 30:
+                next_state.z -= 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 60:
+                next_state.z -= self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 90:
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 120:
+                next_state.z += self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 150:
+                next_state.z += 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 180:
+                next_state.z += 2 * self.grid_size
+            elif next_state.rotation == 210:
+                next_state.z += 2 * self.grid_size
+                next_state.x += self.grid_size
+            elif next_state.rotation == 240:
+                next_state.z += self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 270:
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 300:
+                next_state.z -= self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 330:
+                next_state.z -= 2 * self.grid_size
+                next_state.x += self.grid_size
+            else:
+                raise Exception("Unknown Rotation")
+
         elif action == "RotateRight":
             next_state.rotation = (next_state.rotation + 30) % 360
         elif action == "RotateLeft":
@@ -903,6 +964,7 @@ class OfflineControllerWithSmallRotation(BaseController):
                 return None
             next_state.horizon = next_state.horizon + 30
         return next_state
+
 
     def _get_next_state_45(self, state, action, copy_state=False):
         if copy_state:

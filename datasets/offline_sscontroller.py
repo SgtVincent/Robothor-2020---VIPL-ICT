@@ -38,10 +38,11 @@ class SSController(Controller):
         actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"],
         cameraY=0.2,
         rotate_by=None, # required param
-        state_decimal=None # required param
+        state_decimal=None,# required param
+        ai2thor_args={}, # for compatibility with Ithor dataset
     ):
 
-        super(SSController, self).__init__(gridSize=grid_size)
+        super(SSController, self).__init__(**ai2thor_args)
         # Allowed rotations.
         if rotate_by == 30:
             self.rotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
@@ -242,6 +243,42 @@ class SSController(Controller):
                 next_state.x -= self.grid_size
             else:
                 raise Exception("Unknown Rotation")
+        if action == "MoveBack":
+            if next_state.rotation == 0:
+                next_state.z -= 2 * self.grid_size
+            elif next_state.rotation == 30:
+                next_state.z -= 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 60:
+                next_state.z -= self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 90:
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 120:
+                next_state.z += self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 150:
+                next_state.z += 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 180:
+                next_state.z += 2 * self.grid_size
+            elif next_state.rotation == 210:
+                next_state.z += 2 * self.grid_size
+                next_state.x += self.grid_size
+            elif next_state.rotation == 240:
+                next_state.z += self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 270:
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 300:
+                next_state.z -= self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 330:
+                next_state.z -= 2 * self.grid_size
+                next_state.x += self.grid_size
+            else:
+                raise Exception("Unknown Rotation")
+
         elif action == "RotateRight":
             next_state.rotation = (next_state.rotation + 30) % 360
         elif action == "RotateLeft":
@@ -323,29 +360,6 @@ class SSController(Controller):
         self.visited_seen_states = []
         self.scene_name = scene_name
         event = self.reset(scene_name)
-
-        if self.make_seg or self.make_class:
-            event = self.step(
-                dict(
-                    action="Initialize",
-                    gridSize=self.grid_size,
-                    fieldOfView=self.fov,
-                    renderClassImage=True,
-                    renderObjectImage=True,
-                    renderDepthImage=self.make_depth,
-                    cameraY=self.cameraY,
-                )
-            )
-        else:
-            event = self.step(
-                dict(
-                    action="Initialize",
-                    renderDepthImage=True,
-                    gridSize=self.grid_size,
-                    fieldOfView=self.fov,
-                    cameraY=self.cameraY,
-                )
-            )
         self.y = event.metadata["agent"]["position"]["y"]
 
         # get all reachable positions

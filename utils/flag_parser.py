@@ -19,6 +19,19 @@ def parse_arguments():
         help="learning rate (default: 0.01)",
     )
     parser.add_argument(
+        "--goal_success_reward",
+        type=float,
+        default=5,
+        help="episode success reward (default: 0.01)",
+    )
+    parser.add_argument(
+        "--step_penalty",
+        type=float,
+        default=-0.01,
+        help="episode success reward (default: -0.01)",
+    )
+
+    parser.add_argument(
         "--gamma",
         type=float,
         default=0.99,
@@ -49,7 +62,7 @@ def parse_arguments():
     parser.add_argument(
         "--max-episode-length",
         type=int,
-        default=30,
+        default=50,
         metavar="M",
         help="maximum length of an episode (default: 100)",
     )
@@ -126,7 +139,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--verbose",
-        type=bool,
+        action="store_true",
         default=False,
         help="If true, output will contain more information.",
     )
@@ -190,7 +203,7 @@ def parse_arguments():
         help="which dimension of the glove vector to use",
     )
     parser.add_argument(
-        "--action_space", type=int, default=6, help="space of possible actions."
+        "--action_space", type=int, default=7, help="space of possible actions, valid value: {4,6,7}."
     )
 
     parser.add_argument(
@@ -275,24 +288,35 @@ def parse_arguments():
     parser.add_argument("--test_or_val", default="val", help="test or val")
 
 ################## new arguments for robothor data #################
-    parser.add_argument("--data_source", type=str, default="ithor", help="selected from {ithor, robothor}" )
+    parser.add_argument("--data_source", type=str, default="robothor", help="selected from {ithor, robothor}" )
 
     # parser.add_argument("--graph_check", dest="graph_check", default=True, action="store_true",
     #                     help="whether use graph.json to check the validity of movement")
-    parser.add_argument("--no_graph_check", dest="graph_check", action="store_false")
-    parser.set_defaults(graph_check=True)
+    parser.add_argument("--no_graph_check", dest="graph_check", action="store_false", default=True)
+    # parser.set_defaults(graph_check=True)
 
-    parser.add_argument("--rotate_by", type=int, default=45, help="rotation degree for RotateLeft/RotateRight, valid value:{30, 45}")
+    parser.add_argument("--rotate_by", type=int, default=30, help="rotation degree for RotateLeft/RotateRight, valid value:{30, 45}")
 
-    parser.add_argument("--state_decimal", type=int, default=2, help="decimal of key in state data: e.g. images.hdf5")
+    parser.add_argument("--state_decimal", type=int, default=3, help="decimal of key in state data: e.g. images.hdf5")
 
     parser.add_argument("--load_checkpoint", type=str, default="", help="file_name of checkpoint to load")
 
-    parser.add_argument("--ep_save_ckpt", type=int, default=1e5, help="frequency to save checkpoint")
+    parser.add_argument("--ep_save_ckpt", type=int, default=100000, help="frequency to save checkpoint")
 
-    parser.add_argument("--pinned_scene", dest="pinned_scene", action="store_true",
+    parser.add_argument("--pinned_scene", dest="pinned_scene", action="store_true", default=False,
                         help="ONLY valied when data_source is robothor")
-    parser.set_defaults(pinned_scene=False)
+    # parser.set_defaults(pinned_scene=False)
+
+    parser.add_argument("--curriculum_learning", dest="curriculum_learning", default=False, action="store_true")
+    # parser.set_defaults(curriculum_learning=False)
+
+    parser.add_argument("--episode_file", type=str, default="./data/train.json", help="path to curriculum training episodes file")
+
+    parser.add_argument("--difficulty_upgrade", type=int, default=1000000,
+                        help="num of episodes after which the difficulty of data upgrades")
+
+
+
 
     args = parser.parse_args()
 

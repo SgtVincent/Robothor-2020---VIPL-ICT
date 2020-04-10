@@ -36,7 +36,11 @@ def parse_arguments():
     args = parser.parse_args()
     return args
 
-def search_and_save(in_queue, out_dir):
+def search_and_save(in_queue, out_dir, rank, gpus=[0,1,2,3]):
+
+    gpu_id = gpus[rank % len(gpus)]
+    os.system("export CUDA_VISIBLE_DEVICES={}".format(gpu_id))
+
     while not in_queue.empty():
         try:
             scene_name = in_queue.get(timeout=3)
@@ -49,9 +53,9 @@ def search_and_save(in_queue, out_dir):
             os.mkdir(sub_out_dir)
 
         print('starting:', scene_name)
+
         c = SSController(
             grid_size=0.125,
-            fov=90.0,
             grid_file=os.path.join(sub_out_dir, 'grid.json'),
             graph_file=os.path.join(sub_out_dir, 'graph.json'),
             metadata_file=os.path.join(sub_out_dir, 'metadata.json'),
@@ -59,7 +63,14 @@ def search_and_save(in_queue, out_dir):
             # depth_file=os.path.join(sub_out_dir, 'depth.hdf5'), # no depth data allowed in robothor-challenge
             grid_assumption=False,
             rotate_by=30,
-            state_decimal=3)
+            state_decimal=3,
+            ai2thor_args={
+                'start_unity':True,
+                'width':640,
+                'height':480,
+                'agentMode':'bot',
+                'gridSize':0.125,
+            })
         # c.start()
         c.search_all_closed(scene_name)
         c.stop()
@@ -87,7 +98,7 @@ def main():
 
     processes = []
     for i in range(num_processes):
-        p = Process(target=search_and_save, args=(queue, out_dir))
+        p = Process(target=search_and_save, args=(queue, out_dir, i))
         p.start()
         processes.append(p)
 

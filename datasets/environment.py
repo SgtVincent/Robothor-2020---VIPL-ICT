@@ -22,11 +22,14 @@ class Environment:
         state_decimal=None, # required param,
         pinned_scene = False, # required param
         pre_metadata = None, # required param
+        # WARNING: when feed actions to controller, action 'Done' should be removed
+        actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown", "Done"]
     ):
 
         self.offline_data_dir = offline_data_dir
         self.use_offline_controller = use_offline_controller
         self.images_file_name = images_file_name
+        self.actions = actions
 
         self.controller = OfflineControllerWithSmallRotation(
             grid_size=grid_size,
@@ -39,6 +42,7 @@ class Environment:
             state_decimal=state_decimal,
             pinned_scene = pinned_scene,
             pre_metadata = pre_metadata,
+            actions=actions[:-1]
         )
 
         self.grid_size = grid_size
@@ -46,6 +50,7 @@ class Environment:
         self.start_state = None
         self.last_action = None
         self.fov = fov
+        self.actions = actions
 
     @property
     def scene_name(self):
@@ -121,6 +126,16 @@ class Environment:
             return
 
         self.controller.randomize_state()
+        self.start_state = copy.deepcopy(self.controller.state)
+
+    def initialize_agent_location(self, x, y, z, rotation, horizon):
+        """ Put agent in a random reachable state. """
+        if not self.use_offline_controller:
+            self.teleport_agent_to(x, y, z, rotation, horizon)
+            self.start_state = copy.deepcopy(self.controller.state)
+            return
+
+        self.controller.initialize_state(x, y, z,rotation, horizon)
         self.start_state = copy.deepcopy(self.controller.state)
 
     def back_to_start(self):

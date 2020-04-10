@@ -54,7 +54,13 @@ def search_and_save(in_queue, out_dir):
             metadata_file=os.path.join(sub_out_dir, 'metadata.json'),
             images_file=os.path.join(sub_out_dir, 'images.hdf5'),
             # depth_file=os.path.join(sub_out_dir, 'depth.hdf5'), # no depth data allowed in robothor-challenge
-            grid_assumption=False)
+            grid_assumption=False,
+            ai2thor_args={
+                'start_unity':True,
+                'gridSize':0.25,
+                'fov':90,
+            }
+        )
         # c.start()
         c.search_all_closed(scene_name)
         c.stop()

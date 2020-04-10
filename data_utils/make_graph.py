@@ -68,7 +68,7 @@ class GraphMakerDegree30(GraphMaker):
             graph_dir=None,
             graph_file="graph.json",
             grid_size=0.125,
-            actions=["MoveAhead", "RotateLeft", "RotateRight", "LookUp", "LookDown"]
+            actions=["MoveAhead","MoveBack", "RotateLeft", "RotateRight", "LookUp", "LookDown"]
     ):
         super(GraphMakerDegree30, self).__init__(
             image_dir, image_file, graph_dir, graph_file)
@@ -115,6 +115,42 @@ class GraphMakerDegree30(GraphMaker):
                 next_state.x -= self.grid_size
             else:
                 raise Exception("Unknown Rotation")
+        if action == "MoveBack":
+            if next_state.rotation == 0:
+                next_state.z -= 2 * self.grid_size
+            elif next_state.rotation == 30:
+                next_state.z -= 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 60:
+                next_state.z -= self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 90:
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 120:
+                next_state.z += self.grid_size
+                next_state.x -= 2 * self.grid_size
+            elif next_state.rotation == 150:
+                next_state.z += 2 * self.grid_size
+                next_state.x -= self.grid_size
+            elif next_state.rotation == 180:
+                next_state.z += 2 * self.grid_size
+            elif next_state.rotation == 210:
+                next_state.z += 2 * self.grid_size
+                next_state.x += self.grid_size
+            elif next_state.rotation == 240:
+                next_state.z += self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 270:
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 300:
+                next_state.z -= self.grid_size
+                next_state.x += 2 * self.grid_size
+            elif next_state.rotation == 330:
+                next_state.z -= 2 * self.grid_size
+                next_state.x += self.grid_size
+            else:
+                raise Exception("Unknown Rotation")
+
         elif action == "RotateRight":
             next_state.rotation = (next_state.rotation + 30) % 360
         elif action == "RotateLeft":

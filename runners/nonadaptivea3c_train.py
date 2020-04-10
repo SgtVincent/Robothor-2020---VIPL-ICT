@@ -13,7 +13,7 @@ from agents.random_agent import RandomNavigationAgent
 
 import random
 
-from datasets.robothor_data import preload_metadata
+from datasets.robothor_data import preload_metadata, get_curriculum_meta
 
 from .train_util import (
     compute_loss,
@@ -34,10 +34,12 @@ def nonadaptivea3c_train(
     optimizer,
     res_queue,
     end_flag,
+    global_ep,
 ):
 
     glove = Glove(args.glove_file)
     pre_metadata = None
+    curriculum_meta = None
     scene_types = args.scene_types
 
     if args.data_source == "ithor":
@@ -53,7 +55,11 @@ def nonadaptivea3c_train(
             # TODO: design a flexible scene allocating strategy
             scene_types = [scene_types[(rank % len(scene_types))]]
             pre_metadata = preload_metadata(args, scene_types)
+
         scenes, possible_targets, targets = get_data(scene_types)
+
+        if args.curriculum_learning:
+            curriculum_meta = get_curriculum_meta(args, scenes)
 
 
     # is pinned_scene set to True, pre-load all metadata for controller
@@ -89,7 +95,8 @@ def nonadaptivea3c_train(
         total_reward = 0
         player.eps_len = 0
         scene = new_episode(
-            args, player, scenes[idx[j]], possible_targets, targets[idx[j]], glove=glove, pre_metadata=pre_metadata
+            args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove,
+            pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value,
         )
         player_start_time = time.time()
 

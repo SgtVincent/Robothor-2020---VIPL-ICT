@@ -15,8 +15,8 @@ ITHOR_SCENES=["FloorPlan{}".format(i) for i in
     list(range(401,431))
 ]
 
-ROBOTHOR_DIR="/home/chenjunting/ai2thor_data/Robothor_data"
-ITHOR_DIR="/home/chenjunting/ai2thor_data/Ithor_data"
+ROBOTHOR_DIR="/home/chenjunting/Robothor_data"
+ITHOR_DIR="/home/chenjunting/Ithor_data"
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images from ai2thor scene")
@@ -25,12 +25,6 @@ def parse_arguments():
         "--scene_dir",
         type=str,
         help="path where ai2thor scene images stored",
-    )
-    parser.add_argument(
-        "--scenes",
-        type=str,
-        default="robothor",
-        help="choice of scenes: {robothor, ithor}"
     )
     parser.add_argument(
         "--num_process",
@@ -45,11 +39,17 @@ def parse_arguments():
         help="image encoder in pretrainded_models to extract features"
     )
     parser.add_argument(
-        "-i",
-        type=int,
-        default=1
+        "--scenes",
+        type=str,
+        default=None,
+        help="specify scenes to scrape, in the format of 'scene1,scene2,...'"
     )
-
+    parser.add_argument(
+        "--gpus",
+        type=int,
+        default=[0],
+        nargs="+"
+    )
     args = parser.parse_args()
     return args
 
@@ -77,20 +77,23 @@ def resnet_input_transform(input_image, im_size=224):
     return transformed_image
 
 # save_shape default: resnet18: (512,7,7)
-def extract_features(scene, scene_dir, model, save_shape=(512,7,7)):
+def extract_features(scene, scene_dir, model, save_shape=(512,7,7), gpu_id=0):
+    torch.cuda.set_device(gpu_id)
     resnet18 = pretrainedmodels.__dict__[model](num_classes=1000, pretrained='imagenet')
     if torch.cuda.is_available():
-        resnet18.cuda()
+        resnet18.cuda(gpu_id)
 
 
     images = h5py.File('{}/{}/images.hdf5'.format(scene_dir, scene), 'r')
     features = h5py.File('{}/{}/{}.hdf5'.format(scene_dir, scene, model), 'w')
 
+    print("starting scrape {}".format(scene))
+
     for k in images:
         frame = resnet_input_transform(images[k][:], 224)
         frame = torch.Tensor(frame)
         if torch.cuda.is_available():
-            frame = frame.cuda()
+            frame = frame.cuda(gpu_id)
         frame = frame.unsqueeze(0)
 
         v = resnet18.features(frame)
@@ -103,38 +106,35 @@ def extract_features(scene, scene_dir, model, save_shape=(512,7,7)):
     features.close()
     print("Feature data in {} has been saved".format(scene))
 
-def mp_extract_features(queue, scene_dir, model, save_shape):
+def mp_extract_features(rank, args, queue, save_shape):
     while not queue.empty():
         try:
             scene = queue.get(timeout=3)
         except:
             return
-        extract_features(scene, scene_dir, model, save_shape)
+        gpu_id = args.gpus[rank % len(args.gpus)]
+        extract_features(scene, args.scene_dir, args.model, save_shape, gpu_id)
 
-def Test():
-    scene = 'FloorPlan1'
-    scene_dir = '/home/chenjunting/Documents/ai2thor_datasets/thor_offline_data_with_images'
-    extract_features(scene, scene_dir, 'resnet18_featuremap')
+# def Test():
+#     scene = 'FloorPlan1'
+#     scene_dir = '/home/chenjunting/Documents/ai2thor_datasets/thor_offline_data_with_images'
+#     extract_features(scene, scene_dir, 'resnet18_featuremap')
 
 if __name__ == "__main__":
 
     args = parse_arguments()
 
-    # prepare shared data
-    if args.scenes == "robothor":
-        scenes = ROBOTHOR_SCENES
-    elif args.scenes == "ithor":
-        scenes = ITHOR_SCENES
-    elif args.scenes == "custom_robothor":
-        scenes = ["FloorPlan_Train{}_{}".format(args.i, j) for j in range(1, 6)]
-    else:
-        raise Exception("--scenes value should be in {robothor, ithor, custom_robothor}")
+    if args.scenes:
+        scenes = args.scenes.split(',')
+    else: # all scenes in robothor
+        scenes = ["FloorPlan_Train{}_{}".format(i, j) for i in range(1,13) for j in range(1,6)]
+
     queue = mp.Queue()
     for x in scenes:
         queue.put(x)
     processes = []
     for rank in range(args.num_process):
-        p = mp.Process(target=mp_extract_features, args=(queue, args.scene_dir, args.model, (512,7,7)))
+        p = mp.Process(target=mp_extract_features, args=(rank, args, queue, (512,7,7)))
         p.start()
         processes.append(p)
 

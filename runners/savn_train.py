@@ -31,6 +31,7 @@ def savn_train(
     optimizer,
     res_queue,
     end_flag,
+    global_ep,
 ):
 
     glove = Glove(args.glove_file)

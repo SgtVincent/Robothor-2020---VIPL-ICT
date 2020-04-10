@@ -25,9 +25,12 @@ def new_episode(
     targets=None,
     keep_obj=False,
     glove=None,
-    pre_metadata=None
+    pre_metadata=None,
+    curriculum_meta=None,
+    total_ep = 0,
 ):
-    scene = player.episode.new_episode(args, scenes, possible_targets, targets, keep_obj, glove, pre_metadata)
+    scene = player.episode.new_episode(args, scenes, possible_targets, targets,
+                                       keep_obj, glove, pre_metadata, curriculum_meta, total_ep)
     player.reset_hidden()
     player.done = False
     return scene
@@ -259,7 +262,7 @@ def load_checkpoint(args, shared_model, optmizer):
         num_episode = []
         for model in saved_model_paths:
             if re.match(pattern, model):
-                num_episode.append(re.match(pattern, model).group(2))
+                num_episode.append(int(re.match(pattern, model).group(2)))
             else:
                 num_episode.append(0)
 
