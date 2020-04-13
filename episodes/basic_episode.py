@@ -193,7 +193,7 @@ class BasicEpisode(Episode):
             # choose difficulty
             if total_ep < args.difficulty_upgrade:
                 diff = DIFFICULTY[0]
-            elif total_ep < 2 * args.diffculty_upgrade:
+            elif total_ep < 2 * args.difficulty_upgrade:
                 diff = random.choice(DIFFICULTY[:2])
             else:
                 diff = random.choice(DIFFICULTY[:3])

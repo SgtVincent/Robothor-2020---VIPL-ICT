@@ -269,9 +269,8 @@ def load_checkpoint(args, shared_model, optmizer):
         latest_file = saved_model_paths[num_episode.index(max(num_episode))]
         latest_model = os.path.join(args.save_model_dir, latest_file)
 
-        # start from zero
-        # train_total_ep = int(re.match(pattern, latest_file).group(2))
-        # n_frames = int(re.match(pattern, latest_file).group(1))
+        train_total_ep = int(re.match(pattern, latest_file).group(2))
+        n_frames = int(re.match(pattern, latest_file).group(1))
 
         # map_location arg specifies where (cpu/cudaX) to load model
         saved_state = torch.load(latest_model, map_location=lambda storage, loc: storage)

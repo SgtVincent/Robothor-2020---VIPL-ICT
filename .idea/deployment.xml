@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="chenjunting@localhost:13577">
+  <component name="PublishConfigData" autoUpload="Always" serverName="aws_train">
     <serverData>
       <paths name="Copy of project-level server '73_ex_tunnel'">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
+        </serverdata>
+      </paths>
+      <paths name="aws_debug">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="aws_train">
@@ -43,18 +55,6 @@
             <excludedPath path="/pycharm_rmt_ws/savn/runs" />
             <excludedPath path="/pycharm_rmt_ws/savn/class_images" />
             <excludedPath local="true" path="$PROJECT_DIR$/data" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="ubuntu@52.81.185.75:22">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
           </excludedPaths>
         </serverdata>
       </paths>

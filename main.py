@@ -85,10 +85,8 @@ def main():
     )
     # 加载预先保存的模型
     train_total_ep, n_frames = load_checkpoint(args, shared_model, optimizer)
-
-    # 总训练episode
-    # train_total_ep = 0
-    # n_frames = 0
+    # TODO: delete this after debug
+    # train_total_ep = 1000001
 
     if shared_model is not None:
         # 模型在多进程间共享参数 这个参数是torch.mutiprocessing 调用fork之前必须调用的方法
