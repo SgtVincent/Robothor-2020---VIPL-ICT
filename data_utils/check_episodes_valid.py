@@ -79,7 +79,7 @@ def get_episodes(file_path, scenes):
                 curriculum_meta[scene][object_type].append(e)
 
     return curriculum_meta
-
+# check whether the the initial state of  
 def check_episode(e, scene_states, state_decimal):
     # check state
     state = ThorAgentState(**e['initial_position'], rotation=e['initial_orientation'],
@@ -98,7 +98,7 @@ if __name__ == '__main__':
         scenes = args.scenes.split(',')
     episodes = get_episodes(args.episode_file_path, scenes)
 
-    # get all sta
+    # get all state
     all_states = {}
     for scene in scenes:
         with h5py.File(os.path.join(args.data_dir, scene, "resnet18.hdf5"), 'r') as f:

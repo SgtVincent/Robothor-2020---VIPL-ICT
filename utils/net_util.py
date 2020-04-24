@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 import torch
 from torchvision import transforms
+import torch.nn as nn
 
 def gpuify(tensor, gpu_id):
     if gpu_id >= 0:
@@ -55,7 +56,10 @@ def weights_init(m):
         w_bound = np.sqrt(6. / (fan_in + fan_out))
         m.weight.data.uniform_(-w_bound, w_bound)
         m.bias.data.fill_(0)
-
+    elif classname.find('BatchNorm') != -1:
+        #nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+        m.weight.data.uniform_()
+        m.bias.data.zero_()
 
 class ScaleBothSides(object):
     """Rescales the input PIL.Image to the given 'size'.

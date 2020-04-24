@@ -197,7 +197,7 @@ def parse_arguments():
         help="specific objects for this experiment from the object list.",
     )
     parser.add_argument(
-        "--glove_dim",
+        "--target_dim",
         type=int,
         default=300,
         help="which dimension of the glove vector to use",
@@ -320,6 +320,6 @@ def parse_arguments():
 
     args = parser.parse_args()
 
-    args.glove_file = "{}/glove_map{}d.hdf5".format(args.glove_dir, args.glove_dim)
+    args.glove_file = "{}/glove_map{}d.hdf5".format(args.glove_dir, args.target_dim)
 
     return args

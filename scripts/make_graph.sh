@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 func(){
-  python data_utils/make_graph.py -i $1 --data_dir "/home/chenjunting/Robothor_data"
+  python data_utils/create_graph.py -i $1 --data_dir "/home/chenjunting/Robothor_data"
 }
 
 func 1&
