@@ -161,7 +161,7 @@ def get_points(controller,
                     point_set = point_set.difference(remove_set)
             return result
 
-
+        random.seed()
         points = random.sample(reachable_pos_set, desired_points * 4)
 
         final_point_set = filter_points(points, reachable_pos_set, grid_size * 2)
@@ -360,7 +360,7 @@ def create_robothor_dataset(
                 args.distance_upgrade_step,
                 args.penalty_decay
             )
-            if not os.path.exists(os.path.join(args.out_dir, scene, scene_out_file)):
+            if not os.path.exists(os.path.join(args.out_dir, scene)):
                 os.makedirs(os.path.join(args.out_dir, scene))
 
             with open(os.path.join(args.out_dir, scene, scene_out_file), 'w') as f:

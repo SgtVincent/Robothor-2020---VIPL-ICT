@@ -4,6 +4,7 @@ import time
 
 
 from datasets.glove import Glove
+from datasets.prototypes import Prototype
 
 import setproctitle
 
@@ -38,6 +39,7 @@ def nonadaptivea3c_train(
 ):
 
     glove = Glove(args.glove_file)
+    protos = Prototype(args.proto_file)
     pre_metadata = None
     curriculum_meta = None
     scene_types = args.scene_types
@@ -95,7 +97,7 @@ def nonadaptivea3c_train(
         total_reward = 0
         player.eps_len = 0
         scene = new_episode(
-            args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove,
+            args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
             pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value,
         )
         player_start_time = time.time()

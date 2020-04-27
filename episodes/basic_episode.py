@@ -26,6 +26,7 @@ class BasicEpisode(Episode):
         self.strict_done = strict_done
         self.task_data = None
         self.glove_embedding = None
+        self.prototype=None
         self.actions = get_actions(args)
         self.done_count = 0
         self.duplicate_count = 0
@@ -37,7 +38,12 @@ class BasicEpisode(Episode):
         self.grid_size = args.grid_size
         self.goal_success_reward = args.goal_success_reward
         self.step_penalty = args.step_penalty
+        self.step_penalty_table = []
 
+        step_penalty = args.step_penalty
+        for _ in range(0, args.max_ep, args.num_ep_per_stage):
+            self.step_penalty_table.append(step_penalty)
+            step_penalty = step_penalty * args.penalty_decay
 
         self.scene_states = []
         if args.eval:
@@ -119,7 +125,7 @@ class BasicEpisode(Episode):
 
     def _new_random_episode(
         self, args, scenes, possible_targets, targets=None,
-            keep_obj=False, glove=None, pre_metadata=None):
+            keep_obj=False, glove=None, protos=None, pre_metadata=None):
         """ New navigation episode. """
         #random episode
         scene = None
@@ -172,12 +178,14 @@ class BasicEpisode(Episode):
         self.glove_embedding = toFloatTensor(
             glove.glove_embeddings[goal_object_type][:], self.gpu_id
         )
+        self.prototype = toFloatTensor(protos.protos[goal_object_type][:],
+                                       self.gpu_id)
         return scene
 
     # curriculum_meta: episodes indexed by scene, difficulty, object_type in order
     def _new_curriculum_episode(
         self, args, scenes, possible_targets, targets=None,
-            keep_obj=False, glove=None, pre_metadata=None, curriculum_meta=None, total_ep=0):
+            keep_obj=False, glove=None, protos=None, pre_metadata=None, curriculum_meta=None, total_ep=0):
         """ New navigation episode. """
         # choose a scene
         scene = None
@@ -190,20 +198,29 @@ class BasicEpisode(Episode):
             intersection_scenes = [scene for scene in scenes if scene in valid_scenes]
             scene = random.choice(intersection_scenes)
 
-            # choose difficulty
-            if total_ep < args.difficulty_upgrade:
-                diff = DIFFICULTY[0]
-            elif total_ep < 2 * args.difficulty_upgrade:
-                diff = random.choice(DIFFICULTY[:2])
-            else:
-                diff = random.choice(DIFFICULTY[:3])
+            # TODO: choose difficulty
+            try:
+                diff = round(total_ep // args.num_ep_per_stage) + 1
+                diff_idx = random.choice(range(diff))
+                # if total_ep < args.difficulty_upgrade_step:
+                #     diff = DIFFICULTY[0]
+                # elif total_ep < 2 * args.difficulty_upgrade_step:
+                #     diff = random.choice(DIFFICULTY[:2])
+                # else:
+                #     diff = random.choice(DIFFICULTY[:3])
 
-            # choose object
-            visible_objects = curriculum_meta[scene][diff].keys()
-            intersection_objs = [obj for obj in visible_objects if obj in targets]
-            object_type = random.choice(intersection_objs)
+                # choose object
+                # visible_objects = curriculum_meta[scene][diff].keys()
+                # intersection_objs = [obj for obj in visible_objects if obj in targets]
+                # object_type = random.choice(intersection_objs)
 
-            episode = random.choice(curriculum_meta[scene][diff][object_type])
+                episode = random.choice(curriculum_meta[scene][diff_idx])
+                object_type = episode['object_type']
+                if object_type not in targets:
+                    continue
+            except:
+                continue
+
             # TODO: Present validity checking method breaks the principle of tiered-design and decoupling
             # TODO: Find a better way to check the validity of an episode  by junting, 2020-04-10
 
@@ -248,6 +265,8 @@ class BasicEpisode(Episode):
         self.glove_embedding = toFloatTensor(
             glove.glove_embeddings[object_type][:], self.gpu_id
         )
+        self.prototype = toFloatTensor(protos.protos[object_type][:],
+                                       self.gpu_id)
         return scene
 
     def new_episode(
@@ -258,6 +277,7 @@ class BasicEpisode(Episode):
         targets=None,
         keep_obj=False,
         glove=None,
+        protos=None,
         pre_metadata=None,
         curriculum_meta=None,
         total_ep=0,
@@ -269,9 +289,14 @@ class BasicEpisode(Episode):
         self.current_frame = None
 
         if args.curriculum_learning:
+            diff = round(total_ep // args.num_ep_per_stage) + 1
+            self.step_penalty = self.step_penalty_table[diff - 1]
+
             return self._new_curriculum_episode(args, scenes, possible_targets, targets,
-                                keep_obj, glove, pre_metadata, curriculum_meta, total_ep)
+                                keep_obj, glove, protos, pre_metadata, curriculum_meta, total_ep)
+            # set penalty decay
+
 
         return self._new_random_episode(args, scenes, possible_targets, targets,
-                                keep_obj, glove, pre_metadata)
+                                keep_obj, glove, protos, pre_metadata)
 

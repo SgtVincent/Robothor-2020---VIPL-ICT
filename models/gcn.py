@@ -27,7 +27,7 @@ def normalize_adj(adj):
 class GCN(torch.nn.Module):
     def __init__(self, args):
         action_space = args.action_space
-        target_embedding_sz = args.glove_dim
+        target_embedding_sz = args.target_dim
         resnet_embedding_sz = 512
         hidden_state_sz = args.hidden_state_sz
         super(GCN, self).__init__()

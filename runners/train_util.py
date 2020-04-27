@@ -25,12 +25,21 @@ def new_episode(
     targets=None,
     keep_obj=False,
     glove=None,
+    protos=None,
     pre_metadata=None,
     curriculum_meta=None,
     total_ep = 0,
 ):
-    scene = player.episode.new_episode(args, scenes, possible_targets, targets,
-                                       keep_obj, glove, pre_metadata, curriculum_meta, total_ep)
+    scene = player.episode.new_episode(args=args,
+                                       scenes=scenes,
+                                       possible_targets=possible_targets,
+                                       targets=targets,
+                                       keep_obj=keep_obj,
+                                       glove=glove,
+                                       protos=protos,
+                                       pre_metadata=pre_metadata,
+                                       curriculum_meta=curriculum_meta,
+                                       total_ep=total_ep)
     player.reset_hidden()
     player.done = False
     return scene

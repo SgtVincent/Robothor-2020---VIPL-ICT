@@ -37,10 +37,10 @@ def nonadaptivea3c_val(
     scenes = scenes[num]
     targets = targets[num]
 
-    if scene_type == "living_room":
-        args.max_episode_length = 200
-    else:
-        args.max_episode_length = 100
+    # if scene_type == "living_room":
+    #     args.max_episode_length = 200
+    # else:
+    #     args.max_episode_length = 100
 
     setproctitle.setproctitle("Agent: {}".format(rank))
 

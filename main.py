@@ -31,14 +31,15 @@ def main():
     # 获取命令行参数
     args = flag_parser.parse_arguments()
 
-    if args.model == "BaseModel" or args.model == "GCN":
-        args.learned_loss = False
-        args.num_steps = 50
-        target = nonadaptivea3c_val if args.eval else nonadaptivea3c_train
-    else:
+    if args.model == "SAVN":
         args.learned_loss = True
         args.num_steps = 6
         target = savn_val if args.eval else savn_train
+    else:
+        args.learned_loss = False
+        args.num_steps = args.max_episode_length
+        target = nonadaptivea3c_val if args.eval else nonadaptivea3c_train
+
 
     # 检查pinned_scene 和 data_source 是否冲突
     if args.data_source == "ithor" and args.pinned_scene == True:

@@ -76,27 +76,11 @@ def preload_metadata(args, scene_types,
 def get_curriculum_meta(args, scenes):
     scenes = np.array(scenes).reshape(-1)
     curriculum_meta = {}
-    with open(args.episode_file) as f:
-        episodes = json.loads(f.read())
-        # Build a dictionary of the dataset indexed by scene->difficulty->object_type
-    for e in episodes:
-
-            scene = e['scene']
-            difficulty = e['difficulty']
-            object_type = e['object_type']
-
-            # omit scene not in scenes
-            if scene not in scenes:
-                continue
-
-            if scene not in curriculum_meta:
-                curriculum_meta[scene] = {}
-            if difficulty not in curriculum_meta[scene]:
-                curriculum_meta[scene][difficulty] = {}
-            if object_type not in curriculum_meta[scene][difficulty]:
-                curriculum_meta[scene][difficulty][object_type] = [e]
-            else:
-                curriculum_meta[scene][difficulty][object_type].append(e)
+    for scene in scenes:
+        meta_file_path = os.path.join(args.curriculum_meta_dir, scene, scene+'_'+args.meta_pattern)
+        with open(meta_file_path) as f:
+            scene_meta = json.loads(f.read())
+            curriculum_meta[scene] = scene_meta['episodes'][scene]
 
     return curriculum_meta
 

@@ -11,27 +11,27 @@ from .model_io import ModelOutput
 class BaseModel(torch.nn.Module):
     def __init__(self, args):
         action_space = args.action_space
-        target_embedding_sz = args.glove_dim
+        target_embedding_sz = args.target_dim
         resnet_embedding_sz = args.hidden_state_sz
         hidden_state_sz = args.hidden_state_sz
         super(BaseModel, self).__init__()
 
-        self.conv1 = nn.Conv2d(resnet_embedding_sz, 64, 1)
-        self.maxp1 = nn.MaxPool2d(2, 2)
-        self.embed_glove = nn.Linear(target_embedding_sz, 64)
-        self.embed_action = nn.Linear(action_space, 10)
+        self.conv1 = nn.Conv2d(resnet_embedding_sz, 64, 1) # Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
+        self.maxp1 = nn.MaxPool2d(2, 2) # MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        self.embed_glove = nn.Linear(target_embedding_sz, 64) # Linear(in_features=300, out_features=64, bias=True)
+        self.embed_action = nn.Linear(action_space, 10) # Linear(in_features=7, out_features=10, bias=True)
 
         pointwise_in_channels = 138
 
-        self.pointwise = nn.Conv2d(pointwise_in_channels, 64, 1, 1)
+        self.pointwise = nn.Conv2d(pointwise_in_channels, 64, 1, 1) # Conv2d(138, 64, kernel_size=(1, 1), stride=(1, 1))
 
         lstm_input_sz = 7 * 7 * 64
 
         self.hidden_state_sz = hidden_state_sz
-        self.lstm = nn.LSTMCell(lstm_input_sz, hidden_state_sz)
+        self.lstm = nn.LSTMCell(lstm_input_sz, hidden_state_sz) # LSTMCell(3136, 512)
         num_outputs = action_space
-        self.critic_linear = nn.Linear(hidden_state_sz, 1)
-        self.actor_linear = nn.Linear(hidden_state_sz, num_outputs)
+        self.critic_linear = nn.Linear(hidden_state_sz, 1) #Linear(in_features=512, out_features=1, bias=True)
+        self.actor_linear = nn.Linear(hidden_state_sz, num_outputs) # Linear(in_features=6272, out_features=7, bias=True)
 
         self.apply(weights_init)
         relu_gain = nn.init.calculate_gain("relu")

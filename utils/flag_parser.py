@@ -62,9 +62,9 @@ def parse_arguments():
     parser.add_argument(
         "--max-episode-length",
         type=int,
-        default=50,
+        default=150,
         metavar="M",
-        help="maximum length of an episode (default: 100)",
+        help="maximum length of an episode (default: 150)",
     )
 
     parser.add_argument(
@@ -144,10 +144,13 @@ def parse_arguments():
         help="If true, output will contain more information.",
     )
     parser.add_argument(
-        "--max_ep", type=float, default=6000000, help="maximum # of episodes"
+        "--max_ep", type=int, default=6000000, help="maximum # of episodes"
     )
 
-    parser.add_argument("--model", type=str, default="BaseModel", help="Model to use.")
+    parser.add_argument("--model",
+                        type=str,
+                        default="BaseModel",
+                        help="Model to use.{BaseModel, GCN, SAVN, RelnetModel}")
 
     parser.add_argument(
         "--train_thin", type=int, default=1000, help="How often to print"
@@ -227,6 +230,7 @@ def parse_arguments():
         default="./data/thor_glove",
         help="where the glove files are stored.",
     )
+
     parser.add_argument(
         "--images_file_name",
         type=str,
@@ -310,13 +314,27 @@ def parse_arguments():
     parser.add_argument("--curriculum_learning", dest="curriculum_learning", default=False, action="store_true")
     # parser.set_defaults(curriculum_learning=False)
 
-    parser.add_argument("--episode_file", type=str, default="./data/train.json", help="path to curriculum training episodes file")
+    # parser.add_argument("--episode_file", type=str, default="./data/train.json", help="path to curriculum training episodes file")
+    parser.add_argument("--curriculum_meta_dir", type=str, default="./data/curriculum_meta", help="directory to store curriculum meta files")
+    parser.add_argument("--meta_pattern", type=str, default="curriculum_300000_1.0_0.8.json")
 
-    parser.add_argument("--difficulty_upgrade", type=int, default=1000000,
-                        help="num of episodes after which the difficulty of data upgrades")
+    parser.add_argument("--distance_upgrade_step",type=float,default=1.0)
+    parser.add_argument("--penalty_decay",type=float,default=0.8)
+    parser.add_argument(
+        "--num_ep_per_stage",
+        type=int,
+        default=300000,
+        help="number of episodes for each curriculum training stage"
+    )
 
+    parser.add_argument(
+        "--proto_file",
+        type=str,
+        default="./data/object_protos_online.hdf5",
+        help="file to store prototypes of target objects"
+    )
 
-
+################### new argumentes end #############################
 
     args = parser.parse_args()
 

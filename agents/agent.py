@@ -46,6 +46,7 @@ class ThorAgent:
         self.num_steps = args.num_steps
         self.hidden_state_sz = args.hidden_state_sz
         self.action_space = args.action_space
+        self.model_name = args.model
 
     def sync_with_shared(self, shared_model):
         """ Sync with the shared model. """

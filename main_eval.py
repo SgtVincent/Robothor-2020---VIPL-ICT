@@ -36,14 +36,16 @@ def main_eval(args, create_shared_model, init_agent):
     processes = []
 
     res_queue = mp.Queue()
-    if args.model == "BaseModel" or args.model == "GCN":
-        args.learned_loss = False
-        args.num_steps = 50
-        target = nonadaptivea3c_val
-    else:
+
+    if args.model == "SAVN":
         args.learned_loss = True
         args.num_steps = 6
         target = savn_val
+    else:
+        args.learned_loss = False
+        args.num_steps = args.max_episode_length
+        target = nonadaptivea3c_val
+
 
     rank = 0
     for scene_type in args.scene_types:

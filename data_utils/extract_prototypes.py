@@ -43,7 +43,12 @@ def parse_arguments():
         default=[],
         help="target objects to save prototype, default save all objects in <class_images_dir>"
     )
-
+    parser.add_argument(
+        "--data_source",
+        type=str,
+        default="online",
+        help="choose from {online, ai2thor}"
+    )
     parser.add_argument(
         "--scenes",
         nargs='+',
@@ -122,7 +127,8 @@ def mean_O_n(images, gpu, model, batch_size=20):
 
 
 # extract prototype for object_type by calculating mean of all images of the class
-def extract_prototypes(object_type, class_dir, scenes, batch_size, model, proto_queue, save_shape=(512, 7, 7), gpu_id=0):
+def extract_prototypes(object_type, class_dir, scenes, batch_size, model, data_source,
+                       proto_queue, save_shape=(512, 7, 7), gpu_id=0):
     torch.cuda.set_device(gpu_id)
     # TODO: add more models options
     resnet18 = pretrainedmodels.__dict__[model](num_classes=1000, pretrained='imagenet')
@@ -130,16 +136,23 @@ def extract_prototypes(object_type, class_dir, scenes, batch_size, model, proto_
         resnet18.cuda(gpu_id)
 
     images = []
-    for scene in scenes:
-        if not os.path.exists(os.path.join(class_dir, scene, object_type)):
-            continue
-        images += [os.path.join(class_dir, scene, object_type, img_file)
-                   for img_file in os.listdir(os.path.join(class_dir, scene, object_type))]
+    if data_source == "online":
+        images = [os.path.join(class_dir, object_type, img_file)
+                       for img_file in os.listdir(os.path.join(class_dir, object_type))]
+    elif data_source == "ai2thor":
+        for scene in scenes:
+            if not os.path.exists(os.path.join(class_dir, scene, object_type)):
+                continue
+            images += [os.path.join(class_dir, scene, object_type, img_file)
+                       for img_file in os.listdir(os.path.join(class_dir, scene, object_type))]
+    else:
+        print("data source({}) not allowed, choose from: online, ai2thor".format(data_source))
+        exit(0)
 
     print("start to calculate prototype for object {}".format(object_type))
 
     proto = mean_O_n(images, gpu_id, resnet18, batch_size)
-    proto_queue.put({object_type:
+    proto_queue.put({object_type.replace(" ",""):
         {
             "prototype":proto,
             "num_images":len(images),
@@ -162,6 +175,7 @@ def mp_extract_prototypes(rank, args, obj_queue, proto_queue, save_shape):
                            scenes=args.scenes,
                            batch_size=args.batch_size,
                            model=args.model,
+                           data_source=args.data_source,
                            proto_queue=proto_queue,
                            gpu_id=gpu_id)
 
@@ -179,10 +193,13 @@ if __name__ == '__main__':
 
     all_objects = []
     if args.object_types == []:
-        for scene in args.scenes:
-            if scene not in os.listdir(args.class_images_dir):
-                continue
-            all_objects += os.listdir(os.path.join(args.class_images_dir, scene))
+        if args.data_source == "ai2thor":
+            for scene in args.scenes:
+                if scene not in os.listdir(args.class_images_dir):
+                    continue
+                all_objects += os.listdir(os.path.join(args.class_images_dir, scene))
+        else:
+            all_objects = os.listdir(args.class_images_dir)
         all_objects = sorted(np.unique(np.array(all_objects)))
     else:
         all_objects = args.object_types

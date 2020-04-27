@@ -29,7 +29,13 @@ class NavigationAgent(ThorAgent):
         else:
             model_input.state = self.episode.current_frame
         model_input.hidden = self.hidden
-        model_input.target_class_embedding = self.episode.glove_embedding # [300]
+
+        # choose target_class_embedding
+        if self.model_name == "RelnetModel":
+            model_input.target_class_embedding = self.episode.prototype # [1, 512, 7, 7]
+        else:
+            model_input.target_class_embedding = self.episode.glove_embedding # [300]
+
         model_input.action_probs = self.last_action_probs # [1, #(ACTION_SPACE)]
 
         return model_input, self.model.forward(model_input, model_options)
