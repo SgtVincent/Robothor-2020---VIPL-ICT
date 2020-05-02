@@ -1,2 +1,6 @@
-/.idea/
-/.vscode/
+.idea/
+.vscode/
+.idea/deployment.xml
+.idea/deployment.xml
+.idea/savn.iml
+.idea/workspace.xml

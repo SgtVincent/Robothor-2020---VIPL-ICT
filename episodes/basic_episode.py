@@ -178,7 +178,7 @@ class BasicEpisode(Episode):
         self.glove_embedding = toFloatTensor(
             glove.glove_embeddings[goal_object_type][:], self.gpu_id
         )
-        self.prototype = toFloatTensor(protos.protos[goal_object_type][:],
+        self.prototype = toFloatTensor(protos.protos[goal_object_type.lower()][:],
                                        self.gpu_id)
         return scene
 
@@ -265,7 +265,7 @@ class BasicEpisode(Episode):
         self.glove_embedding = toFloatTensor(
             glove.glove_embeddings[object_type][:], self.gpu_id
         )
-        self.prototype = toFloatTensor(protos.protos[object_type][:],
+        self.prototype = toFloatTensor(protos.protos[object_type.lower()][:],
                                        self.gpu_id)
         return scene
 

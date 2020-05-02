@@ -56,7 +56,7 @@ def parse_arguments():
     parser.add_argument(
         "--min_visible_ratio",
         type=float,
-        default = 0.4,
+        default = 0.5,
         help="object must be at least <min_visible_ratio> in view"
     )
     parser.add_argument(
@@ -169,7 +169,8 @@ def class_dataset_images_for_scene(scene_name, args):
 
             for o in event.metadata["objects"]:
 
-                if o["visible"] and o["objectId"] and o["pickupable"]:
+                # if o["visible"] and o["objectId"] and o["pickupable"]:
+                if o["visible"] and o["objectId"]:
                     color = event.object_id_to_color[o["objectId"]]
                     mask = (
                         (event.instance_segmentation_frame[:, :, 0] == color[0])

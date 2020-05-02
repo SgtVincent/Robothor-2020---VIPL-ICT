@@ -9,6 +9,10 @@ from PIL import Image
 import numpy as np
 import h5py
 
+object_type_to_imagenet_index = {
+
+}
+
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images from ai2thor scene")
 
@@ -19,15 +23,15 @@ def parse_arguments():
         help="path where object images stored",
     )
     parser.add_argument(
-        "--out_path",
+        "--dump_json",
         type=str,
-        default="/home/ubuntu/chenjunting/savn/data/object_protos.hdf5",
-        help="path to store prototypes",
+        default="",
+        help="path to dump classification result",
     )
     parser.add_argument(
         "--num_process",
         type=int,
-        default=16,
+        default=8,
         help="number of processes launched to scrape images parallelly",
     )
     parser.add_argument(
@@ -72,7 +76,6 @@ def parse_arguments():
 
     parser.add_argument(
         "--gpus",
-        type=int,
         nargs="+",
         default=[0]
     )
@@ -128,8 +131,8 @@ def mean_O_n(images, gpu, model, batch_size=20):
 
 
 # extract prototype for object_type by calculating mean of all images of the class
-def extract_prototypes(object_type, class_dir, scenes, batch_size, model, data_source,
-                       proto_queue, save_shape=(512, 7, 7), gpu_id=0):
+def test_class_images(object_type, class_dir, scenes, batch_size, model, data_source,
+                       proto_queue, gpu_id=0):
     torch.cuda.set_device(gpu_id)
     # TODO: add more models options
     resnet18 = pretrainedmodels.__dict__[model](num_classes=1000, pretrained='imagenet')
@@ -150,9 +153,19 @@ def extract_prototypes(object_type, class_dir, scenes, batch_size, model, data_s
         print("data source({}) not allowed, choose from: online, ai2thor".format(data_source))
         exit(0)
 
-    print("start to calculate prototype for object {}".format(object_type))
+    print("start to calculate classification accuracy for object {}".format(object_type))
 
-    proto = mean_O_n(images, gpu_id, resnet18, batch_size)
+    # calculate classification result
+    num_images = len(images)
+    proto = None
+    count = 0
+    for i in range(0, num_images, batch_size):
+        batch_images = [Image.open(img_path)
+                        for img_path in images[i: i + batch_size]]
+        batch_tensors = torch.stack([resnet_input_transform(image)
+                                     for image in batch_images], dim=0).cuda(gpu_id)
+        batch_features = model.features(batch_tensors)
+
     proto_queue.put({object_type.replace(" ",""):
         {
             "prototype":proto,
@@ -163,7 +176,7 @@ def extract_prototypes(object_type, class_dir, scenes, batch_size, model, data_s
     return
 
 # helper function for multiprocessing
-def mp_extract_prototypes(rank, args, obj_queue, proto_queue, save_shape):
+def mp_test_class_images(rank, args, obj_queue, proto_queue, save_shape):
     while not obj_queue.empty():
         try:
             object_type = obj_queue.get(timeout=3)
@@ -171,7 +184,7 @@ def mp_extract_prototypes(rank, args, obj_queue, proto_queue, save_shape):
             return
         gpu_id = args.gpus[rank % len(args.gpus)]
         # extract_features(scene, args.scene_dir, args.model, save_shape, gpu_id)
-        extract_prototypes(object_type=object_type,
+        test_class_images(object_type=object_type,
                            class_dir=args.class_images_dir,
                            scenes=args.scenes,
                            batch_size=args.batch_size,
@@ -223,5 +236,5 @@ if __name__ == '__main__':
 
     with h5py.File(args.out_path, 'w') as f:
         for key in proto_dict.keys():
-            f.create_dataset(key.lower(), data=proto_dict[key]['prototype'])
-            print("There are {} images of {}".format(proto_dict[key]['num_images'], key.lower()))
+            f.create_dataset(key, data=proto_dict[key]['prototype'])
+            print("There are {} images of {}".format(proto_dict[key]['num_images'], key))

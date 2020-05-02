@@ -7,6 +7,14 @@ from utils.net_util import norm_col_init, weights_init
 
 from .model_io import ModelOutput
 
+# relnet_kernel_size = 3
+# lstm_input_feature_map_size = 5
+
+match_block_kernel_size = 1
+feature_map_size = 7
+action_channels = 10
+fusion_channels = 64 * 2 + action_channels
+
 class RelationNetwork(nn.Module):
     """docstring for RelationNetwork"""
     def __init__(self,input_size,hidden_size):
@@ -23,6 +31,7 @@ class RelationNetwork(nn.Module):
                         nn.MaxPool2d(2))
         self.fc1 = nn.Linear(input_size*3*3,hidden_size)
         self.fc2 = nn.Linear(hidden_size,1)
+
     def forward(self,x):
         out = self.layer1(x)
         out = self.layer2(out)
@@ -31,31 +40,31 @@ class RelationNetwork(nn.Module):
         out = F.sigmoid(self.fc2(out))
         return out
 
-class RelnetModel(torch.nn.Module):
+class ProtoModel(torch.nn.Module):
     def __init__(self, args):
         action_space = args.action_space
         # target_embedding_sz = args.target_dim
         resnet_embedding_sz = args.hidden_state_sz
         hidden_state_sz = args.hidden_state_sz
-        super(RelnetModel, self).__init__()
+        super(ProtoModel, self).__init__()
 
         # self.conv1 = nn.Conv2d(resnet_embedding_sz, 64, 1) # Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
         self.conv1 = nn.Sequential(
                         nn.Conv2d(resnet_embedding_sz,64,kernel_size=1),
                         nn.BatchNorm2d(64, momentum=1, affine=True),
                         nn.ReLU())
-        self.match_block = nn.Sequential(
-                        nn.Conv2d(64*2,64,kernel_size=3,padding=0),
+        self.fusion_block = nn.Sequential(
+                        nn.Conv2d(fusion_channels,64,kernel_size=match_block_kernel_size),
                         nn.BatchNorm2d(64, momentum=1, affine=True),
-                        nn.ReLU()) # [64, 5,5]
+                        nn.ReLU()) # [64, 5,5]/[64, 7, 7]
 
-        self.embed_action = nn.Linear(action_space, 10) # Linear(in_features=7, out_features=10, bias=True)
+        self.embed_action = nn.Linear(action_space, action_channels) # Linear(in_features=7, out_features=10, bias=True)
 
-        pointwise_in_channels = 64 + 10
+        # pointwise_in_channels = 64 + 10
+        #
+        # self.pointwise = nn.Conv2d(pointwise_in_channels, 64, 1, 1) # Conv2d(138, 64, kernel_size=(1, 1), stride=(1, 1))
 
-        self.pointwise = nn.Conv2d(pointwise_in_channels, 64, 1, 1) # Conv2d(138, 64, kernel_size=(1, 1), stride=(1, 1))
-
-        lstm_input_sz = 5 * 5 * 64
+        lstm_input_sz = feature_map_size * feature_map_size * 64
 
         self.hidden_state_sz = hidden_state_sz
         self.lstm = nn.LSTMCell(lstm_input_sz, hidden_state_sz) # LSTMCell(1600, 512)
@@ -92,14 +101,11 @@ class RelnetModel(torch.nn.Module):
         if params is None:
             state_embedding = self.conv1(state)
             target_embedding = self.conv1(target)
-            image_embedding = torch.cat((state_embedding, target_embedding), dim=1)
-            match_embedding = self.match_block(image_embedding) # [64, 5, 5]
-
             action_embedding = F.relu(self.embed_action(action_embedding_input))
-            action_reshaped = action_embedding.view(-1, 10, 1, 1).repeat(1, 1, 5, 5)
+            action_reshaped = action_embedding.view(-1, 10, 1, 1).repeat(1, 1, feature_map_size, feature_map_size)
 
-            x = torch.cat((match_embedding, action_reshaped), dim=1)
-            x = F.relu(self.pointwise(x))
+            x = torch.cat((state_embedding, target_embedding, action_reshaped), dim=1)
+            x = self.fusion_block(x)
             x = self.dropout(x)
             out = x.view(x.size(0), -1)
 
@@ -140,7 +146,7 @@ class RelnetModel(torch.nn.Module):
             # x = self.dropout(x)
             # out = x.view(x.size(0), -1)
 
-        return out, image_embedding
+        return out, state_embedding
 
     def a3clstm(self, embedding, prev_hidden, params):
         if params is None:

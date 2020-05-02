@@ -20,6 +20,7 @@ python main.py \
   --pinned_scene \
   --scene_types FloorPlan_Train1 FloorPlan_Train2 FloorPlan_Train3 FloorPlan_Train4 FloorPlan_Train5 FloorPlan_Train6 FloorPlan_Train7 FloorPlan_Train8 FloorPlan_Train8 FloorPlan_Train10 FloorPlan_Train11 FloorPlan_Train12\
   --meta_pattern "curriculum_300000_1.0_0.8.json"\
-  --penalty_decay 0.8
+  --penalty_decay 0.8 \
+  --load_checkpoint checkpoint.dat
   # --verbose \
 

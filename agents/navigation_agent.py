@@ -31,7 +31,7 @@ class NavigationAgent(ThorAgent):
         model_input.hidden = self.hidden
 
         # choose target_class_embedding
-        if self.model_name == "RelnetModel":
+        if self.model_name == "ProtoModel":
             model_input.target_class_embedding = self.episode.prototype # [1, 512, 7, 7]
         else:
             model_input.target_class_embedding = self.episode.glove_embedding # [300]

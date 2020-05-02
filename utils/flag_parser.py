@@ -150,7 +150,7 @@ def parse_arguments():
     parser.add_argument("--model",
                         type=str,
                         default="BaseModel",
-                        help="Model to use.{BaseModel, GCN, SAVN, RelnetModel}")
+                        help="Model to use.{BaseModel, GCN, SAVN, ProtoModel}")
 
     parser.add_argument(
         "--train_thin", type=int, default=1000, help="How often to print"
@@ -330,7 +330,7 @@ def parse_arguments():
     parser.add_argument(
         "--proto_file",
         type=str,
-        default="./data/object_protos_online.hdf5",
+        default="./data/object_protos.hdf5",
         help="file to store prototypes of target objects"
     )
 

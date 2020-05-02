@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="aws_train">
+  <component name="PublishConfigData" autoUpload="Always" serverName="aws_train_2">
     <serverData>
-      <paths name="Copy of project-level server '73_ex_tunnel'">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="aws_debug">
         <serverdata>
           <mappings>
@@ -22,6 +15,19 @@
         </serverdata>
       </paths>
       <paths name="aws_train">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
+            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
+            <excludedPath local="true" path="$PROJECT_DIR$/data" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="aws_train_2">
         <serverdata>
           <mappings>
             <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />

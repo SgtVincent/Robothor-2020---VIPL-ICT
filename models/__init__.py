@@ -1,8 +1,8 @@
 from .basemodel import BaseModel
 from .gcn import GCN
 from .savn import SAVN
-from .relnet_model import RelnetModel
+from .protomodel import ProtoModel
 
-__all__ = ["BaseModel", "GCN", "SAVN", "RelnetModel"]
+__all__ = ["BaseModel", "GCN", "SAVN", "ProtoModel"]
 
 variables = locals()
