@@ -11,10 +11,16 @@ import numpy as np
 import random
 import json
 from tqdm import tqdm
+import cProfile
 
 from utils.net_util import ScalarMeanTracker
 from runners import nonadaptivea3c_val, savn_val
 from pandas import Series, DataFrame
+
+def prof_target(target, rank, args, model_to_open, create_shared_model, init_agent,
+                res_queue, max_val_ep, scene_type):
+    cProfile.runctx('target(rank, args, model_to_open, create_shared_model, init_agent,res_queue, max_val_ep, scene_type)',
+                    globals(), locals(), 'prof_result/prof{}.prof'.format(rank))
 
 def main_eval(args, create_shared_model, init_agent):
     # 设置随即数种子i
@@ -50,8 +56,9 @@ def main_eval(args, create_shared_model, init_agent):
     rank = 0
     for scene_type in args.scene_types:
         p = mp.Process(
-            target=target,
+            target=prof_target,
             args=(
+                target,
                 rank,
                 args,
                 model_to_open,

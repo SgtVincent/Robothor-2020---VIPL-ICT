@@ -19,7 +19,7 @@ def get_scenes(scene_type):
     # scene_type: "FloorPlan_TrainX" or "FloorPlan_ValY"
     return [scene_type + "_{}".format(i) for i in range(1,6)]
 
-# TODO: modify code relative to these two functions in test_val_episode.py and nonadaptivea3c_val.py
+# TODO: modify code relative to these two functions in test_val_episode_ithor.py and nonadaptivea3c_val.py
 def name_to_num(name):
     return scene_types.index(name)
 
@@ -84,8 +84,15 @@ def get_curriculum_meta(args, scenes):
 
     return curriculum_meta
 
+def load_offline_shortest_path_data(args, scenes):
+    scenes = np.array(scenes).reshape(-1)
+    offline_shortest_path_data = {}
+    for scene in scenes:
+        path = os.path.join(args.curriculum_meta_dir, scene, "shortest_path_len.json")
+        with open(path, 'r') as f:
+            scene_path_len = json.load(f)
+            offline_shortest_path_data[scene] = scene_path_len
 
-
-
+    return offline_shortest_path_data
 
 

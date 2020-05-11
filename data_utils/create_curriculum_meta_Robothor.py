@@ -4,10 +4,10 @@ import os
 import re
 import random
 from pprint import pprint
-
+import numpy as np
 import ai2thor.controller
 import ai2thor.util.metrics as metrics
-
+from concurrent import futures
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images of classes from ai2thor scene")
@@ -72,17 +72,12 @@ def parse_arguments():
         default=10,
         help="max difficulty level, default set to 10 (10m)"
     )
-    parser.add_argument(
-        "--dump_each_scene",
-        default=False,
-        action="store_true"
-    )
+
     parser.add_argument(
         "--targets",
         nargs="+",
-        default=[
-            "Apple", "Baseball Bat","BasketBall", "Bowl", "Garbage Can", "House Plant",
-            "Laptop","Mug","Remote","Spray Bottle","Vase", "Alarm Clock","Television", "Pillow"]
+        default=['Alarm Clock', 'Apple', 'Baseball Bat', 'BasketBall', 'Bowl', 'Garbage Can', 'House Plant', 'Laptop',
+             'Mug', 'Pillow', 'Remote', 'Spray Bottle', 'Television', 'Vase']
     )
     parser.add_argument(
         "--scenes",
@@ -260,13 +255,12 @@ def split_by_difficulty(points, episodes, distance_upgrade_step, max_diff_level=
 
     return
 
-
-def create_robothor_dataset(
+def create_scene_meta(
         args,
+        scene,
         width=300,
         height=300,
         objects_filter=None,
-        scene_filter=None,
         filter_file=None
 ):
     """
@@ -274,22 +268,14 @@ def create_robothor_dataset(
     named `robothor-dataset.json`
     """
 
-    scene = 'FloorPlan_Train1_1'
     angle = args.rotate_by
     grid_size = args.grid_size
     visibility_distance = args.visibility_distance
-    targets = args.targets
+    targets = [target.replace(" ","") for target in args.targets]
     desired_points = args.desired_points
     rotations = list(range(0, 360, args.rotate_by))
     # Restrict points visibility_multiplier_filter * visibility_distance away from the target object
     visibility_multiplier_filter = 2
-
-    # scene_object_filter = {}
-    # if filter_file is not None:
-    #     with open(filter_file, 'r') as f:
-    #         scene_object_filter = json.load(f)
-    #         print("Filter:")
-    #         pprint(scene_object_filter)
 
     print("Visibility distance: {}".format(visibility_distance))
     controller = ai2thor.controller.Controller(
@@ -309,7 +295,6 @@ def create_robothor_dataset(
         obj_filter = set([o for o in objects_filter.split(",")])
         targets = [o for o in targets if o.replace(" ", "") in obj_filter]
 
-
     # event = controller.step(
     #     dict(
     #         action='GetScenesInBuild',
@@ -319,19 +304,7 @@ def create_robothor_dataset(
 
     objects_types_in_scene = set()
 
-    curriculum_meta = {
-        "num_ep_per_stage": args.num_ep_per_stage,
-        "distance_upgrade_step": args.distance_upgrade_step,
-        "penalty_decay": args.penalty_decay,
-        "episodes":{}
-    }
-
-    episodes = {}
-    # dataset_flat = []
-
-    if not os.path.exists(args.out_dir ):
-        os.makedirs(args.out_dir)
-
+    # dataset_flat = [])
 
     scenes = args.scenes
 
@@ -344,68 +317,96 @@ def create_robothor_dataset(
     #     scenes = [s for s in scenes if s in scene_filter_set]
 
     print("Sorted scenes: {}".format(scenes))
-    for scene in scenes:
-        scene_episodes = [ [] for i in range(args.max_diff_level)]
-        for objectType in targets:
 
-            points = get_points(controller, objectType, scene, objects_types_in_scene,
-                             failed_points, grid_size, args.rotate_by, desired_points)
-            if points is not None:
-                split_by_difficulty(points, scene_episodes, args.distance_upgrade_step, max_diff_level=args.max_diff_level)
+    scene_episodes = [ [] for i in range(args.max_diff_level)]
+    for objectType in targets:
 
-        if args.dump_each_scene:
-            scene_out_file = "{}_curriculum_{}_{}_{}.json".format(
-                scene,
-                args.num_ep_per_stage,
-                args.distance_upgrade_step,
-                args.penalty_decay
-            )
-            if not os.path.exists(os.path.join(args.out_dir, scene)):
-                os.makedirs(os.path.join(args.out_dir, scene))
+        points = get_points(controller, objectType, scene, objects_types_in_scene,
+                         failed_points, grid_size, args.rotate_by, desired_points)
+        if points is not None:
+            split_by_difficulty(points, scene_episodes, args.distance_upgrade_step, max_diff_level=args.max_diff_level)
 
-            with open(os.path.join(args.out_dir, scene, scene_out_file), 'w') as f:
-                scene_curriculum_meta = {
-                    "num_ep_per_stage": args.num_ep_per_stage,
-                    "distance_upgrade_step": args.distance_upgrade_step,
-                    "penalty_decay": args.penalty_decay,
-                    "episodes": {scene:scene_episodes}
-                }
 
-                json.dump(scene_curriculum_meta, f, indent=4)
-
-        # collect episodes for this scene
-        episodes[scene] = scene_episodes
-
-    curriculum_meta['episodes'] = episodes
-
-    out_file_name = "curriculum_{}_{}_{}.json".format(
+    scene_out_file = "{}_curriculum_{}_{}_{}.json".format(
+        scene,
         args.num_ep_per_stage,
         args.distance_upgrade_step,
         args.penalty_decay
     )
-    with open(os.path.join(args.out_dir, out_file_name), 'w') as f:
-        json.dump(curriculum_meta, f, indent=4)
-    print("Object types in scene union: {}".format(objects_types_in_scene))
-    print("Total unique objects: {}".format(len(objects_types_in_scene)))
-    print("Total scenes: {}".format(len(scenes)))
-    print("Scene datapoints: ")
-    for scene in scenes:
-        print("    {}: {}".format(scene, len(
-            [ep for diff_list in curriculum_meta['episodes'][scene]
-             for ep in diff_list]
-        )))
-    # print("Total datapoints: {}".format(len(dataset_flat)))
+    if not os.path.exists(os.path.join(args.out_dir, scene)):
+        os.makedirs(os.path.join(args.out_dir, scene))
 
-    print(failed_points)
+    with open(os.path.join(args.out_dir, scene, scene_out_file), 'w') as f:
+        scene_curriculum_meta = {
+            "num_ep_per_stage": args.num_ep_per_stage,
+            "distance_upgrade_step": args.distance_upgrade_step,
+            "penalty_decay": args.penalty_decay,
+            "episodes": {scene:scene_episodes}
+        }
+
+        json.dump(scene_curriculum_meta, f, indent=4)
+
+    # collect episodes for this scene
+    # episodes[scene] = scene_episodes
+    #
+    # curriculum_meta['episodes'] = episodes
+    #
+    # out_file_name = "curriculum_{}_{}_{}.json".format(
+    #     args.num_ep_per_stage,
+    #     args.distance_upgrade_step,
+    #     args.penalty_decay
+    # )
+    # with open(os.path.join(args.out_dir, out_file_name), 'w') as f:
+    #     json.dump(curriculum_meta, f, indent=4)
+    num_ep = sum([len(ep_of_diff) for ep_of_diff in scene_episodes])
+    print("Finished scene {} ,total episodes: {}".format(scene, num_ep))
+    print("Object types in scene {}: {}".format(scene, objects_types_in_scene))
+
+    controller.stop()
+
+    return failed_points
+
+
+def create_curriculum_meta(args,
+                           width=300,
+                           height=300,
+                           objects_filter=None,
+                           filter_file=None
+):
+
+
+
+    if not os.path.exists(args.out_dir ):
+        os.makedirs(args.out_dir)
+
+    scenes = args.scenes
+    print("Sorted scenes: {}".format(scenes))
+    failed_points = []
+
+    with futures.ProcessPoolExecutor(max_workers=args.num_process) as executor:
+
+        fs = [executor.submit(create_scene_meta, args, scene, width, height, objects_filter, filter_file)
+              for scene in scenes]
+
+    for future in futures.as_completed(fs):
+        failed_pts = future.result()
+        failed_points += failed_pts
+
     failed_file_name = "failed_{}_{}_{}.json".format(
         args.num_ep_per_stage,
         args.distance_upgrade_step,
         args.penalty_decay
     )
+
+    if not os.path.exists(failed_file_name):
+        os.makedirs(failed_file_name)
+
     with open(os.path.join(args.out_dir, failed_file_name), 'w') as f:
         json.dump(failed_points, f, indent=4)
 
 
+
+
 if __name__ == '__main__':
     args = parse_arguments()
-    create_robothor_dataset(args, args.player_size, args.player_size)
+    create_curriculum_meta(args, args.player_size, args.player_size)

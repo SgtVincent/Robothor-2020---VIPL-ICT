@@ -1,9 +1,10 @@
 from __future__ import division
 
+import os
+import re
+
 import torch
 from torch.autograd import Variable
-import re
-import os
 
 
 def run_episode(player, args, total_reward, model_options, training):
@@ -18,19 +19,20 @@ def run_episode(player, args, total_reward, model_options, training):
 
 
 def new_episode(
-    args,
-    player,
-    scenes,
-    possible_targets=None,
-    targets=None,
-    keep_obj=False,
-    glove=None,
-    protos=None,
-    pre_metadata=None,
-    curriculum_meta=None,
-    total_ep = 0,
+        args,
+        player,
+        scenes,
+        possible_targets=None,
+        targets=None,
+        keep_obj=False,
+        glove=None,
+        protos=None,
+        pre_metadata=None,
+        curriculum_meta=None
 ):
-    scene = player.episode.new_episode(args=args,
+    if args.eval:
+        if args.data_source == 'robothor':
+            scene = player.episode.new_episode(args=args,
                                        scenes=scenes,
                                        possible_targets=possible_targets,
                                        targets=targets,
@@ -38,11 +40,34 @@ def new_episode(
                                        glove=glove,
                                        protos=protos,
                                        pre_metadata=pre_metadata,
-                                       curriculum_meta=curriculum_meta,
-                                       total_ep=total_ep)
+                                       curriculum_meta=curriculum_meta)
+
+        elif args.data_source == 'ithor':
+            scene = player.episode.new_episode(
+                args,
+                scenes,
+                possible_targets=None,
+                targets=None,
+                keep_obj=False,
+                glove=None
+            )
+        else:
+            raise Exception("data_source {} not supported, please check flag_parser.py".format(args.data_source))
+    else:  # train
+    # TODO: reformat code to split train episode to two cases
+        scene = player.episode.new_episode(args=args,
+                                   scenes=scenes,
+                                   possible_targets=possible_targets,
+                                   targets=targets,
+                                   keep_obj=keep_obj,
+                                   glove=glove,
+                                   protos=protos,
+                                   pre_metadata=pre_metadata,
+                                   curriculum_meta=curriculum_meta)
     player.reset_hidden()
     player.done = False
     return scene
+
 
 def a3c_loss(args, player, gpu_id, model_options):
     """ Borrowed from https://github.com/dgriff777/rl_a3c_pytorch. """
@@ -69,17 +94,17 @@ def a3c_loss(args, player, gpu_id, model_options):
         value_loss = value_loss + 0.5 * advantage.pow(2)
 
         delta_t = (
-            player.rewards[i]
-            + args.gamma * player.values[i + 1].data
-            - player.values[i].data
+                player.rewards[i]
+                + args.gamma * player.values[i + 1].data
+                - player.values[i].data
         )
 
         gae = gae * args.gamma * args.tau + delta_t
 
         policy_loss = (
-            policy_loss
-            - player.log_probs[i] * Variable(gae)
-            - args.beta * player.entropies[i]
+                policy_loss
+                - player.log_probs[i] * Variable(gae)
+                - args.beta * player.entropies[i]
         )
 
     return policy_loss, value_loss
@@ -100,7 +125,7 @@ def transfer_gradient_from_player_to_shared(player, shared_model, gpu_id):
     """ Transfer the gradient from the player's model to the shared model
         and step """
     for param, shared_param in zip(
-        player.model.parameters(), shared_model.parameters()
+            player.model.parameters(), shared_model.parameters()
     ):
         if shared_param.requires_grad:
             if param.grad is None:
@@ -184,9 +209,8 @@ def compute_loss(args, player, gpu_id, model_options):
 
 
 def end_episode(
-    player, res_queue, title=None, episode_num=0, include_obj_success=False, **kwargs
+        player, res_queue, title=None, episode_num=0, include_obj_success=False, **kwargs
 ):
-
     results = {
         "done_count": player.episode.done_count,
         "ep_length": player.eps_len,
@@ -206,7 +230,6 @@ def get_bucketed_metrics(spl, best_path_length, success):
 
 
 def compute_spl(player, start_state):
-
     best = float("inf")
     for obj_id in player.episode.task_data:
         try:
@@ -228,6 +251,7 @@ def compute_spl(player, start_state):
     # This is due to a rare known bug.
     return 0, best
 
+
 def load_checkpoint(args, shared_model, optmizer):
     # Load shared_model to CPU for synchronizing with models on gpu
     # return train_total_ep, n_frames
@@ -236,7 +260,6 @@ def load_checkpoint(args, shared_model, optmizer):
     n_frames = 0
 
     if args.load_model != "":
-
         load_model = args.load_model
         # map_location arg specifies where (cpu/cudaX) to load model
         saved_state = torch.load(load_model, map_location=lambda storage, loc: storage)
@@ -264,7 +287,7 @@ def load_checkpoint(args, shared_model, optmizer):
         if not os.path.exists(args.save_model_dir):
             os.makedirs(args.save_model_dir)
         saved_model_paths = os.listdir(args.save_model_dir)
-        if not saved_model_paths: # no checkpoints found
+        if not saved_model_paths:  # no checkpoints found
             print("Load no previous checkpoints")
             return train_total_ep, n_frames
 
@@ -287,4 +310,3 @@ def load_checkpoint(args, shared_model, optmizer):
 
         print("Load latest model file {}".format(latest_model))
         return train_total_ep, n_frames
-

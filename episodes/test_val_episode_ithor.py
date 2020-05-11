@@ -6,11 +6,11 @@ import pickle
 from datasets.ithor_data import num_to_name
 import os
 
-class TestValEpisode(BasicEpisode):
+class IthorTestValEpisode(BasicEpisode):
     """ Episode for Navigation. """
 
     def __init__(self, args, gpu_id, strict_done=False):
-        super(TestValEpisode, self).__init__(args, gpu_id, strict_done)
+        super(IthorTestValEpisode, self).__init__(args, gpu_id, strict_done)
         self.file = None
         self.all_data = None
         self.all_data_enumerator = 0
@@ -23,11 +23,12 @@ class TestValEpisode(BasicEpisode):
             self._env = Environment(
                 offline_data_dir=args.offline_data_dir,
                 use_offline_controller=True,
-                grid_size=0.25,
+                grid_size=args.grid_size,
                 images_file_name=args.images_file_name,
                 local_executable_path=args.local_executable_path,
                 rotate_by=args.rotate_by,
-                state_decimal=args.state_decimal
+                state_decimal=args.state_decimal,
+                actions = self.actions
             )
             self._env.start(scene)
         else:
@@ -56,7 +57,7 @@ class TestValEpisode(BasicEpisode):
         protos=None,
         pre_metadata=None,
         curriculum_meta=None,
-        total_ep=0,
+        total_ep=0
     ):
         self.done_count = 0
         self.duplicate_count = 0

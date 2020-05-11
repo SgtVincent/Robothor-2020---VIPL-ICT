@@ -39,6 +39,7 @@ class BasicEpisode(Episode):
         self.goal_success_reward = args.goal_success_reward
         self.step_penalty = args.step_penalty
         self.step_penalty_table = []
+        self.episode_id = ""
 
         step_penalty = args.step_penalty
         for _ in range(0, args.max_ep, args.num_ep_per_stage):
@@ -163,23 +164,21 @@ class BasicEpisode(Episode):
         self.task_data = []
 
         idx = random.randint(0, len(intersection) - 1)
-        goal_object_type = intersection[idx]
-        self.target_object = goal_object_type
+        object_type = intersection[idx]
+        self.target_object = object_type
 
         for id_ in objects:
             type_ = id_.split("|")[0]
-            if goal_object_type == type_:
+            if object_type == type_:
                 self.task_data.append(id_)
 
         if args.verbose:
-            print("Scene", scene, "Navigating towards:", goal_object_type)
+            print("Scene", scene, "Navigating towards:", object_type)
 
-        self.glove_embedding = None
-        self.glove_embedding = toFloatTensor(
-            glove.glove_embeddings[goal_object_type][:], self.gpu_id
-        )
-        self.prototype = toFloatTensor(protos.protos[goal_object_type.lower()][:],
-                                       self.gpu_id)
+        if args.glove_file != "":
+            self.glove_embedding = toFloatTensor(glove.glove_embeddings[object_type][:], self.gpu_id)
+        if args.proto_file != "":
+            self.prototype = toFloatTensor(protos.protos[object_type.lower()][:], self.gpu_id)
         return scene
 
     # curriculum_meta: episodes indexed by scene, difficulty, object_type in order
@@ -215,7 +214,7 @@ class BasicEpisode(Episode):
                 # object_type = random.choice(intersection_objs)
 
                 episode = random.choice(curriculum_meta[scene][diff_idx])
-                object_type = episode['object_type']
+                object_type = episode['object_type'].replace(" ","")
                 if object_type not in targets:
                     continue
             except:
@@ -257,16 +256,15 @@ class BasicEpisode(Episode):
         self.task_data = []
         self.target_object = object_type
         self.task_data.append(episode['object_id'])
+        self.episode_id = episode['id']
 
         if args.verbose:
             print("Episode: Scene ", scene," Difficulty ",diff, " Navigating towards: ", object_type)
 
-        self.glove_embedding = None
-        self.glove_embedding = toFloatTensor(
-            glove.glove_embeddings[object_type][:], self.gpu_id
-        )
-        self.prototype = toFloatTensor(protos.protos[object_type.lower()][:],
-                                       self.gpu_id)
+        if args.glove_file != "":
+            self.glove_embedding = toFloatTensor(glove.glove_embeddings[object_type][:], self.gpu_id)
+        if args.proto_file != "":
+            self.prototype = toFloatTensor(protos.protos[object_type.lower()][:], self.gpu_id)
         return scene
 
     def new_episode(

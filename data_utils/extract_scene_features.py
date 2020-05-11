@@ -40,9 +40,9 @@ def parse_arguments():
     )
     parser.add_argument(
         "--scenes",
+        nargs="+",
         type=str,
-        default=None,
-        help="specify scenes to scrape, in the format of 'scene1,scene2,...'"
+        default=["FloorPlan_Train{}_{}".format(i,j) for i in range(1,13) for j in range(1,6)]
     )
     parser.add_argument(
         "--gpus",
@@ -124,10 +124,7 @@ if __name__ == "__main__":
 
     args = parse_arguments()
 
-    if args.scenes:
-        scenes = args.scenes.split(',')
-    else: # all scenes in robothor
-        scenes = ["FloorPlan_Train{}_{}".format(i, j) for i in range(1,13) for j in range(1,6)]
+    scenes = args.scenes
 
     queue = mp.Queue()
     for x in scenes:

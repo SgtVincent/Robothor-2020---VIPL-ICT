@@ -9,6 +9,8 @@ import sys
 sys.path.append(".") # Assume script run in project root directory
 from datasets.offline_sscontroller import ThorAgentState
 import argparse
+from concurrent import futures
+
 
 STATE_DECIMAL=3 # Robothor
 
@@ -188,20 +190,29 @@ def build_graph_for_scene(
         graph_maker.start()
         return scene
     else:
-        print("Supported rotation: [30]")
+        print("Error: given rotation {}, supported rotation: [30]".format(rotation))
         return None
 
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="scrape all possible images from ai2thor scene")
 
-    parser.add_argument("-i",type=int,default=1, help="scenes: Train{}")
     parser.add_argument(
         "--data_dir",
         type=str,
         required=True
     )
-
+    parser.add_argument(
+        "--scenes",
+        type=str,
+        nargs="+",
+        default=["FloorPlan_Train{}_{}".format(i,j) for i in range(1,13) for j in range(1,6)]
+    )
+    parser.add_argument(
+        "--num_process",
+        type=int,
+        default=15
+    )
     args = parser.parse_args()
     return args
 
@@ -212,7 +223,12 @@ if __name__ == "__main__":
 
     args = parse_arguments()
     data_dir = args.data_dir
-    scenes = ["FloorPlan_Train{}_{}".format(args.i,j) for j in range(1,6)]
+    scenes = args.scenes
+    num_process = args.num_process
+
+    executor = futures.ProcessPoolExecutor(max_workers=args.num_process)
+    fs = []
+
     for scene in scenes:
         try:
             build_graph_for_scene(scene, data_dir)
@@ -220,15 +236,11 @@ if __name__ == "__main__":
         except Exception as e:
             print(e)
             print("scene {} has FAILED!".format(scene))
-    # scenes = os.listdir(robothor_dir)
-    # scenes = ['FloorPlan_Train1_1']
-    # TODO: Solve strange bug when using h5py & multiprocessing
-    # with futures.ProcessPoolExecutor(max_workers=12) as executor:
-    #
-    #     result = executor.map(
-    #         build_graph_for_scene,
-    #         scenes,
-    #         [robothor_dir] * len(scenes)
-    #     )
-    # for scene in result:
-    #     print("scene {} has finished".format(scene))
+    with futures.ProcessPoolExecutor(max_workers=num_process) as executor:
+
+        fs = [executor.submit(build_graph_for_scene, scene, data_dir)
+              for scene in scenes]
+
+    for future in futures.as_completed(fs):
+        scene = future.result()
+        print("scene {} has finished".format(scene))

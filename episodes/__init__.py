@@ -1,8 +1,10 @@
 from .basic_episode import BasicEpisode
-from .test_val_episode import TestValEpisode
+from .test_val_episode_ithor import IthorTestValEpisode
+from .test_val_episode_robothor import RobothorTestValEpisode
 __all__ = [
     'BasicEpisode',
-    'TestValEpisode',
+    'IthorTestValEpisode',
+    'RobothorTestValEpisode'
 ]
 
 # All models should inherit from BasicEpisode

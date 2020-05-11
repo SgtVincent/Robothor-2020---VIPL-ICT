@@ -3,8 +3,9 @@
 
 python data_utils/extract_scene_features.py \
   --scene_dir="/home/ubuntu/Robothor_data" \
-  --scenes "FloorPlan_Train1_1,FloorPlan_Train1_2" \
-  --num_process 5 \
+  --scenes FloorPlan_Train1_1 FloorPlan_Train1_2 FloorPlan_Train1_3 FloorPlan_Train1_4 FloorPlan_Train1_5 FloorPlan_Train2_1 FloorPlan_Train2_2 FloorPlan_Train2_3 FloorPlan_Train2_4 FloorPlan_Train2_5 FloorPlan_Train3_1 FloorPlan_Train3_2 FloorPlan_Train3_3 FloorPlan_Train3_4 FloorPlan_Train3_5 FloorPlan_Train4_1 FloorPlan_Train4_2 FloorPlan_Train4_3 FloorPlan_Train4_4 FloorPlan_Train4_5 FloorPlan_Train5_1 FloorPlan_Train5_2 FloorPlan_Train5_3 FloorPlan_Train5_4 FloorPlan_Train5_5 FloorPlan_Train6_1 FloorPlan_Train6_2 FloorPlan_Train6_3 FloorPlan_Train6_4 FloorPlan_Train6_5 FloorPlan_Train7_1 FloorPlan_Train7_2 FloorPlan_Train7_3 FloorPlan_Train7_4 FloorPlan_Train7_5 FloorPlan_Train8_1 FloorPlan_Train8_2 FloorPlan_Train8_3 FloorPlan_Train8_4 FloorPlan_Train8_5 FloorPlan_Train9_1 FloorPlan_Train9_2 FloorPlan_Train9_3 FloorPlan_Train9_4 FloorPlan_Train9_5 FloorPlan_Train10_1 FloorPlan_Train10_2 FloorPlan_Train10_3 FloorPlan_Train10_4 FloorPlan_Train10_5 FloorPlan_Train11_1 FloorPlan_Train11_2 FloorPlan_Train11_3 FloorPlan_Train11_4 FloorPlan_Train11_5 FloorPlan_Train12_1 FloorPlan_Train12_2 FloorPlan_Train12_3 FloorPlan_Train12_4 FloorPlan_Train12_5 \
+  --num_process 15 \
+  --gpus 0 1 2 3 \
   --model resnet18
 
 

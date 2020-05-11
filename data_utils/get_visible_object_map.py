@@ -10,7 +10,10 @@ def parse_arguments():
 
     parser.add_argument("--data_dir", type=str, required=True)
 
-    parser.add_argument("--scenes", type=str, default="", help="scenes separated by ',': Train1,Train2,... ")
+    parser.add_argument("--scenes",
+                        type=str,
+                        nargs="+",
+                        default=["FloorPlan_Train{}_{}".format(i,j) for i in range(1,13) for j in range(1,6)])
 
     args = parser.parse_args()
     return args
@@ -18,10 +21,7 @@ def parse_arguments():
 if __name__ == '__main__':
 
     args = parse_arguments()
-    if not args.scenes:
-        scenes = os.listdir(args.data_dir)
-    else:
-        scenes = args.scenes.split(',')
+    scenes = args.scenes
 
     for scene in scenes:
         try:

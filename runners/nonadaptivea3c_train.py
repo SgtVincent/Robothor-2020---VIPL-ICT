@@ -38,11 +38,16 @@ def nonadaptivea3c_train(
     global_ep,
 ):
 
-    glove = Glove(args.glove_file)
-    protos = Prototype(args.proto_file)
+    glove = None
+    protos = None
     pre_metadata = None
     curriculum_meta = None
     scene_types = args.scene_types
+
+    if args.glove_file:
+        glove = Glove(args.glove_file)
+    if args.proto_file:
+        protos = Prototype(args.proto_file)
 
     if args.data_source == "ithor":
         from datasets.ithor_data import get_data
@@ -96,10 +101,8 @@ def nonadaptivea3c_train(
         # Get a new episode.
         total_reward = 0
         player.eps_len = 0
-        scene = new_episode(
-            args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
-            pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value,
-        )
+        new_episode(args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
+            pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value)
         player_start_time = time.time()
 
         # Train on the new episode.

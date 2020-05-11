@@ -15,7 +15,7 @@ from utils import flag_parser
 
 from utils.class_finder import model_class, agent_class, optimizer_class
 from utils.net_util import ScalarMeanTracker
-from main_eval import main_eval
+from cprofile_main_eval import main_eval
 from runners.train_util import load_checkpoint
 
 from runners import nonadaptivea3c_train, nonadaptivea3c_val, savn_train, savn_val
@@ -36,21 +36,30 @@ def main():
     # 获取命令行参数
     args = flag_parser.parse_arguments()
 
-    if args.model == "BaseModel" or args.model == "GCN":
-        args.learned_loss = False
-        args.num_steps = 50
-        target = nonadaptivea3c_val if args.eval else nonadaptivea3c_train
-    else:
+    if args.model == "SAVN":
         args.learned_loss = True
         args.num_steps = 6
         target = savn_val if args.eval else savn_train
+    else:
+        args.learned_loss = False
+        args.num_steps = args.max_episode_length
+        target = nonadaptivea3c_val if args.eval else nonadaptivea3c_train
+
+
+    # 检查pinned_scene 和 data_source 是否冲突
+    if args.data_source == "ithor" and args.pinned_scene == True:
+        raise Exception("Cannot set pinned_scene to true when using ithor dataset")
+
     # 获取模型对象类别， 未创建对象 e.g. <class 'models.basemodel.BaseModel'>
     create_shared_model = model_class(args.model)
     # 获取agent类别，未创建对象 default <class 'agents.navigation_agent.NavigationAgent'>
     init_agent = agent_class(args.agent_type)
     # 获取优化器对象类别，未创建对象 default <class 'optimizers.shared_adam.SharedAdam'>
     optimizer_type = optimizer_class(args.optimizer)
-
+########################  测试阶段 ################################
+    if args.eval:
+        main_eval(args, create_shared_model, init_agent)
+        return
 ####################### 训练阶段 #################################
     start_time = time.time()
     local_start_time_str = time.strftime(
@@ -82,10 +91,8 @@ def main():
     )
     # 加载预先保存的模型
     train_total_ep, n_frames = load_checkpoint(args, shared_model, optimizer)
-
-    # 总训练episode
-    # train_total_ep = 0
-    # n_frames = 0
+    # TODO: delete this after debug
+    # train_total_ep = 1000001
 
     if shared_model is not None:
         # 模型在多进程间共享参数 这个参数是torch.mutiprocessing 调用fork之前必须调用的方法

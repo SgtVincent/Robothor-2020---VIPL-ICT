@@ -567,7 +567,7 @@ class OfflineControllerWithSmallRotation(BaseController):
                     'width': 640,
                     'height': 480,
                     'agentMode': 'bot',
-                    'gridSize': 0.125,
+                    'gridSize': grid_size,
                 }
             )
             if self.local_executable_path is not None:

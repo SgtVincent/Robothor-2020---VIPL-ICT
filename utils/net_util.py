@@ -76,13 +76,17 @@ class ScaleBothSides(object):
         return img.resize((self.size, self.size), self.interpolation)
 
 
+
 class ScalarMeanTracker(object):
     def __init__(self) -> None:
         self._sums = {}
         self._counts = {}
+        self.exclude_keys = ["scene_type", "difficulty"]
 
     def add_scalars(self, scalars):
         for k in scalars:
+            if k in self.exclude_keys: # skip meta data key-value pairs
+                continue
             if k not in self._sums:
                 self._sums[k] = scalars[k]
                 self._counts[k] = 1
