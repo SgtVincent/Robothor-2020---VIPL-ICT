@@ -144,7 +144,7 @@ def nonadaptivea3c_val(
                 **bucketed_spl,
                 scene_type=scene_type,
                 difficulty=player.episode.difficulty
-            )
+            )   
         else:
             end_episode(
                 player,

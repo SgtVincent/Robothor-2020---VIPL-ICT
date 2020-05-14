@@ -82,7 +82,7 @@ def get_shorest_path_for_scene(rank, args, scene, gpu_id):
             print("episode id {}, difficulty {}, shortest_path_len is {}".format(ep['id'], ep['difficulty'], len))
             count += 1
 
-    with open(os.path.join(args.curriculum_meta_dir, scene, "shortest_path_len.json")) as out_file:
+    with open(os.path.join(args.curriculum_meta_dir, scene, "shortest_path_len.json"), 'w') as out_file:
         json.dump(shortest_path_lens, out_file)
     print("finished scene {}: calculated {} episodes in total".format(scene, count))
     return scene

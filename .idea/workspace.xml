@@ -2,51 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f262152-2868-472f-a90f-9402567d7a52" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cprofile_main_eval.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_utils/get_episode_shortest_path.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/episodes/test_val_episode_ithor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/episodes/test_val_episode_robothor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/create_curriculum_meta_Robothor.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/create_validation_meta_Robothor.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/eval_base_model_robothor30_.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/get_episode_shortest_path.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/profile_val_base_2020_0508.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bathroom_test.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bathroom_test_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bathroom_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bedroom_test.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bedroom_test_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/bedroom_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/kitchen_test.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/kitchen_test_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/kitchen_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/living_room_test.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/living_room_test_val.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_val_split/living_room_val.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/eval_proto_model_robothor30_.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cprofile_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/cprofile_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/create_curriculum_meta_Robothor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/create_curriculum_meta_Robothor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/create_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/create_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/extract_scene_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/extract_scene_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/get_visible_object_map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/offline_controller_with_small_rotation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/robothor_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/robothor_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/episodes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/episodes/basic_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/basic_episode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/episodes/test_val_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/test_val_episode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_utils/get_episode_shortest_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_utils/get_episode_shortest_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/episodes/test_val_episode_robothor.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/test_val_episode_robothor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runners/nonadaptivea3c_val.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/nonadaptivea3c_val.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runners/train_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/train_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/eval_base_model_robothor30_2020_0323.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/extract_feature.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/extract_feature.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/get_visible_object_map.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/get_visible_object_map.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/make_graph.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/create_graph.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scrape_robothor_val.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scrape_robothor_val.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/eval_base_model_robothor30_.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/eval_base_model_robothor30_.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/get_episode_shortest_path.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/get_episode_shortest_path.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/flag_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/flag_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/misc_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/misc_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/net_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/net_util.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +64,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/datasets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -108,19 +72,19 @@
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\repository\savn\scripts" />
+      <recent name="E:\repository\savn\datasets" />
+      <recent name="E:\repository\savn" />
+      <recent name="E:\repository\savn\episodes" />
+      <recent name="E:\repository\savn\data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\repository\savn\data_utils" />
       <recent name="E:\repository\savn\utils" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\repository\savn\datasets" />
-      <recent name="E:\repository\savn" />
-      <recent name="E:\repository\savn\scripts" />
-      <recent name="E:\repository\savn\episodes" />
-      <recent name="E:\repository\savn\data" />
-    </key>
   </component>
-  <component name="RunManager" selected="Python.get_episode_shortest_path">
+  <component name="RunManager" selected="Python.robothor_val ">
     <configuration name="aws_train_base" type="PythonConfigurationType" factoryName="Python" singleton="false">
       <module name="savn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -136,28 +100,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="--title temp_pycharm_debug --model ProtoModel --offline_data_dir /home/ubuntu/Robothor_data --gpu-ids 0 --workers 1 --save-model-dir trained_models/temp_debug_model --data_source robothor --grid_size 0.125 --rotate_by 30 --state_decimal 3 --images_file_name resnet18.hdf5 --train_scenes [1-5] --seed 10 --verbose --curriculum_learning --pinned_scene --scene_types FloorPlan_Train1 FloorPlan_Train2 FloorPlan_Train3 FloorPlan_Train4 FloorPlan_Train5 FloorPlan_Train6 FloorPlan_Train7 FloorPlan_Train8 FloorPlan_Train8 FloorPlan_Train10 FloorPlan_Train11 FloorPlan_Train12" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="aws_val_base" type="PythonConfigurationType" factoryName="Python" singleton="false">
-      <module name="savn" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--offline_data_dir /home/ubuntu/Robothor_data_val --curriculum_meta_dir ./data/valmeta_1 --images_file_name resnet18.hdf5 --model BaseModel --eval --test_or_val test --episode_type TestValEpisode --gpu-ids 0 --workers 1 --seed 10 --load_model pretrained_models/nonadaptivea3c_pretrained.dat --scene_types FloorPlan_Val1 --results_json savn_test.json" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -434,7 +376,6 @@
       <item itemvalue="Python.test_basemodel" />
       <item itemvalue="Python.test_robothor_30" />
       <item itemvalue="Python.aws_train_base" />
-      <item itemvalue="Python.aws_val_base" />
       <item itemvalue="Python.ithor_val" />
       <item itemvalue="Python.robothor_val " />
       <item itemvalue="Python.scene_image_scraper_single_thread" />
@@ -494,7 +435,9 @@
       <workItem from="1588209566115" duration="44637000" />
       <workItem from="1588640451743" duration="46814000" />
       <workItem from="1588904615733" duration="311000" />
-      <workItem from="1588907445523" duration="39655000" />
+      <workItem from="1588907445523" duration="39835000" />
+      <workItem from="1589213627763" duration="2481000" />
+      <workItem from="1589248746802" duration="14396000" />
     </task>
     <servers />
   </component>
@@ -517,10 +460,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Plugins/0.0.1536.824@0.0.1536.824" timestamp="1587353814689" />
-    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589202691340">
+    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589359529770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1589202691340" />
+    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1589359529770" />
     <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585216216852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -565,38 +508,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588945035689" />
-    <state width="746" height="212" key="GridCell.Tab.0.bottom" timestamp="1589204981817">
+    <state width="746" height="212" key="GridCell.Tab.0.bottom" timestamp="1589211604583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589204981817" />
-    <state width="746" height="212" key="GridCell.Tab.0.center" timestamp="1589204981817">
+    <state width="746" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
+    <state width="746" height="212" key="GridCell.Tab.0.center" timestamp="1589211604583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589204981817" />
-    <state width="746" height="212" key="GridCell.Tab.0.left" timestamp="1589204981817">
+    <state width="746" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
+    <state width="746" height="212" key="GridCell.Tab.0.left" timestamp="1589211604582">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589204981817" />
-    <state width="746" height="212" key="GridCell.Tab.0.right" timestamp="1589204981817">
+    <state width="746" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589211604582" />
+    <state width="746" height="212" key="GridCell.Tab.0.right" timestamp="1589211604583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589204981817" />
-    <state width="746" height="246" key="GridCell.Tab.1.bottom" timestamp="1589202632031">
+    <state width="746" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
+    <state width="746" height="246" key="GridCell.Tab.1.bottom" timestamp="1589211604577">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589202632031" />
-    <state width="746" height="246" key="GridCell.Tab.1.center" timestamp="1589202632031">
+    <state width="746" height="246" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
+    <state width="746" height="246" key="GridCell.Tab.1.center" timestamp="1589211604577">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589202632031" />
-    <state width="746" height="246" key="GridCell.Tab.1.left" timestamp="1589202632031">
+    <state width="746" height="246" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
+    <state width="746" height="246" key="GridCell.Tab.1.left" timestamp="1589211604577">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589202632031" />
-    <state width="746" height="246" key="GridCell.Tab.1.right" timestamp="1589202632031">
+    <state width="746" height="246" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
+    <state width="746" height="246" key="GridCell.Tab.1.right" timestamp="1589211604577">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589202632031" />
+    <state width="746" height="246" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
     <state x="583" y="143" key="PyMappingSimpleResolveDialog" timestamp="1585942452469">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -613,10 +556,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="280" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1/0.0.1536.824@0.0.1536.824" timestamp="1583995394500" />
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1588907450216">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1589248753749">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1588907450216" />
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1589248753749" />
     <state x="376" y="22" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585799775782">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -625,10 +568,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1589187881613" />
-    <state x="182" y="167" width="981" height="600" key="find.popup" timestamp="1589203852435">
+    <state x="182" y="167" width="981" height="600" key="find.popup" timestamp="1589450191798">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="182" y="167" width="981" height="600" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1589203852435" />
+    <state x="182" y="167" width="981" height="600" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1589450191798" />
     <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1585853987907">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

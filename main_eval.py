@@ -112,14 +112,19 @@ def main_eval(args, create_shared_model, init_agent):
 
     if args.curriculum_learning:
         result = {"all_result":all_tracked_means,
-                  "diff_reult":diff_tracked_means,
+                  "diff_result":diff_tracked_means,
                   "scene_result":scene_tracked_means}
     else:
         result = {"all_result":all_tracked_means,
                   "scene_result":scene_tracked_means}
 
-    with open(args.results_json, "w") as fp:
-        json.dump(result, fp, sort_keys=True, indent=4)
+    try:
+        with open(args.results_json, "w") as fp:
+            json.dump(result, fp, sort_keys=True, indent=4)
+    except:
+        print("dump result to path {} failed, result dumped to test_result.json".format(args.results_json))
+        with open("test_result.json", "w") as fp:
+            json.dump(result, fp, sort_keys=True, indent=4)
 
     print("\n\n\nall_result:\n")
     print(Series(all_tracked_means))

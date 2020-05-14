@@ -336,14 +336,15 @@ def parse_arguments():
     )
 ###################### arguments for validation/test only ############################
     parser.add_argument(
-        "--max_val_ep", type=int, default=250, help="maximum of episodes FOR EACH scene_type in validation"
+        "--max_val_ep", type=int, default=1000000, help="maximum of episodes FOR EACH scene_type in validation"
     )
     parser.add_argument(
-        "--max_ep_per_diff", type=int, default=10,
-        help="maximum of episodes FOR ONE OBJECT in EACH SCENE in validation, only valid when data_source is 'robothor'"
+        "--max_ep_per_diff", type=int, default=10000,
+        help="maximum of episodes FOR ONE DIFFICULTY in EACH SCENE in validation, only valid when data_source is 'robothor'"
     )
     parser.add_argument(
         "--offline_shortest_data", type=str, default="",
+        # default="shortest_path_len.json"
         help="if file path specified, load shortest path length from file to accelerate computation of SPL"
     )
 

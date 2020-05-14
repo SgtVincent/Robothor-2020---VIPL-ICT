@@ -63,10 +63,10 @@ class RobothorTestValEpisode(BasicEpisode):
         return scene
 
     def _init_curriculum_meta_iter(
-            self, scenes, curriculum_meta, max_ep_per_target=10):
+            self, scenes, curriculum_meta, max_ep_per_diff=10):
         for scene in scenes:
             for diff_episodes in curriculum_meta[scene]:
-                for ep in diff_episodes[:max_ep_per_target]:
+                for ep in diff_episodes[:max_ep_per_diff]:
                     yield ep
 
     def new_episode(
