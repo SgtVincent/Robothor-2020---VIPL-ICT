@@ -1,67 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="aws_debug">
+  <component name="PublishConfigData" autoUpload="Always" serverName="savn-1-073">
     <serverData>
-      <paths name="aws_debug">
+      <paths name="savn-1-073">
         <serverdata>
           <mappings>
-            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/public/wuxiaodong/workspace/savn-1" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="aws_train">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
-            <excludedPath local="true" path="$PROJECT_DIR$/data" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="aws_train_2">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/chenjunting/savn" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path="/home/ubuntu/chenjunting/savn/runs" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/data" />
-            <excludedPath path="/home/ubuntu/chenjunting/savn/trained_base_2020_0331" />
-            <excludedPath local="true" path="$PROJECT_DIR$/data" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="chenjunting@10.29.150.73:22">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="chenjunting@localhost:13577">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/pycharm_rmt_ws/savn" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path="/pycharm_rmt_ws/savn/pretrained_models" />
-            <excludedPath path="/pycharm_rmt_ws/savn/data" />
-            <excludedPath path="/pycharm_rmt_ws/savn/trained_models_2019-12-16" />
-            <excludedPath path="/pycharm_rmt_ws/savn/trained_models_2019-12-17" />
-            <excludedPath path="/pycharm_rmt_ws/savn/test_val_split" />
-            <excludedPath path="/pycharm_rmt_ws/savn/runs" />
-            <excludedPath path="/pycharm_rmt_ws/savn/class_images" />
-            <excludedPath local="true" path="$PROJECT_DIR$/data" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

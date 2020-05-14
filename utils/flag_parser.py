@@ -347,11 +347,25 @@ def parse_arguments():
         # default="shortest_path_len.json"
         help="if file path specified, load shortest path length from file to accelerate computation of SPL"
     )
+    parser.add_argument(
+        "--demo_trajectory",
+        action="store_true",
+        default=False,
+        help="If true, trajectory will be ploted every 1k episodes.",
+    )
+    parser.add_argument(
+        "--demo_trajectory_freq",
+        type=int, default=10000,
+        help="Plot trajectory every 1w steps by default",
+    )
 
 ################### new argumentes end #############################
 
     args = parser.parse_args()
 
     args.glove_file = "{}/glove_map{}d.hdf5".format(args.glove_dir, args.target_dim)
+
+
+
 
     return args

@@ -47,6 +47,8 @@ class BasicEpisode(Episode):
             step_penalty = step_penalty * args.penalty_decay
 
         self.scene_states = []
+        self.episode_trajectories = []
+        self.actions_taken = []
         if args.eval:
             random.seed(args.seed)
 
@@ -96,6 +98,7 @@ class BasicEpisode(Episode):
         else:
             self.scene_states.append(self.environment.controller.state)
 
+        self.episode_trajectories.append(self.environment.controller.state)
         done = False
 
         if action["action"] == DONE:
@@ -174,6 +177,8 @@ class BasicEpisode(Episode):
 
         if args.verbose:
             print("Scene", scene, "Navigating towards:", object_type)
+        self.episode_trajectories = []
+        self.actions_taken = []
 
         if args.glove_file != "":
             self.glove_embedding = toFloatTensor(glove.glove_embeddings[object_type][:], self.gpu_id)
@@ -196,7 +201,6 @@ class BasicEpisode(Episode):
             valid_scenes = os.listdir(args.offline_data_dir)
             intersection_scenes = [scene for scene in scenes if scene in valid_scenes]
             scene = random.choice(intersection_scenes)
-
             # TODO: choose difficulty
             try:
                 diff = round(total_ep // args.num_ep_per_stage) + 1
@@ -217,6 +221,22 @@ class BasicEpisode(Episode):
                 object_type = episode['object_type'].replace(" ","")
                 if object_type not in targets:
                     continue
+
+                # to plot trajectory by xiaodong
+                # state_pattern: x, z, rotation_degree, horizon_degree
+                state_pattern = "{:0." + str(args.state_decimal) + "f}|{:0." + str(args.state_decimal) + "f}|{:d}|{:d}"
+                self.init_pos_str = state_pattern.format(episode['initial_position']['x'],
+                                                         episode['initial_position']['z'],
+                                                         episode['initial_orientation'],
+                                                         0
+                                                         )
+                self.target_pos_str = state_pattern.format(episode['target_position']['x'],
+                                                           episode['target_position']['z'],
+                                                           0,
+                                                           0
+                                                           )
+                self.object_type = object_type
+
             except:
                 continue
 
@@ -257,6 +277,8 @@ class BasicEpisode(Episode):
         self.target_object = object_type
         self.task_data.append(episode['object_id'])
         self.episode_id = episode['id']
+        self.episode_trajectories = []
+        self.actions_taken = []
 
         if args.verbose:
             print("Episode: Scene ", scene," Difficulty ",diff, " Navigating towards: ", object_type)
