@@ -334,6 +334,13 @@ def parse_arguments():
         # default="./data/object_protos.hdf5",
         help="file to store prototypes of target objects"
     )
+    parser.add_argument(
+        "--exploitation",
+        action="store_true",
+        default=False,
+        help="decide to practice exploration or exploitation in action decision"
+    )
+
 ###################### arguments for validation/test only ############################
     parser.add_argument(
         "--max_val_ep", type=int, default=1000000, help="maximum of episodes FOR EACH scene_type in validation"
