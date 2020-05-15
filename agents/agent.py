@@ -131,6 +131,7 @@ class ThorAgent:
 
         if self.verbose:
             print(self.episode.actions_list[action])
+        self.episode.actions_taken.append(self.episode.actions_list[action]['action']) # todo only append success actions, wxd
         self.probs.append(prob)
         self.entropies.append(entropy)
         self.values.append(out.value)

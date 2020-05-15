@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Simple Canvas Game</title>
+	</head>
+	<form id='upload_form' action="/teleport" enctype="multipart/form-data" method="post">
+		<h1>Set locataion of Robot, x|z|rotate|horizon_rotate 1.250|-2.125|210|0  </h1>
+		<input type="text" name="state" placeholder="e.g. 1.250|-2.125|210|0"><br>
+		<input class="btn btn-primary" value="Submit" type="submit" id="submit"><br>
+		<hr>
+    </form>
+
+	<body>
+		<h1>方向键控制方向，W: LookUp, S: LookDown</h1>
+		<div id="robo_state"><p> Location of Robot:</p></div>
+		<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+		<!--<script type="text/javascript" src="static/js/jquery.js"></script>-->
+		<script src="/static/js/game.js"></script>
+	</body>
+</html>

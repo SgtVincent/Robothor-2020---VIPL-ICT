@@ -24,6 +24,7 @@ from .train_util import (
     end_episode,
     reset_player
 )
+from demo_robothor.trajectory import *
 
 
 def nonadaptivea3c_train(
@@ -101,8 +102,10 @@ def nonadaptivea3c_train(
         # Get a new episode.
         total_reward = 0
         player.eps_len = 0
-        new_episode(args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
-            pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value)
+        # new_episode(args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
+        #     pre_metadata=pre_metadata, curriculum_meta=curriculum_meta, total_ep=global_ep.value)
+        scene = new_episode(args, player, scenes[idx[j]], possible_targets, targets[idx[j]],glove=glove, protos=protos,
+            pre_metadata=pre_metadata, curriculum_meta=curriculum_meta)
         player_start_time = time.time()
 
         # Train on the new episode.
@@ -111,6 +114,35 @@ def nonadaptivea3c_train(
             player.sync_with_shared(shared_model)
             # Run episode for num_steps or until player is done.
             total_reward = run_episode(player, args, total_reward, model_options, True)
+
+            # plot trajectory , by wuxiaodong
+            if args.demo_trajectory and global_ep.value % args.demo_trajectory_freq == 0:
+                print(len(player.episode.episode_trajectories))
+                # todo delete
+                # scene = 'FloorPlan_Train1_1'
+                trajectory_pil = get_trajectory(scene,
+                                                [str(loc) for loc in player.episode.episode_trajectories],
+                                                birdview_root='./demo_robothor/data/birdview/',
+                                                init_loc_str=player.episode.init_pos_str,
+                                                target_loc_str=player.episode.target_pos_str,
+                                                actions=player.episode.actions_taken,
+                                                success=player.success, target_name=player.episode.target_object)
+                demo_out_dir = os.path.join(args.log_dir, '../output_trajecgtory', args.title)
+                if not os.path.exists(demo_out_dir):
+                    os.makedirs(demo_out_dir)
+                trajectory_pil.save(os.path.join(demo_out_dir, '{}_init_{}_target_{}_iter{}.png'.format(
+                    player.episode.object_type,
+                    player.episode.init_pos_str,
+                    player.episode.target_pos_str,
+                    global_ep.value
+                )))
+                print('ploting {}_init_{}_target_{}_iter{}.png'.format(
+                    player.episode.object_type,
+                    player.episode.init_pos_str,
+                    player.episode.target_pos_str,
+                    global_ep.value
+                ))
+
             # Compute the loss.
             loss = compute_loss(args, player, gpu_id, model_options)
             if compute_grad:
