@@ -2,84 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f262152-2868-472f-a90f-9402567d7a52" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/demo_robothor/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/app_backup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/birdview.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train10_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train10_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train10_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train10_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train10_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train11_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train11_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train11_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train11_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train11_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train12_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train12_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train12_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train12_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train12_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train1_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train1_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train1_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train1_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train1_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train2_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train2_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train2_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train2_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train2_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train3_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train3_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train3_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train3_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train3_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train4_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train4_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train4_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train4_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train4_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train5_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train5_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train5_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train5_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train5_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train6_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train6_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train6_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train6_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train6_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train7_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train7_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train7_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train7_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train7_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train8_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train8_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train8_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train8_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train8_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train9_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train9_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train9_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train9_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/data/birdview/FloorPlan_Train9_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/demo_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/static/images/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/static/images/hero.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/static/images/monster.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/static/js/game.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo_robothor/trajectory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/demo_trajectory_0514_073.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/agents/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/episodes/basic_episode.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/basic_episode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/nonadaptivea3c_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runners/train_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/runners/train_util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/flag_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/flag_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -670,7 +595,7 @@
       <workItem from="1588904615733" duration="311000" />
       <workItem from="1588907445523" duration="39835000" />
       <workItem from="1589213627763" duration="2481000" />
-      <workItem from="1589248746802" duration="14396000" />
+      <workItem from="1589248746802" duration="19234000" />
     </task>
     <servers />
   </component>
@@ -722,10 +647,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Plugins/0.0.1536.824@0.0.1536.824" timestamp="1587353814689" />
-    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589359529770">
+    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589467211208">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1589359529770" />
+    <state x="116" y="136" width="1089" height="654" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1589467211208" />
     <state x="484" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585216216852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -750,10 +675,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="0" y="165" key="#xdebugger.XInspectDialog/0.0.1536.824@0.0.1536.824" timestamp="1584116841725" />
-    <state width="1261" height="466" key="DebuggerActiveHint" timestamp="1588665419256">
+    <state width="1261" height="466" key="DebuggerActiveHint" timestamp="1589467371889">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1261" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1588665419256" />
+    <state width="1261" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1589467371889" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1589189172594">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -770,38 +695,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588945035689" />
-    <state width="746" height="212" key="GridCell.Tab.0.bottom" timestamp="1589211604583">
+    <state width="746" height="246" key="GridCell.Tab.0.bottom" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
-    <state width="746" height="212" key="GridCell.Tab.0.center" timestamp="1589211604583">
+    <state width="746" height="246" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.0.center" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
-    <state width="746" height="212" key="GridCell.Tab.0.left" timestamp="1589211604582">
+    <state width="746" height="246" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.0.left" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589211604582" />
-    <state width="746" height="212" key="GridCell.Tab.0.right" timestamp="1589211604583">
+    <state width="746" height="246" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.0.right" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589211604583" />
-    <state width="746" height="246" key="GridCell.Tab.1.bottom" timestamp="1589211604577">
+    <state width="746" height="246" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.1.bottom" timestamp="1589470491363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
-    <state width="746" height="246" key="GridCell.Tab.1.center" timestamp="1589211604577">
+    <state width="746" height="246" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589470491363" />
+    <state width="746" height="246" key="GridCell.Tab.1.center" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
-    <state width="746" height="246" key="GridCell.Tab.1.left" timestamp="1589211604577">
+    <state width="746" height="246" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.1.left" timestamp="1589470491362">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
-    <state width="746" height="246" key="GridCell.Tab.1.right" timestamp="1589211604577">
+    <state width="746" height="246" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589470491362" />
+    <state width="746" height="246" key="GridCell.Tab.1.right" timestamp="1589470491363">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="746" height="246" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589211604577" />
+    <state width="746" height="246" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589470491363" />
     <state x="583" y="143" key="PyMappingSimpleResolveDialog" timestamp="1585942452469">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -830,10 +755,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="148" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1589187881613" />
-    <state x="182" y="167" width="981" height="600" key="find.popup" timestamp="1589450191798">
+    <state x="182" y="167" width="981" height="600" key="find.popup" timestamp="1589470290377">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="182" y="167" width="981" height="600" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1589450191798" />
+    <state x="182" y="167" width="981" height="600" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1589470290377" />
     <state x="647" y="143" width="366" height="538" key="ftp.server.browser" timestamp="1585853987907">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -1087,11 +1012,6 @@
           <option name="timeStamp" value="262" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/agents/agent.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data_utils/get_episode_shortest_path.py</url>
           <line>50</line>
           <option name="timeStamp" value="266" />
@@ -1112,8 +1032,9 @@
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/runners/train_util.py</url>
-          <option name="timeStamp" value="272" />
+          <url>file://$PROJECT_DIR$/agents/agent.py</url>
+          <line>118</line>
+          <option name="timeStamp" value="274" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1147,7 +1068,7 @@
     <SUITE FILE_PATH="coverage/savn$check_episodes_valid.coverage" NAME="check_episodes_valid Coverage Results" MODIFIED="1586513114373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
     <SUITE FILE_PATH="coverage/savn$extract_prototypes.coverage" NAME="extract_prototypes Coverage Results" MODIFIED="1587847748909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_utils" />
     <SUITE FILE_PATH="coverage/savn$scene_image_scraper_single_thread.coverage" NAME="scene_image_scraper_single_thread Coverage Results" MODIFIED="1583975895296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/savn$robothor_val_.coverage" NAME="robothor_val  Coverage Results" MODIFIED="1588944531405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/savn$robothor_val_.coverage" NAME="robothor_val  Coverage Results" MODIFIED="1589467213793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/savn$wrong_case_robothor.coverage" NAME="invoke_create_robothor_dataset Coverage Results" MODIFIED="1584090270383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">

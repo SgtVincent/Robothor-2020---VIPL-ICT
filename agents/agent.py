@@ -107,7 +107,9 @@ class ThorAgent:
         else:
             self.max_length = False
 
-    def action(self, model_options, training, demo=False):
+    # the model choose an action according to the output prob by default,
+    # if exploitation is True, then choose the action that has the max prob value
+    def action(self, model_options, training, demo=False, exploitation=False):
         """ Train the agent. """
         if training:
             self.model.train()
@@ -116,8 +118,11 @@ class ThorAgent:
         # eval_at_state:
         model_input, out = self.eval_at_state(model_options)
         self.hidden = out.hidden
-        prob = F.softmax(out.logit, dim=1)
-        action = prob.multinomial(1).data # shape: [1,1], action index
+        prob = F.softmax(out.logit, dim=1) # shape [1, ACTION_SPACE_SIZE]
+        if exploitation:
+            action = prob.argmax().reshape((1,1)) # shape: [1,1], action index
+        else:
+            action = prob.multinomial(1).data # shape: [1,1], action index
         log_prob = F.log_softmax(out.logit, dim=1)
         self.last_action_probs = prob
         entropy = -(log_prob * prob).sum(1)

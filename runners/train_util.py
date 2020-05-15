@@ -28,7 +28,9 @@ def new_episode(
         glove=None,
         protos=None,
         pre_metadata=None,
-        curriculum_meta=None
+        curriculum_meta=None,
+        total_ep=0
+
 ):
     if args.eval:
         if args.data_source == 'robothor':
@@ -40,7 +42,8 @@ def new_episode(
                                        glove=glove,
                                        protos=protos,
                                        pre_metadata=pre_metadata,
-                                       curriculum_meta=curriculum_meta)
+                                       curriculum_meta=curriculum_meta,
+                                       total_ep=total_ep)
 
         elif args.data_source == 'ithor':
             scene = player.episode.new_episode(
@@ -63,7 +66,8 @@ def new_episode(
                                    glove=glove,
                                    protos=protos,
                                    pre_metadata=pre_metadata,
-                                   curriculum_meta=curriculum_meta)
+                                   curriculum_meta=curriculum_meta,
+                                   total_ep=total_ep)
     player.reset_hidden()
     player.done = False
     return scene
